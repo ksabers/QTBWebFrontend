@@ -15,6 +15,7 @@
               [legendTitle]="'dashboard.piloti'|translate"
               [units]="'dashboard.ore_totali'|translate"
               [max]="valoreMassimo1"
+              [valueFormatting]="formattaValore"
 >
             </ngx-charts-gauge>
           </div>
@@ -38,7 +39,8 @@
             [legend] = true
             [legendTitle]="'dashboard.aerei'|translate"
             [units]="'dashboard.ore_totali'|translate"
-            [max]="valoreMassimo2"> 
+            [max]="valoreMassimo2"
+            [valueFormatting]="formattaValore"> 
           </ngx-charts-gauge>
           </div>
           <div *ngIf="loading2" fxLayoutAlign="space-around center">

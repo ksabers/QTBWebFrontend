@@ -47,6 +47,10 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  formattaValore(data){
+    return data;
+  }
+
   ngOnInit(): void {
     this.serv1.getList().subscribe(data => {
       this.valoriOrePerPilota = data.slice(0, environment.dashboardPiloti);
