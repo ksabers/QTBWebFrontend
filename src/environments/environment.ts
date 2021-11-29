@@ -8,6 +8,8 @@ export const environment = {
   copyrightBy: 'Giorgio Borgo',
   titoloApplicazione: 'QTBWeb',
   giorniScadenze: 60,
+  dashboardPiloti: 5,
+  dashboardAerei: 5,
   linguaggi: [
     {codice: 'it-IT', nome: 'Italiano'},
     {codice: 'en-US', nome: 'English'}],

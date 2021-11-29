@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from './../../../environments/environment';
 import { DashboardOreDiVoloPerPilotaService, DashboardOreDiVoloPerAereoService } from '../../servizi/dashboard.service/dashboard.service';
-import { OreDiVoloPerAereo } from 'src/app/viewmodels/dashboard/oreDiVoloPerAereo';
-import { OreDiVoloPerPilota } from 'src/app/viewmodels/dashboard/oreDiVoloPerPilota';
+import { OreDiVoloPerAereo } from './../../viewmodels/dashboard/oreDiVoloPerAereo';
+import { OreDiVoloPerPilota } from './../../viewmodels/dashboard/oreDiVoloPerPilota';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,12 +24,15 @@ export class DashboardComponent implements OnInit {
 
 
   /**
-   * Prende un qualunque array con valori da graficare, trova il massimo "value"
-   * e restituisce il primo mumero superiore divisibile per 500
-   * (es. 2003 => 2500, 2705 => 3000)
+   *   * Prende un qualunque array con valori da graficare, trova il massimo "value"
+   * e restituisce il primo mumero superiore divisibile per 500 o 50 a seconda
+   * che incremento sia 1000 0 100
+   * (es. 2003 => 2500, 2705 => 3000 se incremento è 1000)
+   * (es. 160 => 200, 125 => 150 se incremento è 100)
    *
    * @private
    * @param {*} valori
+   * @param {number} incremento
    * @return {*}  {number}
    * @memberof DashboardComponent
    */
@@ -45,14 +49,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.serv1.getList().subscribe(data => {
-      this.valoriOrePerPilota = data;
-      this.valoreMassimo1 = this.arrotonda(data, 1000);
+      this.valoriOrePerPilota = data.slice(0, environment.dashboardPiloti);
+      this.valoreMassimo1 = this.arrotonda(this.valoriOrePerPilota, 1000);
       this.loading1 = false;
     });
 
     this.serv2.getList().subscribe(data => {
-      this.valoriOrePerAereo = data;
-      this.valoreMassimo2 = this.arrotonda(data, 100);
+      this.valoriOrePerAereo = data.slice(0, environment.dashboardAerei);
+      this.valoreMassimo2 = this.arrotonda(this.valoriOrePerAereo, 100);
       this.loading2 = false;
     });
   }
