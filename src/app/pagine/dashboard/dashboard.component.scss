@@ -1,0 +1,14 @@
+.grid-container {
+  margin:20px;
+  height: calc(100vh - 64px);
+}
+
+mat-card { 
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: visible !important;
+ div {
+   width: 100%;
+   height: 400px;
+  }
+}

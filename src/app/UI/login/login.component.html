@@ -1,0 +1,42 @@
+  <div class="login" fxLayout="column" fxLayoutAlign="center center">
+
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="title">
+      <div><img src="./../../../assets/img/titleQTBWeb.png"></div>
+      <div>by</div>
+      <div><img src="./../../../assets/img/logoVDM.png"></div>
+      <mat-card>
+        <mat-card-content>
+            <form [formGroup]="loginForm" ng-submit="loginForm.$valid">
+                <div fxLayout="column" fxLayoutGap="8px">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon>person</mat-icon>
+                        <mat-form-field style="width: 220px;" color="accent">
+                            <input autocomplete="off" matInput required formControlName="username" placeholder="Username"
+                                type="text">
+
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon>lock</mat-icon>
+                        <mat-form-field style="width: 220px;" color="accent">
+                            <input autocomplete="off" matInput required formControlName="password" placeholder="Password"
+                            type="password">
+
+                        </mat-form-field>
+                        <mat-icon class="c-pointer" matSuffix >visibility</mat-icon>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start" class="remember">
+                    <mat-checkbox  color="accent">Ricordami</mat-checkbox>
+                </div>
+                <div class="button-login">
+                    <button (click)="onSubmit()" color="primary" mat-raised-button>Login</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    </div>
+
+
+</div>

@@ -1,0 +1,76 @@
+<app-spinner *ngIf="loading" fxLayout="row" fxLayoutAlign="space-around center" style="height:100vh" [diametro]="50" [larghezza]="5"></app-spinner>
+
+<mat-card *ngIf="!loading">
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field class="example-full-width" appearance="standard">
+        <mat-label>{{'voli.filtra'|translate}}</mat-label>
+        <input matInput autocomplete="off" placeholder="" (keyup)="applyFilter($event)">
+      </mat-form-field>
+      <h2>{{'voli.voli'|translate}}</h2>
+      <span class="spacer"></span>
+    </div>
+
+  <table mat-table [dataSource]="datasource" #sort="matSort" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="aereo" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.aereo'|translate}}</th>
+      <td mat-cell *matCellDef="let volo" [matTooltip]="volo.modello">{{volo.marche}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="pilota" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.pilota'|translate}}</th>
+      <td mat-cell *matCellDef="let volo">{{volo.nomePilota + ' ' + volo.cognomePilota}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="passeggero">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.passeggero'|translate}}</th>
+      <td mat-cell *matCellDef="let volo">{{volo.nomePasseggero + ' ' + volo.cognomePasseggero}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="data">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.data'|translate}}</th>
+      <td mat-cell *matCellDef="let volo">{{volo.oraInizio|ISO2Date}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="durata">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.durata'|translate}}</th>
+      <td mat-cell *matCellDef="let volo">{{volo.durata}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="decollo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.decollo_da'|translate}}</th>
+      <td mat-cell *matCellDef="let volo">{{volo.aeroportoInizio}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="atterraggio">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.atterraggio_a'|translate}}</th>
+      <td mat-cell *matCellDef="let volo">{{volo.aeroportoFine}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dettagli">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayoutAlign="end center" >
+          <button mat-icon-button color="primary" [routerLink]="'/voli-add'" [matTooltip]="'voli.nuovo_volo'|translate">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+        
+      </th>
+      <td mat-cell *matCellDef="let volo" >
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >
+          <button mat-icon-button color="primary" (click)="apriDettagli(volo)" [matTooltip]="'voli.dettagli'|translate"><mat-icon>info</mat-icon></button>
+          <button mat-icon-button color="accent" [matTooltip]="'voli.modifica'|translate"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" [matTooltip]="'voli.cancella'|translate"><mat-icon>delete</mat-icon></button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+  </table>
+  <mat-paginator #paginator [length]="datasource.data.length" [pageSize]= "10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+
+  </mat-card-content>
+</mat-card>

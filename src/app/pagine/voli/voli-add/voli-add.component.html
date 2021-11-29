@@ -1,0 +1,226 @@
+<div class="component-container" fxLayoutAlign="space-around start" >
+    <mat-card>
+
+        <mat-card-header>
+            <mat-card-title>{{'voli.inserisci_nuovo_volo'|translate}}</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+            <div>
+                <form [formGroup]="addVoloForm"
+                      ng-submit="addVoloForm.$valid"
+                      (ngSubmit)="submitForm()"
+                      novalidate
+                      fxLayout="row wrap"
+                      fxFlexFill
+                      fxLayoutGap="20px grid">
+
+                      <mat-form-field fxFlex="33">
+                        <mat-label>{{'voli.aereo'|translate}}</mat-label>
+                        <mat-select formControlName="aereoSelect"
+                        (selectionChange)="cambiaAereo()">
+                            <mat-option *ngFor="let aereo of listaAerei"[value]="aereo">
+                                {{aereo.marche + ' - ' + aereo.modello}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="33">
+                        <mat-label>{{'voli.pilota'|translate}}</mat-label>
+                        <mat-select formControlName="pilotaSelect">
+                            <mat-option *ngFor="let pilota of listaPiloti" [value]="pilota">
+                                {{pilota.nome + ' ' + pilota.cognome}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field fxFlex="34">
+                        <mat-label>{{'voli.passeggero'|translate}}</mat-label>
+                        <mat-select formControlName="passeggeroSelect">
+                            <mat-option value="-1">
+                                <i>{{'voli.nessuno'|translate}}</i>
+                            </mat-option>
+                            <mat-option *ngFor="let passeggero of listaPasseggeri" [value]="passeggero">
+                                {{passeggero.nome + ' ' + passeggero.cognome}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint class="mat-error" *ngIf="addVoloForm.hasError('passeggero')">
+                            {{'voli.errore_passeggero'|translate}}
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.orametro_ore_decollo'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="oreDecolloInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*"
+                               (change)="aggiornaDurata()">
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.orametro_minuti_decollo'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="minutiDecolloInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*"
+                               (change)="aggiornaDurata()">
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.orametro_ore_atterraggio'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="oreAtterraggioInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*"
+                               (change)="aggiornaDurata()">
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                        <mat-hint class="mat-error"
+                                  *ngIf="addVoloForm.hasError('orametro') && addVoloForm.get('oreAtterraggioInput').dirty">
+                            {{'voli.errore_orametro'|translate}}
+                        </mat-hint>
+                    </mat-form-field>
+        
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.orametro_minuti_atterraggio'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="minutiAtterraggioInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*"
+                               (change)="aggiornaDurata()">
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                        <mat-hint class="mat-error" 
+                                  *ngIf="addVoloForm.hasError('orametro') && addVoloForm.get('minutiAtterraggioInput').dirty">
+                            {{'voli.errore_orametro'|translate}}
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.data_ora_atterraggio'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="dataOraAtterraggioInput"
+                               type="datetime-local"
+                               (change)="aggiornaDurata()">
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="end center">&nbsp;
+
+                        <div fxLayoutGap="20px"
+                            *ngIf="oraDecollo &&
+                                   durataVolo > 0 &&
+                                   !addVoloForm.get('oreDecolloInput').errors &&
+                                   !addVoloForm.get('minutiDecolloInput').errors &&
+                                   !addVoloForm.get('oreAtterraggioInput').errors &&
+                                   !addVoloForm.get('minutiAtterraggioInput').errors &&
+                                   !addVoloForm.get('dataOraAtterraggioInput').errors">
+                            <span>{{'voli.ora_decollo'|translate}}: <b>{{oraDecollo}}</b></span>
+                            <span>{{'voli.durata'|translate}}: <b>{{durataVolo}}</b> {{'voli.minuti'|translate}}</span>
+                        </div>
+
+                    </div>
+
+                    <mat-form-field fxFlex="50">
+                        <mat-label>{{'voli.decollo_da'|translate}}</mat-label>
+                        <mat-select formControlName="aeroportoDecolloSelect">
+                            <mat-option *ngFor="let aeroporto of listaAeroporti" [value]="aeroporto">
+                                {{aeroporto.nome + ' - ' + aeroporto.identificativo}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="50">
+                        <mat-label>{{'voli.atterraggio_a'|translate}}</mat-label>
+                        <mat-select formControlName="aeroportoAtterraggioSelect">
+                            <mat-option *ngFor="let aeroporto of listaAeroporti" [value]="aeroporto">
+                                {{aeroporto.nome + ' - ' + aeroporto.identificativo}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="100">
+                        <mat-label>{{'voli.descrizione_del_volo'|translate}}</mat-label>
+                        <textarea matInput formControlName="descrizioneInput" rows="2" maxlength="4000"></textarea>
+                        <mat-hint>{{4000 - addVoloForm.get('descrizioneInput').value.toString().length + ' ' + ('voli.caratteri_rimanenti'|translate)}}</mat-hint>
+                        <mat-error>{{'voli.errore_descrizione_troppo_lunga'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.carburante_iniziale_sx'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="carburanteInizialeSXInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*">
+                    </mat-form-field>
+        
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.carburante_iniziale_dx'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="carburanteInizialeDXInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*">
+                    </mat-form-field>
+        
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.carburante_aggiunto_sx'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="carburanteAggiuntoSXInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*">
+                    </mat-form-field>
+        
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.carburante_aggiunto_dx'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="carburanteAggiuntoDXInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*">
+                    </mat-form-field>
+        
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'voli.olio_aggiunto'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="olioInput"
+                               autocomplete="false" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*">
+                    </mat-form-field>
+
+                </form>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <div fxLayout="row" fxLayoutAlign="end center" >
+                <button mat-raised-button (click)="tornaPaginaVoli()">{{'voli.annulla'|translate}}</button>
+                <button mat-raised-button color="primary" [disabled]="addVoloForm.invalid" (click)="submitForm()">
+                    {{'voli.inserisci_volo'|translate}}
+                </button>
+            </div>
+        </mat-card-actions>
+
+    </mat-card>
+</div>

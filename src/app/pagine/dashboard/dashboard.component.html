@@ -1,0 +1,52 @@
+<div class="grid-container" >
+  <div fxLayout="row wrap" fxLayoutAlign="stretch" fxFlexFill fxLayoutGap="20px grid">
+    <div fxFlex="50%">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{'dashboard.ore_di_volo_per_pilota'|translate}}</mat-card-title>
+          <mat-card-subtitle>({{'dashboard.primi_5_piloti'|translate}})</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="!loading1">
+            <ngx-charts-gauge 
+              [results] = "valoriOrePerPilota"
+              [view]="null"
+              [legend] = true
+              [legendTitle]="'dashboard.piloti'|translate"
+              [units]="'dashboard.ore_totali'|translate"
+              [max]="valoreMassimo1"
+>
+            </ngx-charts-gauge>
+          </div>
+          <div *ngIf="loading1" fxLayoutAlign="space-around center">
+            <app-spinner [diametro]="50" [larghezza]="5"></app-spinner>
+          </div>
+        </mat-card-content>
+      </mat-card>    
+    </div>
+
+    <div fxFlex="50%">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{'dashboard.ore_di_volo_per_aereo'|translate}}</mat-card-title>
+          <mat-card-subtitle>({{'dashboard.primi_5_aerei'|translate}})</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="!loading2">
+            <ngx-charts-gauge 
+            [results] = "valoriOrePerAereo"
+            [legend] = true
+            [legendTitle]="'dashboard.aerei'|translate"
+            [units]="'dashboard.ore_totali'|translate"
+            [max]="valoreMassimo2"> 
+          </ngx-charts-gauge>
+          </div>
+          <div *ngIf="loading2" fxLayoutAlign="space-around center">
+            <app-spinner [diametro]="50" [larghezza]="5"></app-spinner>
+          </div>
+        </mat-card-content>
+      </mat-card>    
+    </div>
+  </div>
+
+ </div>

@@ -1,0 +1,50 @@
+<app-spinner *ngIf="loading" fxLayout="row" fxLayoutAlign="space-around center" style="height:100vh" [diametro]="50" [larghezza]="5"></app-spinner>
+
+<mat-card *ngIf="!loading">
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field class="example-full-width" appearance="standard">
+        <mat-label>{{'aeroporti.filtra'|translate}}</mat-label>
+        <input matInput autocomplete="off" placeholder="" (keyup)="applyFilter($event)">
+      </mat-form-field>
+      <h2>{{'aeroporti.aeroporti'|translate}}</h2>
+      <span class="spacer"></span>
+    </div>
+
+  <table mat-table [dataSource]="datasource" #sort="matSort" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="nome" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'aeroporti.nome'|translate}}</th>
+      <td mat-cell *matCellDef="let aeroporto">{{aeroporto.nome}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="identificativo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'aeroporti.identificativo'|translate}}</th>
+      <td mat-cell *matCellDef="let aeroporto">{{aeroporto.identificativo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="coordinate">
+      <th mat-header-cell *matHeaderCellDef>{{'aeroporti.coordinate'|translate}}</th>
+      <td mat-cell *matCellDef="let aeroporto">{{aeroporto.coordinate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dettagli" >
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let aeroporto" >
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >
+          <button mat-icon-button color="primary" (click)="apriDettagli(aeroporto)" [matTooltip]="'aeroporti.dettagli'|translate"><mat-icon>info</mat-icon></button>
+          <button mat-icon-button color="accent" [matTooltip]="'aeroporti.modifica'|translate"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" [matTooltip]="'aeroporti.cancella'|translate"><mat-icon>delete</mat-icon></button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+  </table>
+  <mat-paginator #paginator [length]="datasource.data.length" [pageSize]= "10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+
+  </mat-card-content>
+</mat-card>
+

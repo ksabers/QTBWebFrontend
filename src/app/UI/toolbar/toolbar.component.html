@@ -1,0 +1,66 @@
+  <button mat-mini-fab
+          color="primary"
+          [matMenuTriggerFor]="menuLingua"
+          [matTooltip]="('toolbar.lingua_corrente'|translate) + ': ' + nomeLingua">
+    <img [src]="'../assets/flags/' + lingua + '.png'" class="image-flag-fab">
+  </button>
+
+  <span class="spacer"></span>
+
+  <button *ngIf="!loading && notifiche > 0"
+           mat-mini-fab
+           color="warn"
+           [matBadge]="notifiche"
+           matBadgeColor="warn"
+           [matMenuTriggerFor]="menuNotifiche"
+           [matTooltip]="'toolbar.prossime_scadenze'|translate">
+    <mat-icon>notifications_active</mat-icon>
+  </button>
+
+  <button *ngIf="!loading && notifiche == 0"
+          mat-mini-fab
+          color="primary"
+          style="cursor:default"
+          [disableRipple]="true"
+          [@.disabled]="true"
+          [matTooltip]="'toolbar.nessuna_prossima_scadenza'|translate">
+  <mat-icon>notifications</mat-icon>
+  </button>
+
+  <button *ngIf="loading" mat-mini-fab disabled>
+    <app-spinner [diametro]="16" [larghezza]="1"></app-spinner>
+  </button>
+
+  <span class="spacer"></span>
+
+  <button mat-mini-fab color="primary" [matTooltip]="this.nomeCognomeUtente" [matMenuTriggerFor]="menuUtente">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+<mat-menu #menuLingua="matMenu">
+  <button mat-menu-item *ngFor="let lingua of linguaggi" (click)="usaLingua(lingua.codice)">
+    <img [src]="'../assets/flags/' + lingua.codice + '.png'" class="image-flag-button">{{lingua.nome}}
+  </button>
+</mat-menu>
+
+<mat-menu #menuUtente="matMenu">
+  <button mat-menu-item>
+    <mat-icon>manage_accounts</mat-icon>{{'toolbar.profilo'|translate}}
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>{{'toolbar.logout'|translate}}
+  </button>
+</mat-menu>
+
+<mat-menu #menuNotifiche="matMenu">
+  <button mat-menu-item *ngFor="let scadenza of scadenzePersona">
+    <mat-icon>perm_contact_calendar</mat-icon>
+    <span>{{scadenza.tipo + ' - ' + (scadenza.data|ISO2Date)}}</span>
+  </button>
+  <mat-divider *ngIf="scadenzePersona && scadenzeAereiFlat && scadenzePersona.length > 0 && scadenzeAereiFlat.length > 0"></mat-divider>
+  <button mat-menu-item *ngFor="let scadenza of scadenzeAereiFlat">
+    <mat-icon>airplane_ticket</mat-icon>
+    <span [matTooltip]="scadenza.modello">{{scadenza.marche}}</span><span>{{' - ' + scadenza.tipo + ' - ' + (scadenza.data|ISO2Date)}}</span>
+  </button>
+</mat-menu>
