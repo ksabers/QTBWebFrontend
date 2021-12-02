@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   valoreMassimo1: number;
   valoriOrePerAereo: OreDiVoloPerAereo[];
   valoreMassimo2: number;
+  massimiPiloti = environment.dashboardPiloti;
+  massimiAerei = environment.dashboardAerei;
 
   loading1 = true;
   loading2 = true;
@@ -47,20 +49,39 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
+  /**
+   * Funzione "finta" che restituisce semplicemente il valore passato.
+   * Serve come trucco per togliere i puntini dai numeri mostrati nei grafici
+   *
+   * @param {*} data
+   * @return {*}  
+   * @memberof DashboardComponent
+   */
   formattaValore(data){
     return data;
   }
 
   ngOnInit(): void {
     this.serv1.getList().subscribe(data => {
-      this.valoriOrePerPilota = data.slice(0, environment.dashboardPiloti);
+
+      // prendo i primi "n" piloti in base al parametro in enivironment
+      this.valoriOrePerPilota = data.slice(0, this.massimiPiloti);
+
+      // calcolo il fondoscala del grafico
       this.valoreMassimo1 = this.arrotonda(this.valoriOrePerPilota, 1000);
+
       this.loading1 = false;
     });
 
     this.serv2.getList().subscribe(data => {
-      this.valoriOrePerAereo = data.slice(0, environment.dashboardAerei);
+
+      // prendo i primi "n" aerei in base al parametro in environment
+      this.valoriOrePerAereo = data.slice(0, this.massimiAerei);
+
+      // calcolo il fondoscala del grafico
       this.valoreMassimo2 = this.arrotonda(this.valoriOrePerAereo, 100);
+
       this.loading2 = false;
     });
   }

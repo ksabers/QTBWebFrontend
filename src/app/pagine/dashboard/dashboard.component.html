@@ -4,7 +4,9 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>{{'dashboard.ore_di_volo_per_pilota'|translate}}</mat-card-title>
-          <mat-card-subtitle>({{'dashboard.primi_5_piloti'|translate}})</mat-card-subtitle>
+          <mat-card-subtitle>
+            ({{('dashboard.primi'|translate) + ' ' + massimiPiloti + ' ' + ('dashboard.piloti'|translate).toLowerCase()}})
+          </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <div *ngIf="!loading1">
@@ -30,7 +32,9 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>{{'dashboard.ore_di_volo_per_aereo'|translate}}</mat-card-title>
-          <mat-card-subtitle>({{'dashboard.primi_5_aerei'|translate}})</mat-card-subtitle>
+          <mat-card-subtitle>
+            ({{('dashboard.primi'|translate) + ' ' + massimiAerei + ' ' + ('dashboard.piloti'|translate).toLowerCase()}})
+          </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <div *ngIf="!loading2">
