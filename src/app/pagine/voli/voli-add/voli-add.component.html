@@ -217,7 +217,10 @@
             <div fxLayout="row" fxLayoutAlign="end center" >
                 <button mat-raised-button (click)="tornaPaginaVoli()">{{'voli.annulla'|translate}}</button>
                 <button mat-raised-button color="primary" [disabled]="addVoloForm.invalid" (click)="submitForm()">
-                    {{'voli.inserisci_volo'|translate}}
+                    <span *ngIf="!submitting">{{'voli.inserisci_volo'|translate}}</span>
+                    <span *ngIf="submitting" fxLayout="row" fxLayoutAlign="center center" style="width:82px">
+                        <mat-spinner [diameter]="36" color="accent"></mat-spinner>
+                    </span>
                 </button>
             </div>
         </mat-card-actions>

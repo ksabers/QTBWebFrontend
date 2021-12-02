@@ -41,7 +41,6 @@ export abstract class HttpService<T> {
   }
 
   add(resource: T): Observable<any> {
-    console.log('resource: ' + resource);
     return this.httpClient.post(this.APIUrl, this.toServerModel(resource))
       .pipe(
         catchError(this.handleError)

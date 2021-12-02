@@ -50,6 +50,8 @@ export class VoliAddComponent implements OnInit {
   oraDecollo: string;
   durataVolo: number;
 
+  submitting = false;
+
   constructor(private auth: AuthenticationService,
               private aereiAPI: AereiService,
               private personeAPI: PersoneService,
@@ -219,6 +221,7 @@ export class VoliAddComponent implements OnInit {
   }
 
   submitForm(): void {
+    this.submitting = true;
     console.log('entrato in submit');
     const nuovoVolo: Volo = {
       id: -1,
@@ -251,7 +254,8 @@ export class VoliAddComponent implements OnInit {
     };
     console.log('const volo: ' + JSON.stringify(nuovoVolo));
      this.voliAPI.add(nuovoVolo).subscribe(data => {
-    console.log(data);
+    console.log('data: ' + JSON.stringify(data));
+    this.tornaPaginaVoli();
     }); 
 
   }

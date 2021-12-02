@@ -9,6 +9,7 @@ import { VoliComponent } from './voli/voli.component';
 import { AereiComponent } from './aerei/aerei.component';
 import { AeroportiComponent } from './aeroporti/aeroporti.component';
 import { PersoneDettaglioComponent } from './persone/persone-dettaglio/persone-dettaglio.component';
+import { VoliDettaglioComponent } from '../voli/voli-dettaglio/voli-dettaglio.component';
 import { ManutenzioniComponent } from './manutenzioni/manutenzioni.component';
 import { ScadenzeComponent } from './scadenze/scadenze.component';
 import { VoliAddComponent } from './voli/voli-add/voli-add.component';
@@ -21,6 +22,7 @@ import { VoliAddComponent } from './voli/voli-add/voli-add.component';
     AereiComponent,
     AeroportiComponent,
     PersoneDettaglioComponent,
+    VoliDettaglioComponent,
     ManutenzioniComponent,
     ScadenzeComponent,
     VoliAddComponent
@@ -38,6 +40,7 @@ import { VoliAddComponent } from './voli/voli-add/voli-add.component';
     AereiComponent,
     AeroportiComponent,
     PersoneDettaglioComponent,
+    VoliDettaglioComponent,
     ManutenzioniComponent,
     ScadenzeComponent
   ]
