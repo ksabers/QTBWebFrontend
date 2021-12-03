@@ -17,8 +17,7 @@
               [legendTitle]="'dashboard.piloti'|translate"
               [units]="'dashboard.ore_totali'|translate"
               [max]="valoreMassimo1"
-              [valueFormatting]="formattaValore"
->
+              [valueFormatting]="formattaValore">
             </ngx-charts-gauge>
           </div>
           <div *ngIf="loading1" fxLayoutAlign="space-around center">
@@ -37,7 +36,7 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <div *ngIf="!loading2">
+          <div *ngIf="!loading2" class="card-content">
             <ngx-charts-gauge 
             [results] = "valoriOrePerAereo"
             [legend] = true
