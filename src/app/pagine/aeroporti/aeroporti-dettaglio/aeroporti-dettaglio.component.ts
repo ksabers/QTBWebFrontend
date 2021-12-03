@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Aeroporto } from 'src/app/viewmodels/aeroporto';
 
 @Component({
   selector: 'app-aeroporti-dettaglio',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AeroportiDettaglioComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public aeroporto: Aeroporto) { }
 
   ngOnInit(): void {
   }
