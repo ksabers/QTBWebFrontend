@@ -1,11 +1,23 @@
 <h2 mat-dialog-title>{{aeroporto.nome}}</h2>
 <mat-dialog-content>
-    <mat-tab-group mat-stretch-tabs>
+    <mat-tab-group mat-stretch-tabs (selectedTabChange)="refresh()">
         <mat-tab label="Dati">
-            <div style="width:600px; height: 400px;">prima riga</div>
+
+                <div style="width:600px; height: 400px;">prima riga</div>
+
+            
         </mat-tab>
         <mat-tab label="Mappa">
-           <div style="width:600px; height: 400px;">mappa</div>
+
+                            <div class="map-frame">
+                                <div style="height: 100%;" #mappa
+                                leaflet 
+                                [leafletOptions]="options"
+                                (leafletMapReady)="onMapReady($event)">
+                           </div>
+            </div>
+
+
         </mat-tab>
     </mat-tab-group>
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { PersoneComponent } from './persone/persone.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -36,9 +37,11 @@ import { ManutenzioniDettaglioComponent } from './manutenzioni/manutenzioni-dett
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    LeafletModule
   ],
   exports: [
+    LeafletModule,
     DashboardComponent,
     PersoneComponent,
     VoliComponent,
