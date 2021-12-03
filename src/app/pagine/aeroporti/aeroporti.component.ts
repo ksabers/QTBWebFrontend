@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Aeroporto } from 'src/app/viewmodels/aeroporto';
 import { AeroportiService } from '../../servizi/aeroporti.service/aeroporti.service';
+import { AeroportiDettaglioComponent } from './aeroporti-dettaglio/aeroporti-dettaglio.component';
 
 @Component({
   selector: 'app-aeroporti',
@@ -55,5 +56,6 @@ export class AeroportiComponent implements OnInit {
   }
 
   apriDettagli(aeroporto: Aeroporto): void {
+    const dialogRef = this.dialog.open(AeroportiDettaglioComponent, {data: aeroporto});
   }
 }

@@ -57,7 +57,6 @@ export class AereiComponent implements OnInit  {
     }
   }
 
-
   apriDettagli(aereo: Aereo): void {
     const dialogRef = this.dialog.open(AereiDettaglioComponent, {data: aereo});
   }

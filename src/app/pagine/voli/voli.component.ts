@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Volo } from 'src/app/viewmodels/voli/volo';
-//import { PersoneDettaglioComponent } from './persone-dettaglio/persone-dettaglio.component';
+import { VoliDettaglioComponent } from './voli-dettaglio/voli-dettaglio.component';
 import { VoliService } from '../../servizi/voli.service/voli.service';
 
 @Component({
@@ -84,6 +84,7 @@ export class VoliComponent implements OnInit {
   }
 
   apriDettagli(volo: Volo): void {
+    const dialogRef = this.dialog.open(VoliDettaglioComponent, {data: volo});
   }
 
 }

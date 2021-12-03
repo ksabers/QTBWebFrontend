@@ -8,11 +8,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { VoliComponent } from './voli/voli.component';
 import { AereiComponent } from './aerei/aerei.component';
 import { AeroportiComponent } from './aeroporti/aeroporti.component';
-import { PersoneDettaglioComponent } from './persone/persone-dettaglio/persone-dettaglio.component';
-import { VoliDettaglioComponent } from '../voli/voli-dettaglio/voli-dettaglio.component';
+
 import { ManutenzioniComponent } from './manutenzioni/manutenzioni.component';
 import { ScadenzeComponent } from './scadenze/scadenze.component';
 import { VoliAddComponent } from './voli/voli-add/voli-add.component';
+
+import { PersoneDettaglioComponent } from './persone/persone-dettaglio/persone-dettaglio.component';
+import { VoliDettaglioComponent } from './/voli/voli-dettaglio/voli-dettaglio.component';
+import { AeroportiDettaglioComponent } from './aeroporti/aeroporti-dettaglio/aeroporti-dettaglio.component';
+import { ManutenzioniDettaglioComponent } from './manutenzioni/manutenzioni-dettaglio/manutenzioni-dettaglio.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,9 @@ import { VoliAddComponent } from './voli/voli-add/voli-add.component';
     VoliDettaglioComponent,
     ManutenzioniComponent,
     ScadenzeComponent,
-    VoliAddComponent
+    VoliAddComponent,
+    AeroportiDettaglioComponent,
+    ManutenzioniDettaglioComponent
   ],
   imports: [
     CommonModule,
@@ -41,8 +47,10 @@ import { VoliAddComponent } from './voli/voli-add/voli-add.component';
     AeroportiComponent,
     PersoneDettaglioComponent,
     VoliDettaglioComponent,
+    AeroportiDettaglioComponent,
     ManutenzioniComponent,
-    ScadenzeComponent
+    ScadenzeComponent,
+    ManutenzioniDettaglioComponent
   ]
 })
 export class PagineModule { }

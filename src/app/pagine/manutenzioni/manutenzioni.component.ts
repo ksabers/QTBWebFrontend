@@ -5,6 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Manutenzione } from 'src/app/viewmodels/manutenzione';
 import { ManutenzioniService } from '../../servizi/manutenzioni.service/manutenzioni.service';
+import { ManutenzioniDettaglioComponent } from './manutenzioni-dettaglio/manutenzioni-dettaglio.component';
+
 @Component({
   selector: 'app-manutenzioni',
   templateUrl: './manutenzioni.component.html',
@@ -54,6 +56,6 @@ export class ManutenzioniComponent implements OnInit {
   }
 
   apriDettagli(manutenzione: Manutenzione): void {
-    
+    const dialogRef = this.dialog.open(ManutenzioniDettaglioComponent, {data: manutenzione});
   }
 }
