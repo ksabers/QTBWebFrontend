@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from './../../../auth/auth.service';
 import { AereiService } from './../../../servizi/aerei.service/aerei.service';
@@ -10,8 +11,8 @@ import { UtilsService } from './../../../servizi/utils.service/utils.service';
 import { Aereo } from './../../../viewmodels/aereo';
 import { Persona } from './../../../viewmodels/persona';
 import { Aeroporto } from './../../../viewmodels/aeroporto';
-import { Router } from '@angular/router';
-import { Volo } from 'src/app/viewmodels/voli/volo';
+import { Volo } from './../../../viewmodels/voli/volo';
+
 
 // Validatore custom che controlla che l'orametro finale sia successivo all'orametro iniziale
 // Viene applicato a livello di form
@@ -50,6 +51,7 @@ export class VoliAddComponent implements OnInit {
   oraDecollo: string;
   durataVolo: number;
 
+  loading = true;
   submitting = false;
 
   constructor(private auth: AuthenticationService,
@@ -168,6 +170,7 @@ export class VoliAddComponent implements OnInit {
               pilotaSelect: pilotaCorrente
             });  
           }
+          this.loading = false;
         });
       });      
     });
@@ -226,10 +229,10 @@ export class VoliAddComponent implements OnInit {
     const nuovoVolo: Volo = {
       id: -1,
       descrizione: this.addVoloForm.get('descrizioneInput').value || '',
-      idAereo: this.addVoloForm.get('aereoSelect').value.id,
+      idAereo: this.addVoloForm.get('aereoSelect').value.id || null,
       modello: '',
       marche: '',
-      idPilota: this.addVoloForm.get('pilotaSelect').value.id || -1,
+      idPilota: this.addVoloForm.get('pilotaSelect').value.id || null,
       nomePilota: '',
       cognomePilota: '',
       idPasseggero: this.addVoloForm.get('passeggeroSelect').value.id || -1,
@@ -238,24 +241,24 @@ export class VoliAddComponent implements OnInit {
       oraInizio: new Date(),
       orametroOreInizio: this.addVoloForm.get('oreDecolloInput').value,
       orametroMinutiInizio: this.addVoloForm.get('minutiDecolloInput').value,
-      oraFine: new Date(),
+      oraFine: new Date(this.addVoloForm.get('dataOraAtterraggioInput').value),
       orametroOreFine: this.addVoloForm.get('oreAtterraggioInput').value,
       orametroMinutiFine:  this.addVoloForm.get('minutiAtterraggioInput').value,
       durata: 0,
-      carburanteInizialeSx:  this.addVoloForm.get('carburanteInizialeSXInput').value,
-      carburanteInizialeDx: this.addVoloForm.get('carburanteInizialeDXInput').value,
-      carburanteAggiuntoSx: this.addVoloForm.get('carburanteAggiuntoSXInput').value,
-      carburanteAggiuntoDx: this.addVoloForm.get('carburanteAggiuntoDXInput').value,
-      olio: this.addVoloForm.get('olioInput').value,
-      idAeroportoInizio: this.addVoloForm.get('aeroportoDecolloSelect').value.id,
+      carburanteInizialeSx:  this.addVoloForm.get('carburanteInizialeSXInput').value || null,
+      carburanteInizialeDx: this.addVoloForm.get('carburanteInizialeDXInput').value || null,
+      carburanteAggiuntoSx: this.addVoloForm.get('carburanteAggiuntoSXInput').value || null,
+      carburanteAggiuntoDx: this.addVoloForm.get('carburanteAggiuntoDXInput').value || null,
+      olio: this.addVoloForm.get('olioInput').value || null,
+      idAeroportoInizio: this.addVoloForm.get('aeroportoDecolloSelect').value.id || null,
       aeroportoInizio: '',
-      idAeroportoFine: this.addVoloForm.get('aeroportoAtterraggioSelect').value.id,
+      idAeroportoFine: this.addVoloForm.get('aeroportoAtterraggioSelect').value.id || null,
       aeroportoFine: ''
     };
     console.log('const volo: ' + JSON.stringify(nuovoVolo));
      this.voliAPI.add(nuovoVolo).subscribe(data => {
     console.log('data: ' + JSON.stringify(data));
-    this.tornaPaginaVoli();
+    //this.tornaPaginaVoli();
     }); 
 
   }

@@ -6,7 +6,10 @@
         </mat-card-header>
         
         <mat-card-content>
-            <div>
+            <div *ngIf="loading" fxLayout="row" fxLayoutAlign="center center">
+                <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
+            </div>
+            <div *ngIf="!loading">
                 <form [formGroup]="addVoloForm"
                       ng-submit="addVoloForm.$valid"
                       (ngSubmit)="submitForm()"
@@ -213,8 +216,8 @@
             </div>
         </mat-card-content>
 
-        <mat-card-actions>
-            <div fxLayout="row" fxLayoutAlign="end center" >
+        <mat-card-actions *ngIf="!loading">
+            <div fxLayout="row" fxLayoutAlign="end center">
                 <button mat-raised-button (click)="tornaPaginaVoli()">{{'voli.annulla'|translate}}</button>
                 <button mat-raised-button color="primary" [disabled]="addVoloForm.invalid" (click)="submitForm()">
                     <span *ngIf="!submitting">{{'voli.inserisci_volo'|translate}}</span>
