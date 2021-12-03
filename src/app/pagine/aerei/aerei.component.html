@@ -1,4 +1,6 @@
-<app-spinner *ngIf="loading" fxLayout="row" fxLayoutAlign="space-around center" style="height:100vh" [diametro]="50" [larghezza]="5"></app-spinner>
+<div *ngIf="loading" fxLayout="row" fxLayoutAlign="space-around center" style="height:90vh">
+  <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
+</div>
 
 <mat-card *ngIf="!loading">
   <mat-card-content>
