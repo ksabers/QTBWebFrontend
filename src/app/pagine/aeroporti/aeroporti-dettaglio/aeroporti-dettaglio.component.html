@@ -1,15 +1,15 @@
 <h2 mat-dialog-title>{{aeroporto.nome}}</h2>
 <mat-dialog-content>
     <mat-tab-group mat-stretch-tabs (selectedTabChange)="refresh()">
-        <mat-tab label="Dati">
+        <mat-tab [label]="'aeroporti.dati'|translate">
 
                 <div style="width:600px; height: 400px;">prima riga</div>
 
             
         </mat-tab>
-        <mat-tab label="Mappa">
+        <mat-tab [label]="'aeroporti.mappa'|translate" [disabled]="aeroporto.coordinate == ''">
 
-                            <div class="map-frame">
+                            <div class="map-frame" *ngIf="aeroporto.coordinate != ''">
                                 <div style="height: 100%;" #mappa
                                 leaflet 
                                 [leafletOptions]="options"

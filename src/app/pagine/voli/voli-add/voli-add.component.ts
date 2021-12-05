@@ -238,7 +238,7 @@ export class VoliAddComponent implements OnInit {
       idPasseggero: this.addVoloForm.get('passeggeroSelect').value.id || -1,
       nomePasseggero: '',
       cognomePasseggero: '',
-      oraInizio: new Date(),
+      oraInizio: null, 
       orametroOreInizio: this.addVoloForm.get('oreDecolloInput').value,
       orametroMinutiInizio: this.addVoloForm.get('minutiDecolloInput').value,
       oraFine: new Date(this.addVoloForm.get('dataOraAtterraggioInput').value),
@@ -256,10 +256,10 @@ export class VoliAddComponent implements OnInit {
       aeroportoFine: ''
     };
     console.log('const volo: ' + JSON.stringify(nuovoVolo));
-     this.voliAPI.add(nuovoVolo).subscribe(data => {
+/*      this.voliAPI.add(nuovoVolo).subscribe(data => {
     console.log('data: ' + JSON.stringify(data));
     //this.tornaPaginaVoli();
-    }); 
+    }); */ 
 
   }
 }

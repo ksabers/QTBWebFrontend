@@ -33,7 +33,7 @@ export class AeroportiComponent implements OnInit {
     }
   }
 
-  columnsToDisplay = ['nome', 'identificativo', 'coordinate', 'dettagli'];
+  columnsToDisplay = ['nome', 'tipo', 'identificativo', 'coordinate', 'dettagli'];
 
   constructor(private aeroportiAPI: AeroportiService,
               private dialog: MatDialog) { }
