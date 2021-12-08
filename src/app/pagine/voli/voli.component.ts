@@ -86,5 +86,4 @@ export class VoliComponent implements OnInit {
   apriDettagli(volo: Volo): void {
     const dialogRef = this.dialog.open(VoliDettaglioComponent, {data: volo});
   }
-
 }

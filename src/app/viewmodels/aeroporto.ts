@@ -1,6 +1,7 @@
 export class Aeroporto {
   id: string;
   nome: string;
+  denominazione: string;
   idTipoAeroporto: number;
   tipoAeroporto: string;
   identificativo: string;

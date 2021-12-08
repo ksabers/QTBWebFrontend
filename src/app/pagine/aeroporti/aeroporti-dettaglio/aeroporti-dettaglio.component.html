@@ -5,25 +5,20 @@
 
                 <div style="width:600px; height: 400px;">prima riga</div>
 
-            
         </mat-tab>
         <mat-tab [label]="'aeroporti.mappa'|translate" [disabled]="aeroporto.coordinate == ''">
-
-                            <div class="map-frame" *ngIf="aeroporto.coordinate != ''">
-                                <div style="height: 100%;" #mappa
-                                leaflet 
-                                [leafletOptions]="options"
-                                (leafletMapReady)="onMapReady($event)">
-                           </div>
+            <div class="map-frame" *ngIf="aeroporto.coordinate != ''">
+                <div style="height: 100%;" #mappa
+                     leaflet
+                     [leafletOptions]="options"
+                     [leafletLayers]="layers"
+                     (leafletMapReady)="onMapReady($event)">
+                </div>
             </div>
-
-
         </mat-tab>
     </mat-tab-group>
-
-
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-raised-button color="primary" mat-dialog-close>Chiudi</button>
+    <button mat-raised-button color="primary" mat-dialog-close>{{'aeroporti.chiudi'|translate}}</button>
 </mat-dialog-actions>

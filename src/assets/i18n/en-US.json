@@ -9,6 +9,7 @@
 	"aerei.modifica": "Edit",
 	"aeroporti.aeroporti": "Airports",
 	"aeroporti.cancella": "Delete",
+	"aeroporti.chiudi": "Close",
 	"aeroporti.coordinate": "Coordinates",
 	"aeroporti.dati": "Data",
 	"aeroporti.dettagli": "Details",
@@ -80,6 +81,7 @@
 	"voli.carburante_aggiunto_sx": "Left wing added fuel",
 	"voli.carburante_iniziale_dx": "Right wing initial fuel",
 	"voli.carburante_iniziale_sx": "Left wing initial fuel",
+	"voli.chiudi": "Close",
 	"voli.data": "Date",
 	"voli.data_ora_atterraggio": "Landing date/time",
 	"voli.data_ora_decollo": "Takeoff date/time",
@@ -89,6 +91,7 @@
 	"voli.durata": "Duration",
 	"voli.errore_campo_obbligatorio": "Required field!",
 	"voli.errore_descrizione_troppo_lunga": "Maximum 4000 characters",
+	"voli.errore_inserimento": "Error while adding the flight",
 	"voli.errore_orametro": "Invalid hour meter",
 	"voli.errore_passeggero": "Different from the pilot!",
 	"voli.filtra": "Filter",
@@ -106,5 +109,7 @@
 	"voli.orametro_ore_decollo": "Hour meter: hours at takeoff",
 	"voli.passeggero": "Passenger",
 	"voli.pilota": "Pilot",
-	"voli.voli": "Flights"
+	"voli.torna_alla_lista": "Return to list",
+	"voli.voli": "Flights",
+	"voli.volo_inserito": "Flight added"
 }

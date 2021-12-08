@@ -10,9 +10,15 @@ export const environment = {
   giorniScadenze: 60,
   dashboardPiloti: 5,
   dashboardAerei: 5,
-  linguaggi: [
+  linguaggi:
+  [
     {codice: 'it-IT', nome: 'Italiano'},
-    {codice: 'en-US', nome: 'English'}],
+    {codice: 'en-US', nome: 'English'}
+  ],
+  mappa: {
+    tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribuzione: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+  }
 };
 
 /*

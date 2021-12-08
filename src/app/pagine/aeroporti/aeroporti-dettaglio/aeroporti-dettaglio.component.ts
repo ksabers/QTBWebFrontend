@@ -1,10 +1,11 @@
 import { Component,  Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { environment } from './../../../../environments/environment';
 import { Aeroporto } from './../../../viewmodels/aeroporto';
 import { UtilsService } from './../../../servizi/utils.service/utils.service';
 
-import { latLng, tileLayer, Map } from 'leaflet';
+import { latLng, tileLayer, Map, marker, Marker, icon, MapOptions } from 'leaflet';
 
 @Component({
   selector: 'app-aeroporti-dettaglio',
@@ -17,9 +18,24 @@ export class AeroportiDettaglioComponent implements OnInit {
               private utils: UtilsService) { }
 
   private map: Map;
-  latitudineString: string;
-  longitudineString: string;
-  options: Object;
+  options: MapOptions;
+  layers: Marker[];
+
+  iconaAeroporto = {
+    icon: icon({
+       iconSize: [48, 48],
+       iconAnchor: [10, 41],
+       popupAnchor: [2, -40],
+      iconUrl: './../../../../assets/markers/airplane_blue.png',
+      shadowUrl: './../../../../assets/markers/marker-shadow.png'
+    })
+  };
+
+  testoTooltip = `
+  <b>${this.aeroporto.denominazione? this.aeroporto.denominazione : this.aeroporto.nome}</b>
+  <br>
+  ${this.aeroporto.coordinate}
+  `;
 
   /**
    * Funzione chiamata quando la mappa è pronta. Serve per farsi restituire l'istanza
@@ -45,19 +61,20 @@ export class AeroportiDettaglioComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.aeroporto.coordinate != '') {
-      this.latitudineString = this.aeroporto.coordinate.split('-')[0].trim();
-      this.longitudineString = this.aeroporto.coordinate.split('-')[1].trim();
+      const latitudine = this.utils.DMS2DD(this.aeroporto.coordinate.split('-')[0].trim());
+      const longitudine = this.utils.DMS2DD(this.aeroporto.coordinate.split('-')[1].trim());
       this.options = {
         layers: [
-          tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+          tileLayer(environment.mappa.tileLayer, 
           { 
             maxZoom: 18, 
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+            attribution: environment.mappa.attribuzione
           })
         ],
         zoom: 15,
-        center: latLng(this.utils.DMS2DD(this.latitudineString), this.utils.DMS2DD(this.longitudineString))
-      }; 
+        center: latLng(latitudine, longitudine)
+      };
+      this.layers = [marker([latitudine, longitudine], this.iconaAeroporto).bindTooltip(this.testoTooltip)]
     }
   }
 }

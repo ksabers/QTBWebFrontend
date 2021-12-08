@@ -9,6 +9,7 @@
 	"aerei.modifica": "Modifica",
 	"aeroporti.aeroporti": "Aeroporti",
 	"aeroporti.cancella": "Cancella",
+	"aeroporti.chiudi": "Chiudi",
 	"aeroporti.coordinate": "Coordinate",
 	"aeroporti.dati": "Dati",
 	"aeroporti.dettagli": "Dettagli",
@@ -80,6 +81,7 @@
 	"voli.carburante_aggiunto_sx": "Carburante aggiunto ala sinistra",
 	"voli.carburante_iniziale_dx": "Carburante iniziale ala destra",
 	"voli.carburante_iniziale_sx": "Carburante iniziale ala sinistra",
+	"voli.chiudi": "Chiudi",
 	"voli.data": "Data",
 	"voli.data_ora_atterraggio": "Data/ora atterraggio",
 	"voli.data_ora_decollo": "Data/ora decollo",
@@ -89,6 +91,7 @@
 	"voli.durata": "Durata",
 	"voli.errore_campo_obbligatorio": "Campo obbligatorio!",
 	"voli.errore_descrizione_troppo_lunga": "Massimo 4000 caratteri",
+	"voli.errore_inserimento": "Errre durante l'inserimento",
 	"voli.errore_orametro": "Orametro non valido",
 	"voli.errore_passeggero": "Diverso dal pilota!",
 	"voli.filtra": "Filtra",
@@ -106,5 +109,7 @@
 	"voli.orametro_ore_decollo": "Orametro: ore al decollo",
 	"voli.passeggero": "Passeggero",
 	"voli.pilota": "Pilota",
-	"voli.voli": "Voli"
+	"voli.torna_alla_lista": "Torna alla lista",
+	"voli.voli": "Voli",
+	"voli.volo_inserito": "Volo inserito"
 }

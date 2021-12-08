@@ -63,6 +63,9 @@ export abstract class HttpService<T> {
 
   private handleError(error: HttpErrorResponse) {
     // Handle the HTTP error here
-    return throwError('Errore HTTP');
+    //return throwError(response);
+    //return new Error('Valid token not returned');
+    return throwError(() => new Error('Errore Http'));
+    //return throwError('Errore HTTP');
   }
 }

@@ -32,7 +32,7 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/leaflet/dist/images",
-                "output": "leaflet/"
+                "output": "./src/assets/markers"
               }
             ],
             "styles": [

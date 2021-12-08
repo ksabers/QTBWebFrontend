@@ -27,7 +27,9 @@
 
     <ng-container matColumnDef="passeggero">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.passeggero'|translate}}</th>
-      <td mat-cell *matCellDef="let volo">{{volo.nomePasseggero + ' ' + volo.cognomePasseggero}}</td>
+      <td mat-cell *matCellDef="let volo" [ngStyle]="{'font-style' : volo.idPasseggero? 'normal' : 'italic'}">
+        {{volo.idPasseggero? volo.nomePasseggero + ' ' + volo.cognomePasseggero : ('voli.nessuno'|translate)}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="data">

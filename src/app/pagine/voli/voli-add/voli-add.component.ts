@@ -12,6 +12,8 @@ import { Aereo } from './../../../viewmodels/aereo';
 import { Persona } from './../../../viewmodels/persona';
 import { Aeroporto } from './../../../viewmodels/aeroporto';
 import { Volo } from './../../../viewmodels/voli/volo';
+import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 // Validatore custom che controlla che l'orametro finale sia successivo all'orametro iniziale
@@ -53,15 +55,18 @@ export class VoliAddComponent implements OnInit {
 
   loading = true;
   submitting = false;
+  submitted = false;
 
   constructor(private auth: AuthenticationService,
               private aereiAPI: AereiService,
               private personeAPI: PersoneService,
               private aeroportiAPI: AeroportiService,
               private voliAPI: VoliService,
+              private _snackBar: MatSnackBar,
               private fb: FormBuilder,
               private router: Router,
-              private utils: UtilsService) { }
+              private utils: UtilsService,
+              private translate: TranslateService) { }
 
   ngOnInit(): void {
 
@@ -225,7 +230,7 @@ export class VoliAddComponent implements OnInit {
 
   submitForm(): void {
     this.submitting = true;
-    console.log('entrato in submit');
+    //console.log('entrato in submit');
     const nuovoVolo: Volo = {
       id: -1,
       descrizione: this.addVoloForm.get('descrizioneInput').value || '',
@@ -235,7 +240,7 @@ export class VoliAddComponent implements OnInit {
       idPilota: this.addVoloForm.get('pilotaSelect').value.id || null,
       nomePilota: '',
       cognomePilota: '',
-      idPasseggero: this.addVoloForm.get('passeggeroSelect').value.id || -1,
+      idPasseggero: this.addVoloForm.get('passeggeroSelect').value.id || null,
       nomePasseggero: '',
       cognomePasseggero: '',
       oraInizio: null, 
@@ -256,10 +261,41 @@ export class VoliAddComponent implements OnInit {
       aeroportoFine: ''
     };
     console.log('const volo: ' + JSON.stringify(nuovoVolo));
-/*      this.voliAPI.add(nuovoVolo).subscribe(data => {
-    console.log('data: ' + JSON.stringify(data));
-    //this.tornaPaginaVoli();
-    }); */ 
+/*       this.voliAPI.add(nuovoVolo).subscribe(data => {
+    console.log('restituito dal post: ' + JSON.stringify(data));
 
+    if (data.id) {
+      this.submitting = false;
+      this.submitted = true;
+      let snackBarRef = this._snackBar.open(this.translate.instant('voli.volo_inserito'), 
+                                            this.translate.instant('voli.torna_alla_lista'), 
+                                            { duration: 2000 });
+      snackBarRef.afterDismissed().subscribe(() => {
+        this.tornaPaginaVoli();
+      });
+      
+    } else {
+      let snackBarRef = this._snackBar.open(this.translate.instant('voli.errore_inserimento'), this.translate.instant('voli.chiudi'));
+    }
+    }); */
+
+
+    this.voliAPI.add(nuovoVolo).subscribe({
+      next: () => {
+        this.submitting = false;
+        this.submitted = true;
+        let snackBarRef = this._snackBar.open(this.translate.instant('voli.volo_inserito'), 
+                                            this.translate.instant('voli.torna_alla_lista'), 
+                                            { duration: 2000 });
+        snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaVoli();});
+      },
+      error: error => {
+        this.submitting = false;
+        this.submitted = true;
+        let snackBarRef = this._snackBar.open(this.translate.instant('voli.errore_inserimento') + ': ' + error.message, 
+                                              this.translate.instant('voli.chiudi'));
+        snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaVoli();});
+      }
+    });
   }
 }
