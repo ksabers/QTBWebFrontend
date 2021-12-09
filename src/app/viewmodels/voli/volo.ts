@@ -11,9 +11,11 @@ export class Volo {
   nomePasseggero: string;
   cognomePasseggero: string;
   oraInizio: Date;
+  oraLocaleDecollo: string;
   orametroOreInizio: number;
   orametroMinutiInizio: number;
   oraFine: Date;
+  oraLocaleAtterraggio: string;
   orametroOreFine: number;
   orametroMinutiFine: number;
   durata: number;

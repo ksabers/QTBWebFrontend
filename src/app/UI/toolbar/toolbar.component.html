@@ -56,11 +56,11 @@
 <mat-menu #menuNotifiche="matMenu">
   <button mat-menu-item *ngFor="let scadenza of scadenzePersona">
     <mat-icon>perm_contact_calendar</mat-icon>
-    <span>{{scadenza.tipo + ' - ' + (scadenza.data|ISO2Date)}}</span>
+    <span>{{scadenza.tipo + ' - ' + (scadenza.data|date:'dd/MM/y')}}</span>
   </button>
   <mat-divider *ngIf="scadenzePersona && scadenzeAereiFlat && scadenzePersona.length > 0 && scadenzeAereiFlat.length > 0"></mat-divider>
   <button mat-menu-item *ngFor="let scadenza of scadenzeAereiFlat">
     <mat-icon>airplane_ticket</mat-icon>
-    <span [matTooltip]="scadenza.modello">{{scadenza.marche}}</span><span>{{' - ' + scadenza.tipo + ' - ' + (scadenza.data|ISO2Date)}}</span>
+    <span [matTooltip]="scadenza.modello">{{scadenza.marche}}</span><span>{{' - ' + scadenza.tipo + ' - ' + (scadenza.data|date:'dd/MM/y')}}</span>
   </button>
 </mat-menu>

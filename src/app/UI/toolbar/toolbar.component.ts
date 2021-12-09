@@ -25,7 +25,7 @@ export class ToolbarComponent implements OnInit {
                               modello: string,
                               marche: string,
                               tipo: string,
-                              data: string,
+                              data: Date,
                               note: string
                             }[] = [];
   public linguaggi = environment.linguaggi;

@@ -1,1 +1,107 @@
-<p>voli-dettaglio works!</p>
+<h2 mat-dialog-title>
+    {{('voli_dettaglio.volo_n'|translate) 
+       + ' ' + volo.id + ' - ' 
+       + (volo.oraInizio|date:'dd/MM/y')}}
+</h2>
+<mat-dialog-content>
+    <mat-tab-group mat-stretch-tabs (selectedTabChange)="refresh()">
+        <mat-tab [label]="'voli_dettaglio.dati'|translate">
+            <div class="dati-container" 
+                 fxLayout="row wrap"
+                 fxLayoutGap="10px grid"
+                 fxLayoutAlign="space-between start">
+
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="100">
+                        <textarea matInput disabled placeholder="Descrizione" [value]="volo.descrizione" rows="2"></textarea>
+                    </mat-form-field>
+                
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                      <input matInput disabled placeholder="Aereo" [value]="volo.marche + ' ' + volo.modello"/>
+                    </mat-form-field>
+               
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                        <input matInput disabled placeholder="Pilota" [value]="volo.nomePilota + ' ' + volo.cognomePilota"/>
+                    </mat-form-field>
+                
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                        <input matInput disabled placeholder="Passeggero" [ngStyle]="{'font-style' : volo.idPasseggero? 'normal' : 'italic'}"
+                            [value]="volo.idPasseggero? volo.nomePasseggero + ' ' + volo.cognomePasseggero : ('voli.nessuno'|translate)"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text"
+                                    fxFlex="33"
+                                    *ngIf="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y')">
+                        <input matInput disabled placeholder="Data decollo" [value]="volo.oraInizio|date:'dd/MM/y'"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                        <input matInput disabled placeholder="Ora decollo" [value]="volo.oraLocaleDecollo"/>
+                    </mat-form-field>
+            </div>
+                    
+
+                   <!--  
+                    
+
+                    
+ 
+                    <mat-form-field floatLabel="always" class="static-text" *ngIf="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y')">
+                        <input matInput disabled placeholder="Data atterraggio" [value]="volo.oraFine|date:'dd/MM/y'"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Ora atterraggio" [value]="volo.oraLocaleAtterraggio"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Durata" [value]="volo.durata"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Carburante iniziale ala sinistra" [value]="volo.carburanteInizialeSx"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Carburante iniziale ala destra" [value]="volo.carburanteInizialeDx"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Carburante aggiunto ala sinistra" [value]="volo.carburanteAggiuntoSx"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Carburante aggiunto ala destra" [value]="volo.carburanteAggiuntoDx"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Olio aggiunto" [value]="volo.olio"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Decollo da" [value]="volo.aeroportoInizio"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text">
+                        <input matInput disabled placeholder="Atterraggio a" [value]="volo.aeroportoFine"/>
+                    </mat-form-field> -->
+
+
+                
+
+        </mat-tab>
+        <mat-tab [label]="'voli.mappa'|translate" [disabled]="true">
+            <div class="map-frame" *ngIf="false">
+                <div style="height: 100%;" #mappa
+                     leaflet
+                     [leafletOptions]="options"
+                     [leafletLayers]="layers"
+                     (leafletMapReady)="onMapReady($event)">
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" mat-dialog-close>{{'aeroporti.chiudi'|translate}}</button>
+</mat-dialog-actions>

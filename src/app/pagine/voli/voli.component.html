@@ -15,6 +15,11 @@
 
   <table mat-table [dataSource]="datasource" #sort="matSort" matSort class="mat-elevation-z8">
 
+    <ng-container matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef>{{'voli.id'|translate}}</th>
+      <td mat-cell *matCellDef="let volo">{{volo.id}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="aereo" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.aereo'|translate}}</th>
       <td mat-cell *matCellDef="let volo" [matTooltip]="volo.modello">{{volo.marche}}</td>
@@ -34,7 +39,7 @@
 
     <ng-container matColumnDef="data">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'voli.data'|translate}}</th>
-      <td mat-cell *matCellDef="let volo">{{volo.oraInizio|ISO2Date}}</td>
+      <td mat-cell *matCellDef="let volo">{{volo.oraInizio|date:'dd/MM/y'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="durata">

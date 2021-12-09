@@ -18,7 +18,7 @@
 
     <ng-container matColumnDef="data">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'manutenzioni.data'|translate}}</th>
-      <td mat-cell *matCellDef="let manutenzione">{{manutenzione.data|ISO2Date}}</td>
+      <td mat-cell *matCellDef="let manutenzione">{{manutenzione.data|date:'dd/MM/y'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="descrizione">

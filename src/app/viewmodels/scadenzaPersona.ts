@@ -1,6 +1,6 @@
 export class ScadenzaPersona {
   id: number;
   tipo: string;
-  data: string;
+  data: Date;
   note: string;
 }

@@ -88,15 +88,17 @@
 	"voli.decollo_da": "Takeoff from",
 	"voli.descrizione_del_volo": "Flight description",
 	"voli.dettagli": "Details",
-	"voli.durata": "Duration",
+	"voli.durata": "Duration (min.)",
 	"voli.errore_campo_obbligatorio": "Required field!",
 	"voli.errore_descrizione_troppo_lunga": "Maximum 4000 characters",
 	"voli.errore_inserimento": "Error while adding the flight",
 	"voli.errore_orametro": "Invalid hour meter",
 	"voli.errore_passeggero": "Different from the pilot!",
 	"voli.filtra": "Filter",
+	"voli.id": "ID",
 	"voli.inserisci_nuovo_volo": "Add new flight",
 	"voli.inserisci_volo": "Add flight",
+	"voli.mappa": "Map",
 	"voli.minuti": "minutes",
 	"voli.modifica": "Edit",
 	"voli.nessuno": "No one",
@@ -111,5 +113,8 @@
 	"voli.pilota": "Pilot",
 	"voli.torna_alla_lista": "Return to list",
 	"voli.voli": "Flights",
-	"voli.volo_inserito": "Flight added"
+	"voli.volo_inserito": "Flight added",
+	"voli_dettaglio.dati": "Data",
+	"voli_dettaglio.id": "",
+	"voli_dettaglio.volo_n": "Flight n."
 }

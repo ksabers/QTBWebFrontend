@@ -88,15 +88,17 @@
 	"voli.decollo_da": "Decollo da",
 	"voli.descrizione_del_volo": "Descrizione del volo",
 	"voli.dettagli": "Dettagli",
-	"voli.durata": "Durata",
+	"voli.durata": "Durata (min.)",
 	"voli.errore_campo_obbligatorio": "Campo obbligatorio!",
 	"voli.errore_descrizione_troppo_lunga": "Massimo 4000 caratteri",
 	"voli.errore_inserimento": "Errre durante l'inserimento",
 	"voli.errore_orametro": "Orametro non valido",
 	"voli.errore_passeggero": "Diverso dal pilota!",
 	"voli.filtra": "Filtra",
+	"voli.id": "ID",
 	"voli.inserisci_nuovo_volo": "Inserisci nuovo volo",
 	"voli.inserisci_volo": "Inserisci volo",
+	"voli.mappa": "Mappa",
 	"voli.minuti": "minuti",
 	"voli.modifica": "Modifica",
 	"voli.nessuno": "Nessuno",
@@ -111,5 +113,8 @@
 	"voli.pilota": "Pilota",
 	"voli.torna_alla_lista": "Torna alla lista",
 	"voli.voli": "Voli",
-	"voli.volo_inserito": "Volo inserito"
+	"voli.volo_inserito": "Volo inserito",
+	"voli_dettaglio.dati": "Dati",
+	"voli_dettaglio.id": "",
+	"voli_dettaglio.volo_n": "Volo n."
 }

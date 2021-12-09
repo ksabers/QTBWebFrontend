@@ -6,7 +6,7 @@ export class Scadenza {
     {
       id: number;
       tipo: string;
-      data: string;
+      data: Date;
       note: string;
     }
   ];
@@ -19,7 +19,7 @@ export class Scadenza {
         {
           id: number;
           tipo: string;
-          data: string;
+          data: Date;
           note: string;
         }
       ]

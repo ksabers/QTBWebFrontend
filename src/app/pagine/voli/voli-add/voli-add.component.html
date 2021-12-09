@@ -122,14 +122,14 @@
                     <div fxFlex="100" fxLayout="row" fxLayoutAlign="end center">&nbsp;
 
                         <div fxLayoutGap="20px"
-                            *ngIf="oraDecollo &&
+                            *ngIf="oraLocaleDecollo &&
                                    durataVolo > 0 &&
                                    !addVoloForm.get('oreDecolloInput').errors &&
                                    !addVoloForm.get('minutiDecolloInput').errors &&
                                    !addVoloForm.get('oreAtterraggioInput').errors &&
                                    !addVoloForm.get('minutiAtterraggioInput').errors &&
                                    !addVoloForm.get('dataOraAtterraggioInput').errors">
-                            <span>{{'voli.ora_decollo'|translate}}: <b>{{oraDecollo}}</b></span>
+                            <span>{{'voli.ora_decollo'|translate}}: <b>{{oraLocaleDecollo}}</b></span>
                             <span>{{'voli.durata'|translate}}: <b>{{durataVolo}}</b> {{'voli.minuti'|translate}}</span>
                         </div>
 

@@ -33,7 +33,7 @@ export class VoliComponent implements OnInit {
     }
   }
 
-  columnsToDisplay = ['aereo', 'pilota', 'passeggero', 'data', 'durata', 'decollo', 'atterraggio', 'dettagli'];
+  columnsToDisplay = ['id', 'aereo', 'pilota', 'passeggero', 'data', 'durata', 'decollo', 'atterraggio', 'dettagli'];
 
   constructor(private voliAPI: VoliService,
               private dialog: MatDialog) { }

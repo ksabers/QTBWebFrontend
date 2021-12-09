@@ -50,7 +50,8 @@ export class VoliAddComponent implements OnInit {
   listaPasseggeri: Persona[];
   listaAeroporti: Aeroporto[];
 
-  oraDecollo: string;
+  oraLocaleDecollo: string;
+  oraLocaleAtterraggio: string;
   durataVolo: number;
 
   loading = true;
@@ -175,7 +176,7 @@ export class VoliAddComponent implements OnInit {
               pilotaSelect: pilotaCorrente
             });  
           }
-          this.loading = false;
+          this.loading = false;  // toglie lo spinner
         });
       });      
     });
@@ -201,8 +202,12 @@ export class VoliAddComponent implements OnInit {
     this.aggiornaDurata();
   }
   
+  /**
+   * Calcola la durata del volo sottraendo l'orametro iniziale dal finale
+   *
+   * @memberof VoliAddComponent
+   */
   aggiornaDurata(): void {
-
     if (this.addVoloForm.value.oreAtterraggioInput &&
         this.addVoloForm.value.minutiAtterraggioInput &&
         this.addVoloForm.value.oreDecolloInput &&
@@ -214,13 +219,25 @@ export class VoliAddComponent implements OnInit {
          else {
            this.durataVolo = 0;
          }
+
+    // scrive l'ora di atterraggio locale come stringa in modo da poterla poi salvare nel db
     let dataIniziale = new Date(this.addVoloForm.value.dataOraAtterraggioInput);
-    dataIniziale.setMinutes(dataIniziale.getMinutes() - this.durataVolo);
 
     if (!isNaN(dataIniziale.getHours()) && !isNaN(dataIniziale.getMinutes())) {
-      this.oraDecollo = this.utils.addZero(dataIniziale.getHours()) + ':' + this.utils.addZero(dataIniziale.getMinutes());
+      this.oraLocaleAtterraggio = this.utils.addZero(dataIniziale.getHours()) + ':' + this.utils.addZero(dataIniziale.getMinutes());
     } else {
-      this.oraDecollo = '';
+      this.oraLocaleAtterraggio = '';
+    }
+
+    // calcola l'ora di decollo sottraendo la durata dall'ora di atterraggio
+    dataIniziale.setMinutes(dataIniziale.getMinutes() - this.durataVolo);
+
+    // scrive l'ora di decollo locale come stringa in modo da poterla poi salvare nel db
+    // e inoltre la visualizza nel form
+    if (!isNaN(dataIniziale.getHours()) && !isNaN(dataIniziale.getMinutes())) {
+      this.oraLocaleDecollo = this.utils.addZero(dataIniziale.getHours()) + ':' + this.utils.addZero(dataIniziale.getMinutes());
+    } else {
+      this.oraLocaleDecollo = '';
     }
   }
 
@@ -229,8 +246,7 @@ export class VoliAddComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.submitting = true;
-    //console.log('entrato in submit');
+    this.submitting = true;  // mostra lo spinner
     const nuovoVolo: Volo = {
       id: -1,
       descrizione: this.addVoloForm.get('descrizioneInput').value || '',
@@ -243,10 +259,12 @@ export class VoliAddComponent implements OnInit {
       idPasseggero: this.addVoloForm.get('passeggeroSelect').value.id || null,
       nomePasseggero: '',
       cognomePasseggero: '',
-      oraInizio: null, 
+      oraInizio: null,
+      oraLocaleDecollo: this.oraLocaleDecollo,
       orametroOreInizio: this.addVoloForm.get('oreDecolloInput').value,
       orametroMinutiInizio: this.addVoloForm.get('minutiDecolloInput').value,
       oraFine: new Date(this.addVoloForm.get('dataOraAtterraggioInput').value),
+      oraLocaleAtterraggio: this.oraLocaleAtterraggio,
       orametroOreFine: this.addVoloForm.get('oreAtterraggioInput').value,
       orametroMinutiFine:  this.addVoloForm.get('minutiAtterraggioInput').value,
       durata: 0,
@@ -260,38 +278,24 @@ export class VoliAddComponent implements OnInit {
       idAeroportoFine: this.addVoloForm.get('aeroportoAtterraggioSelect').value.id || null,
       aeroportoFine: ''
     };
-    console.log('const volo: ' + JSON.stringify(nuovoVolo));
-/*       this.voliAPI.add(nuovoVolo).subscribe(data => {
-    console.log('restituito dal post: ' + JSON.stringify(data));
 
-    if (data.id) {
-      this.submitting = false;
-      this.submitted = true;
-      let snackBarRef = this._snackBar.open(this.translate.instant('voli.volo_inserito'), 
-                                            this.translate.instant('voli.torna_alla_lista'), 
-                                            { duration: 2000 });
-      snackBarRef.afterDismissed().subscribe(() => {
-        this.tornaPaginaVoli();
-      });
-      
-    } else {
-      let snackBarRef = this._snackBar.open(this.translate.instant('voli.errore_inserimento'), this.translate.instant('voli.chiudi'));
-    }
-    }); */
-
-
+    console.log(JSON.stringify(nuovoVolo));
     this.voliAPI.add(nuovoVolo).subscribe({
       next: () => {
-        this.submitting = false;
-        this.submitted = true;
+        this.submitting = false;  // toglie lo spinner
+        this.submitted = true; // disabilita il pulsante di submit
+
+        // mostra il messaggio di OK e dopo due secondi torna alla lista voli
         let snackBarRef = this._snackBar.open(this.translate.instant('voli.volo_inserito'), 
                                             this.translate.instant('voli.torna_alla_lista'), 
                                             { duration: 2000 });
         snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaVoli();});
       },
       error: error => {
-        this.submitting = false;
-        this.submitted = true;
+        this.submitting = false; // toglie lo spinner
+        this.submitted = true; // disabilita il pulsante di submit
+
+        // mostra il messaggio di errore e si blocca finché non viene chiuso, poi torna alla lista voli
         let snackBarRef = this._snackBar.open(this.translate.instant('voli.errore_inserimento') + ': ' + error.message, 
                                               this.translate.instant('voli.chiudi'));
         snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaVoli();});

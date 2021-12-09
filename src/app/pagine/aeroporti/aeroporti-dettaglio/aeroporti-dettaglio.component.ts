@@ -59,22 +59,26 @@ export class AeroportiDettaglioComponent implements OnInit {
     this.map.invalidateSize();
   }
 
+  inizializzaMappa(): void {
+    const latitudine = this.utils.DMS2DD(this.aeroporto.coordinate.split('-')[0].trim());
+    const longitudine = this.utils.DMS2DD(this.aeroporto.coordinate.split('-')[1].trim());
+    this.options = {
+      layers: [
+        tileLayer(environment.mappa.tileLayer, 
+        { 
+          maxZoom: 18, 
+          attribution: environment.mappa.attribuzione
+        })
+      ],
+      zoom: 15,
+      center: latLng(latitudine, longitudine)
+    };
+    this.layers = [marker([latitudine, longitudine], this.iconaAeroporto).bindTooltip(this.testoTooltip)]
+  }
+
   ngOnInit(): void {
     if (this.aeroporto.coordinate != '') {
-      const latitudine = this.utils.DMS2DD(this.aeroporto.coordinate.split('-')[0].trim());
-      const longitudine = this.utils.DMS2DD(this.aeroporto.coordinate.split('-')[1].trim());
-      this.options = {
-        layers: [
-          tileLayer(environment.mappa.tileLayer, 
-          { 
-            maxZoom: 18, 
-            attribution: environment.mappa.attribuzione
-          })
-        ],
-        zoom: 15,
-        center: latLng(latitudine, longitudine)
-      };
-      this.layers = [marker([latitudine, longitudine], this.iconaAeroporto).bindTooltip(this.testoTooltip)]
+      this.inizializzaMappa();
     }
   }
 }
