@@ -29,27 +29,23 @@
                     <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
                         <input matInput disabled [placeholder]="'voli_dettaglio.passeggero'|translate"
                                [ngStyle]="{'font-style' : volo.idPasseggero? 'normal' : 'italic'}"
-                               [value]="volo.idPasseggero? volo.nomePasseggero + ' ' + volo.cognomePasseggero : ('voli.nessuno'|translate)"/>
+                               [value]="volo.idPasseggero ? 
+                                        volo.nomePasseggero + ' ' + volo.cognomePasseggero : 
+                                       ('voli.nessuno'|translate)"/>
                     </mat-form-field>
-
-                    <!-- <mat-form-field floatLabel="always" class="static-text"
-                                    fxFlex="33"
-                                    *ngIf="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y')">
-                        <input matInput disabled placeholder="Data decollo" [value]="volo.oraInizio|date:'dd/MM/y'"/>
-                    </mat-form-field> -->
 
                     <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
                         <input matInput disabled [placeholder]="'voli_dettaglio.ora_decollo'|translate"
-                               [value]="volo.oraLocaleDecollo"/>
+                               [value]="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y') ? 
+                                        (volo.oraInizio|date:'dd/MM/y') + ' - ' + volo.oraLocaleDecollo : 
+                                        volo.oraLocaleDecollo"/>
                     </mat-form-field>
-
-                    <!-- <mat-form-field floatLabel="always" class="static-text" *ngIf="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y')">
-                        <input matInput disabled placeholder="Data atterraggio" [value]="volo.oraFine|date:'dd/MM/y'"/>
-                    </mat-form-field> -->
 
                     <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
                         <input matInput disabled [placeholder]="'voli_dettaglio.ora_atterraggio'|translate"
-                               [value]="volo.oraLocaleAtterraggio"/>
+                               [value]="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y') ? 
+                               (volo.oraFine|date:'dd/MM/y') + ' - ' + volo.oraLocaleAtterraggio : 
+                               volo.oraLocaleAtterraggio"/>
                     </mat-form-field>
 
                     <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
@@ -105,10 +101,10 @@
                 </div>
             </div>
         </mat-tab>
-        
+
     </mat-tab-group>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-raised-button color="primary" mat-dialog-close>{{'aeroporti.chiudi'|translate}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close>{{'voli_dettaglio.chiudi'|translate}}</button>
 </mat-dialog-actions>
