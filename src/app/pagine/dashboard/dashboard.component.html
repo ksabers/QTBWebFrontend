@@ -2,7 +2,7 @@
   <div fxLayout="row wrap" fxLayoutAlign="stretch" fxFlexFill fxLayoutGap="20px grid">
     <div fxFlex="50%">
       <mat-card>
-        <mat-card-header>
+        <mat-card-header *ngIf="!loading1">
           <mat-card-title>{{'dashboard.ore_di_volo_per_pilota'|translate}}</mat-card-title>
           <mat-card-subtitle>
             ({{('dashboard.primi'|translate) + ' ' + massimiPiloti + ' ' + ('dashboard.piloti'|translate).toLowerCase()}})
@@ -29,7 +29,7 @@
 
     <div fxFlex="50%">
       <mat-card>
-        <mat-card-header>
+        <mat-card-header *ngIf="!loading2">
           <mat-card-title>{{'dashboard.ore_di_volo_per_aereo'|translate}}</mat-card-title>
           <mat-card-subtitle>
             ({{('dashboard.primi'|translate) + ' ' + massimiAerei + ' ' + ('dashboard.piloti'|translate).toLowerCase()}})
