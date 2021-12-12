@@ -275,8 +275,10 @@ export class VoliAddComponent implements OnInit {
       olio: this.addVoloForm.get('olioInput').value || null,
       idAeroportoInizio: this.addVoloForm.get('aeroportoDecolloSelect').value.id || null,
       aeroportoInizio: '',
+      coordinateInizio: '',
       idAeroportoFine: this.addVoloForm.get('aeroportoAtterraggioSelect').value.id || null,
-      aeroportoFine: ''
+      aeroportoFine: '',
+      coordinateFine: ''
     };
 
     console.log(JSON.stringify(nuovoVolo));

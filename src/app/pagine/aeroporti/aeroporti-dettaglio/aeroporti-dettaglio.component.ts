@@ -76,6 +76,10 @@ export class AeroportiDettaglioComponent implements OnInit {
     this.layers = [marker([latitudine, longitudine], this.iconaAeroporto).bindTooltip(this.testoTooltip)]
   }
 
+  copiaTesto(testo: string): void {
+    navigator.clipboard.writeText(testo);
+  }
+
   ngOnInit(): void {
     if (this.aeroporto.coordinate != '') {
       this.inizializzaMappa();

@@ -2,10 +2,107 @@
 <mat-dialog-content>
     <mat-tab-group mat-stretch-tabs (selectedTabChange)="refresh()">
         <mat-tab [label]="'aeroporti.dati'|translate">
+            <div class="dati-container" 
+                 fxLayout="row wrap"
+                 fxLayoutGap="10px grid"
+                 fxLayoutAlign="space-between start">
 
-                <div style="width:600px; height: 400px;">prima riga</div>
+                 <mat-form-field floatLabel="always" class="static-text" fxFlex="50">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.nome'|translate" 
+                           [value]="aeroporto.nome"/>
+                  </mat-form-field>
+                  
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="50">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.denominazione'|translate" 
+                           [value]="aeroporto.denominazione"/>
+                  </mat-form-field>
 
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="16.5">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.identificativo'|translate" 
+                           [value]="aeroporto.identificativo"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="16.5">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.icao'|translate" 
+                           [value]="aeroporto.icao"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="16.5">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.iata'|translate" 
+                           [value]="aeroporto.iata"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="16.5">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.qnh'|translate" 
+                           [value]="aeroporto.qnh"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="16.5">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.qfu'|translate" 
+                           [value]="aeroporto.qfu"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="16.5">
+                     <input matInput disabled [placeholder]="'aeroporti_dettaglio.frequenza_radio'|translate" 
+                            [value]="aeroporto.radio"/>
+                   </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.tipo'|translate" 
+                           [value]="aeroporto.tipoAeroporto"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.coordinate'|translate" 
+                           [value]="aeroporto.coordinate"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.lunghezza_pista'|translate" 
+                           [value]="aeroporto.lunghezza + ' (' +
+                           (aeroporto.asfalto ? ('aeroporti_dettaglio.asfalto'|translate) : ('aeroporti_dettaglio.erba'|translate)) + ')'"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="70">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.indirizzo'|translate" 
+                           [value]="aeroporto.indirizzo"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="30">
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.telefono'|translate" 
+                           [value]="aeroporto.telefono"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="50">
+                     <button *ngIf="aeroporto.email"
+                     [matTooltip]="'aeroporti_dettaglio.tooltip_email'|translate"
+                        matPrefix mat-icon-button color="primary"
+                        (click)="copiaTesto(aeroporto.email)">
+                            <mat-icon>content_copy</mat-icon>
+                  </button>
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.email'|translate" 
+                           [value]="aeroporto.email"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="50">
+                     <a *ngIf="aeroporto.web"
+                     [matTooltip]="'aeroporti_dettaglio.tooltip_web'|translate"
+                         matPrefix mat-icon-button color="primary"
+                         [href]="aeroporto.web" target="_blank">
+                            <mat-icon>language</mat-icon>
+                     </a>
+                    <input matInput disabled [placeholder]="'aeroporti_dettaglio.sito_web'|translate" 
+                           [value]="aeroporto.web"/>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="always" class="static-text" fxFlex="100">
+                     <textarea matInput disabled [placeholder]="'aeroporti_dettaglio.note'|translate" 
+                            [value]="aeroporto.note" rows="2"></textarea>
+                   </mat-form-field>
+
+            </div>
         </mat-tab>
+
         <mat-tab [label]="'aeroporti.mappa'|translate" [disabled]="aeroporto.coordinate == ''">
             <div class="map-frame" *ngIf="aeroporto.coordinate != ''">
                 <div style="height: 100%;" #mappa
@@ -16,9 +113,10 @@
                 </div>
             </div>
         </mat-tab>
+
     </mat-tab-group>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-raised-button color="primary" mat-dialog-close>{{'aeroporti.chiudi'|translate}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close>{{'aeroporti_dettaglio.chiudi'|translate}}</button>
 </mat-dialog-actions>

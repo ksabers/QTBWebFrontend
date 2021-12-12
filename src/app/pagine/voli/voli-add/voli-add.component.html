@@ -139,7 +139,7 @@
                         <mat-label>{{'voli.decollo_da'|translate}}</mat-label>
                         <mat-select formControlName="aeroportoDecolloSelect">
                             <mat-option *ngFor="let aeroporto of listaAeroporti" [value]="aeroporto">
-                                {{aeroporto.nome + ' - ' + aeroporto.identificativo}}
+                                {{aeroporto.nome + (aeroporto.identificativo? ' - ' + aeroporto.identificativo: '')}}
                             </mat-option>
                         </mat-select>
                         <mat-error>{{'voli.errore_campo_obbligatorio'|translate}}</mat-error>

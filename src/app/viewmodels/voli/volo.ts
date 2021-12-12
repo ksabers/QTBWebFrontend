@@ -26,6 +26,8 @@ export class Volo {
   olio: number;
   idAeroportoInizio: number;
   aeroportoInizio: string;
+  coordinateInizio: string;
   idAeroportoFine: number;
   aeroportoFine: string;
+  coordinateFine: string;
 }

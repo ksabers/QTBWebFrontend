@@ -91,8 +91,8 @@
             </div>
         </mat-tab>
 
-        <mat-tab [label]="'voli.mappa'|translate" [disabled]="true">
-            <div class="map-frame" *ngIf="false">
+        <mat-tab [label]="'voli.mappa'|translate" [disabled]="volo.coordinateInizio == '' || volo.coordinateFine == ''">
+            <div class="map-frame" *ngIf="!(volo.coordinateInizio == '' || volo.coordinateFine == '')">
                 <div style="height: 100%;" #mappa
                      leaflet
                      [leafletOptions]="options"
