@@ -19,16 +19,25 @@ export class UtilsService {
            + ':' + this.addZero(adesso.getMinutes()); 
   }
 
+  /**
+   * Trasforma una coordinata espressa in gradi/minuti/secondi
+   * in una coordinata decimale (formato di Leaflet)
+   *
+   * @param {string} coordinata
+   * @return {*}  {number}
+   * @memberof UtilsService
+   */
   DMS2DD(coordinata: string): number {
     const posGradi = coordinata.indexOf('°');
     const posPrimi = coordinata.indexOf('′');
     const posSecondi = coordinata.indexOf('″');
     const gradi = parseFloat(coordinata.slice(0, posGradi));
     const primi = parseFloat(coordinata.slice(posGradi + 1, posPrimi));
-    const secondi = parseFloat(coordinata.slice(posPrimi + 1, posSecondi));
+    const secondi = parseFloat(coordinata.slice(posPrimi + 1, posSecondi).replace(',', '.'));  // nel caso i decimali avessero la virgola invece del punto
 
     const decimale = gradi + (primi / 60) + (secondi / 3600);
 
+    // Per Leaflet le coordinate nord e est sono positive, quelle sud e ovest sono negative
     if ((coordinata.indexOf('E') != -1) || (coordinata.indexOf('N') != -1)) {
       return decimale;
     }
