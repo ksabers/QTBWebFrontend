@@ -15,10 +15,14 @@ import { AppComponent } from './app.component';
 
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { PaginatorIntlService } from './servizi/paginator.international.service/paginator.international.service';
+import { QtbSingoloComponent } from './print/qtb-singolo/qtb-singolo.component';
+import { IntestazioneComponent } from './print/intestazione/intestazione.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QtbSingoloComponent,
+    IntestazioneComponent
   ],
   imports: [
     BrowserModule,

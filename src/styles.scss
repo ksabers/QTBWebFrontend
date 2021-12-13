@@ -17,3 +17,8 @@
     display: flex;
     flex-direction: column;
 }
+
+@media print {
+  app-root > * { display: none; }
+  app-root app-intestazione { display: block; }
+}
