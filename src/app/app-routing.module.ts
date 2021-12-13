@@ -11,20 +11,11 @@ import { AereiComponent } from './pagine/aerei/aerei.component';
 import { AeroportiComponent } from './pagine/aeroporti/aeroporti.component';
 import { ManutenzioniComponent } from './pagine/manutenzioni/manutenzioni.component';
 import { ScadenzeComponent } from './pagine/scadenze/scadenze.component';
-import { IntestazioneComponent } from './print/intestazione/intestazione.component';
-import { QtbSingoloComponent } from './print/qtb-singolo/qtb-singolo.component';
 
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
-  { path: 'print',
-  outlet: 'print',
-  component: IntestazioneComponent,
-  children: [
-    { path: 'qtb', component: QtbSingoloComponent }
-  ]
-},
   {
     path: 'dashboard',
     component: DashboardComponent,
