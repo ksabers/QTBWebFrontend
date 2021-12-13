@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Aereo } from './../../viewmodels/aereo';
+import { Aereo } from '../../viewmodels/aerei/aereo';
 import { AereiService } from './../../servizi/aerei.service/aerei.service';
 import {ViewEncapsulation} from '@angular/core';
 import { AereiDettaglioComponent } from './aerei-dettaglio/aerei-dettaglio.component';

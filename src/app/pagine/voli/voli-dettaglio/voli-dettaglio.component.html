@@ -88,6 +88,31 @@
                                [value]="volo.aeroportoFine"/>
                     </mat-form-field>
 
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="20">
+                        <input matInput disabled [placeholder]="'voli_dettaglio.peso_a_vuoto'|translate"
+                               [value]="volo.pesoVuoto"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="20">
+                        <input matInput disabled [placeholder]="'voli_dettaglio.peso_occupanti'|translate"
+                               [value]="volo.pesoOccupanti"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="20">
+                        <input matInput disabled [placeholder]="'voli_dettaglio.peso_bagaglio'|translate"
+                               [value]="volo.bagaglio"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="20">
+                        <input matInput disabled [placeholder]="'voli_dettaglio.peso_carburante'|translate"
+                               [value]="pesoCarburante()"/>
+                    </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="20">
+                        <input matInput disabled [placeholder]="'voli_dettaglio.peso_totale'|translate"
+                               [value]="pesoTotale()"/>
+                    </mat-form-field>
+
             </div>
         </mat-tab>
 

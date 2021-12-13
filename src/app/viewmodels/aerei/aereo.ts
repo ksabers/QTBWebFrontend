@@ -1,5 +1,5 @@
-import { Proprietario } from './proprietario';
-import { Volo } from './voli/volo';
+import { Proprietario } from '../proprietario';
+import { Volo } from '../voli/volo';
 
 export class Aereo {
   id: string;
@@ -8,7 +8,7 @@ export class Aereo {
   marche: string;
   minutiPregressi: number;
   minutiVolo: number;
-  minutiTotaliOrametro: number;
+  pesoVuoto: number;
   voloPiuRecente: Volo;
   proprietari: Proprietario[];
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthenticationService } from './../../../auth/auth.service';
 import { AereiService } from './../../../servizi/aerei.service/aerei.service';
@@ -8,12 +10,12 @@ import { PersoneService } from './../../../servizi/persone.service/persone.servi
 import { AeroportiService } from './../../../servizi/aeroporti.service/aeroporti.service';
 import { VoliService } from './../../../servizi/voli.service/voli.service';
 import { UtilsService } from './../../../servizi/utils.service/utils.service';
-import { Aereo } from './../../../viewmodels/aereo';
+import { Aereo } from '../../../viewmodels/aerei/aereo';
 import { Persona } from './../../../viewmodels/persona';
 import { Aeroporto } from './../../../viewmodels/aeroporto';
 import { Volo } from './../../../viewmodels/voli/volo';
-import { TranslateService } from '@ngx-translate/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from './../../../../environments/environment';
+
 
 
 // Validatore custom che controlla che l'orametro finale sia successivo all'orametro iniziale
@@ -157,7 +159,17 @@ export class VoliAddComponent implements OnInit {
         [
           Validators.pattern(/^[0-9]\d*$/)
         ]
+      ],
+      pesoOccupantiInput: [environment.pesoMedio,
+        [
+          Validators.pattern(/^[0-9]\d*$/)
+        ]
+      ],
+      bagaglioInput: ['',
+      [
+        Validators.pattern(/^[0-9]\d*$/)
       ]
+    ]
     }, 
     { validators: [ValidatoreOrametro, ValidatorePasseggero]});  // questi sono i validatori a livello di form
 
@@ -182,7 +194,6 @@ export class VoliAddComponent implements OnInit {
     });
   }
 
-
   /**
    * Evento sul cambiamento della select aerei. Riempie i campi dell'orametro iniziale con i valori
    * dell'ultimo volo, e la select di decollo con l'aeroporto dell'atterraggio più recente
@@ -200,6 +211,17 @@ export class VoliAddComponent implements OnInit {
     this.addVoloForm.get('oreAtterraggioInput').setErrors(null);
     this.addVoloForm.get('minutiAtterraggioInput').setErrors(null);
     this.aggiornaDurata();
+  }
+
+  /**
+   * Aggiorna il campo del peso occupanti a seconda della presenza del passeggero
+   *
+   * @memberof VoliAddComponent
+   */
+  cambiaPasseggero(): void {
+    this.addVoloForm.patchValue({
+      pesoOccupantiInput: this.addVoloForm.get('passeggeroSelect').value.id ? environment.pesoMedio * 2 : environment.pesoMedio
+    });
   }
   
   /**
@@ -247,41 +269,29 @@ export class VoliAddComponent implements OnInit {
 
   submitForm(): void {
     this.submitting = true;  // mostra lo spinner
-    const nuovoVolo: Volo = {
-      id: -1,
-      descrizione: this.addVoloForm.get('descrizioneInput').value || '',
-      idAereo: this.addVoloForm.get('aereoSelect').value.id || null,
-      modello: '',
-      marche: '',
-      idPilota: this.addVoloForm.get('pilotaSelect').value.id || null,
-      nomePilota: '',
-      cognomePilota: '',
-      idPasseggero: this.addVoloForm.get('passeggeroSelect').value.id || null,
-      nomePasseggero: '',
-      cognomePasseggero: '',
-      oraInizio: null,
-      oraLocaleDecollo: this.oraLocaleDecollo,
-      orametroOreInizio: this.addVoloForm.get('oreDecolloInput').value,
-      orametroMinutiInizio: this.addVoloForm.get('minutiDecolloInput').value,
-      oraFine: new Date(this.addVoloForm.get('dataOraAtterraggioInput').value),
-      oraLocaleAtterraggio: this.oraLocaleAtterraggio,
-      orametroOreFine: this.addVoloForm.get('oreAtterraggioInput').value,
-      orametroMinutiFine:  this.addVoloForm.get('minutiAtterraggioInput').value,
-      durata: 0,
-      carburanteInizialeSx:  this.addVoloForm.get('carburanteInizialeSXInput').value || null,
-      carburanteInizialeDx: this.addVoloForm.get('carburanteInizialeDXInput').value || null,
-      carburanteAggiuntoSx: this.addVoloForm.get('carburanteAggiuntoSXInput').value || null,
-      carburanteAggiuntoDx: this.addVoloForm.get('carburanteAggiuntoDXInput').value || null,
-      olio: this.addVoloForm.get('olioInput').value || null,
-      idAeroportoInizio: this.addVoloForm.get('aeroportoDecolloSelect').value.id || null,
-      aeroportoInizio: '',
-      coordinateInizio: '',
-      idAeroportoFine: this.addVoloForm.get('aeroportoAtterraggioSelect').value.id || null,
-      aeroportoFine: '',
-      coordinateFine: ''
-    };
+    let nuovoVolo = new Volo();
 
-    console.log(JSON.stringify(nuovoVolo));
+    nuovoVolo.descrizione =  this.addVoloForm.get('descrizioneInput').value || '';
+    nuovoVolo.idAereo = this.addVoloForm.get('aereoSelect').value.id || null;
+    nuovoVolo.idPilota = this.addVoloForm.get('pilotaSelect').value.id || null;
+    nuovoVolo.idPasseggero = this.addVoloForm.get('passeggeroSelect').value.id ? this.addVoloForm.get('passeggeroSelect').value.id : null;
+    nuovoVolo.oraLocaleDecollo = this.oraLocaleDecollo;
+    nuovoVolo.orametroOreInizio =  this.addVoloForm.get('oreDecolloInput').value;
+    nuovoVolo.orametroMinutiInizio = this.addVoloForm.get('minutiDecolloInput').value;
+    nuovoVolo.oraFine = new Date(this.addVoloForm.get('dataOraAtterraggioInput').value),
+    nuovoVolo.oraLocaleAtterraggio = this.oraLocaleAtterraggio;
+    nuovoVolo.orametroOreFine = this.addVoloForm.get('oreAtterraggioInput').value;
+    nuovoVolo.orametroMinutiFine = this.addVoloForm.get('minutiAtterraggioInput').value;
+    nuovoVolo.carburanteInizialeSx = this.addVoloForm.get('carburanteInizialeSXInput').value || null;
+    nuovoVolo.carburanteInizialeDx = this.addVoloForm.get('carburanteInizialeDXInput').value || null;
+    nuovoVolo.carburanteAggiuntoSx = this.addVoloForm.get('carburanteAggiuntoSXInput').value || null;
+    nuovoVolo.carburanteAggiuntoDx = this.addVoloForm.get('carburanteAggiuntoDXInput').value || null;
+    nuovoVolo.olio = this.addVoloForm.get('olioInput').value || null;
+    nuovoVolo.pesoOccupanti = this.addVoloForm.get('pesoOccupantiInput').value || null;
+    nuovoVolo.bagaglio = this.addVoloForm.get('bagaglioInput').value || null;
+    nuovoVolo.idAeroportoInizio = this.addVoloForm.get('aeroportoDecolloSelect').value.id || null;
+    nuovoVolo.idAeroportoFine = this.addVoloForm.get('aeroportoAtterraggioSelect').value.id || null;
+
     this.voliAPI.add(nuovoVolo).subscribe({
       next: () => {
         this.submitting = false;  // toglie lo spinner

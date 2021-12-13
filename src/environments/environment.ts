@@ -10,6 +10,8 @@ export const environment = {
   giorniScadenze: 60,
   dashboardPiloti: 5,
   dashboardAerei: 5,
+  pesoMedio: 70,
+  densitaCarburante: 0.75,
   linguaggi:
   [
     {codice: 'it-IT', nome: 'Italiano'},

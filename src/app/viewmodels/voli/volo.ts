@@ -4,6 +4,7 @@ export class Volo {
   idAereo: number;
   modello: string;
   marche: string;
+  pesoVuoto: number;
   idPilota: number;
   nomePilota: string;
   cognomePilota: string;
@@ -24,6 +25,8 @@ export class Volo {
   carburanteAggiuntoSx: number;
   carburanteAggiuntoDx: number;
   olio: number;
+  pesoOccupanti: number;
+  bagaglio: number;
   idAeroportoInizio: number;
   aeroportoInizio: string;
   coordinateInizio: string;
