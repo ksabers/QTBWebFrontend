@@ -36,7 +36,13 @@
     </ng-container>
 
     <ng-container matColumnDef="dettagli" >
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayoutAlign="end center">
+          <button mat-icon-button color="primary" [routerLink]="'/aeroporti-add'" [matTooltip]="'aeroporti.nuovo_aeroporto'|translate">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let aeroporto" >
         <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >
           <button mat-icon-button color="primary" (click)="apriDettagli(aeroporto)" [matTooltip]="'aeroporti.dettagli'|translate"><mat-icon>info</mat-icon></button>

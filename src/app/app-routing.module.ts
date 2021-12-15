@@ -11,6 +11,7 @@ import { AereiComponent } from './pagine/aerei/aerei.component';
 import { AeroportiComponent } from './pagine/aeroporti/aeroporti.component';
 import { ManutenzioniComponent } from './pagine/manutenzioni/manutenzioni.component';
 import { ScadenzeComponent } from './pagine/scadenze/scadenze.component';
+import { AeroportiAddComponent } from './pagine/aeroporti/aeroporti-add/aeroporti-add.component';
 
 
 const routes: Routes = [
@@ -49,6 +50,12 @@ const routes: Routes = [
   {
     path: 'aeroporti',
     component: AeroportiComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'aeroporti-add',
+    component: AeroportiAddComponent,
     canActivate: [AuthGuard]
   },
 

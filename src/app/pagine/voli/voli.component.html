@@ -59,12 +59,11 @@
 
     <ng-container matColumnDef="dettagli">
       <th mat-header-cell *matHeaderCellDef>
-        <div fxLayoutAlign="end center" >
+        <div fxLayoutAlign="end center">
           <button mat-icon-button color="primary" [routerLink]="'/voli-add'" [matTooltip]="'voli.nuovo_volo'|translate">
             <mat-icon>add_circle_outline</mat-icon>
           </button>
         </div>
-        
       </th>
       <td mat-cell *matCellDef="let volo" >
         <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >

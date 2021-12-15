@@ -1,0 +1,115 @@
+<div class="component-container" fxLayoutAlign="space-around start">
+    <mat-card>
+
+        <mat-card-header>
+            <mat-card-title>{{'aeroporti_add.inserisci_nuovo_aeroporto'|translate}}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div *ngIf="loading" fxLayout="row" fxLayoutAlign="center center">
+                <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
+            </div>
+            <div *ngIf="!loading">
+                <form [formGroup]="addAeroportoForm"
+                      ng-submit="addAeroportoForm.$valid"
+                      (ngSubmit)="submitForm()"
+                      novalidate
+                      fxLayout="row wrap"
+                      fxLayoutGap="20px grid">
+
+                      <mat-form-field fxFlex="30">
+                        <mat-label>{{'aeroporti_add.nome'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="nomeInput"
+                               autocomplete="off" 
+                               type="text"
+                               maxlength="50">
+                        <mat-error>{{'aeroporti_add.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="70">
+                        <mat-label>{{'aeroporti_add.denominazione'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="denominazioneInput"
+                               autocomplete="off"
+                               type="text">
+                        <mat-error>{{'aeroporti_add.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'aeroporti_add.identificativo'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="identificativoInput"
+                               autocomplete="off" 
+                               type="text"
+                               minlength="4"
+                               maxlength="4"
+                               pattern='[A-Z]{2}[0-9]{2}'
+                               oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'aeroporti_add.icao'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="ICAOInput"
+                               autocomplete="off" 
+                               type="text"
+                               maxlength="4"
+                               minlength="4"
+                               pattern="[A-Z]{4}"
+                               oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'aeroporti_add.iata'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="IATAInput"
+                               autocomplete="off" 
+                               type="text"
+                               minlength="3" 
+                               maxlength="3"
+                               pattern="[A-Z]{3}"
+                               oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'aeroporti_add.qnh'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="QNHInput"
+                               autocomplete="off" 
+                               type="number" 
+                               step="1"
+                               pattern="\d*"
+                               min="0"
+                               max="15000">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="20">
+                        <mat-label>{{'aeroporti_add.qfu'|translate}}</mat-label>
+                        <input matInput
+                               formControlName="QFUInput"
+                               autocomplete="off" 
+                               type="text"
+                               pattern="[0-9]{2}/[0-9]{2}"
+                               maxlength="5"
+                               placeholder="nn/nn">
+                    </mat-form-field>
+
+                </form>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions *ngIf="!loading">
+            <div fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button (click)="tornaPaginaAeroporti()">{{'aeroporti_add.annulla'|translate}}</button>
+                <button mat-raised-button color="primary" [disabled]="addAeroportoForm.invalid || submitted" (click)="submitForm()">
+                    <span *ngIf="!submitting">{{'aeroporti_add.inserisci_aeroporto'|translate}}</span>
+                    <span *ngIf="submitting" fxLayout="row" fxLayoutAlign="center center" style="width:82px">
+                        <mat-spinner [diameter]="36" color="accent"></mat-spinner>
+                    </span>
+                </button>
+            </div>
+        </mat-card-actions>
+
+    </mat-card>
+</div>
