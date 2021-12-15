@@ -59,7 +59,7 @@
                         <mat-label>{{'voli_add.orametro_ore_decollo'|translate}}</mat-label>
                         <input matInput
                                formControlName="oreDecolloInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*"
@@ -71,7 +71,7 @@
                         <mat-label>{{'voli_add.orametro_minuti_decollo'|translate}}</mat-label>
                         <input matInput
                                formControlName="minutiDecolloInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*"
@@ -83,45 +83,57 @@
                         <mat-label>{{'voli_add.orametro_ore_atterraggio'|translate}}</mat-label>
                         <input matInput
                                formControlName="oreAtterraggioInput"
-                               autocomplete="false" 
                                type="number" 
                                step="1"
                                pattern="\d*"
-                               (change)="aggiornaDurata()">
+                               (change)="aggiornaDurata()"
+                               autocomplete="off"
+                               [matAutocomplete]="oreAtterraggioAC">
                         <mat-error>{{'voli_add.errore_campo_obbligatorio'|translate}}</mat-error>
                         <mat-hint class="mat-error"
                                   *ngIf="addVoloForm.hasError('orametro') && addVoloForm.get('oreAtterraggioInput').dirty">
                             {{'voli_add.errore_orametro'|translate}}
                         </mat-hint>
+                        <mat-autocomplete #oreAtterraggioAC="matAutocomplete" (optionSelected)="aggiornaDurata()">
+                            <mat-option *ngFor="let ora of rangeOreAtterraggio" [value]="ora">
+                                {{ora}}
+                              </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
         
                     <mat-form-field fxFlex="20">
                         <mat-label>{{'voli_add.orametro_minuti_atterraggio'|translate}}</mat-label>
                         <input matInput
                                formControlName="minutiAtterraggioInput"
-                               autocomplete="false" 
+                               autocomplete="off"
                                type="number" 
                                step="1"
                                pattern="\d*"
-                               (change)="aggiornaDurata()">
+                               (change)="aggiornaDurata()"
+                               [matAutocomplete]="minutiAtterraggioAC">
                         <mat-error>{{'voli_add.errore_campo_obbligatorio'|translate}}</mat-error>
                         <mat-hint class="mat-error" 
                                   *ngIf="addVoloForm.hasError('orametro') && addVoloForm.get('minutiAtterraggioInput').dirty">
                             {{'voli_add.errore_orametro'|translate}}
                         </mat-hint>
+                        <mat-autocomplete #minutiAtterraggioAC="matAutocomplete" (optionSelected)="aggiornaDurata()">
+                            <mat-option *ngFor="let minuto of rangeMinutiAtterraggio" [value]="minuto">
+                                {{minuto}}
+                              </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
 
                     <mat-form-field fxFlex="20">
                         <mat-label>{{'voli_add.data_ora_atterraggio'|translate}}</mat-label>
                         <input matInput
                                formControlName="dataOraAtterraggioInput"
+                               autocomplete="off"
                                type="datetime-local"
                                (change)="aggiornaDurata()">
                         <mat-error>{{'voli_add.errore_campo_obbligatorio'|translate}}</mat-error>
                     </mat-form-field>
 
                     <div fxFlex="100" fxLayout="row" fxLayoutAlign="end center">&nbsp;
-
                         <div fxLayoutGap="20px"
                             *ngIf="oraLocaleDecollo &&
                                    durataVolo > 0 &&
@@ -133,7 +145,6 @@
                             <span>{{'voli_add.ora_decollo'|translate}}: <b>{{oraLocaleDecollo}}</b></span>
                             <span>{{'voli_add.durata'|translate}}: <b>{{durataVolo}}</b> {{'voli_add.minuti'|translate}}</span>
                         </div>
-
                     </div>
 
                     <mat-form-field fxFlex="50">
@@ -167,7 +178,7 @@
                         <mat-label>{{'voli_add.carburante_iniziale_sx'|translate}}</mat-label>
                         <input matInput
                                formControlName="carburanteInizialeSXInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*">
@@ -177,7 +188,7 @@
                         <mat-label>{{'voli_add.carburante_iniziale_dx'|translate}}</mat-label>
                         <input matInput
                                formControlName="carburanteInizialeDXInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*">
@@ -187,7 +198,7 @@
                         <mat-label>{{'voli_add.carburante_aggiunto_sx'|translate}}</mat-label>
                         <input matInput
                                formControlName="carburanteAggiuntoSXInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*">
@@ -197,7 +208,7 @@
                         <mat-label>{{'voli_add.carburante_aggiunto_dx'|translate}}</mat-label>
                         <input matInput
                                formControlName="carburanteAggiuntoDXInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*">
@@ -207,7 +218,7 @@
                         <mat-label>{{'voli_add.olio_aggiunto'|translate}}</mat-label>
                         <input matInput
                                formControlName="olioInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*">
@@ -217,7 +228,7 @@
                         <mat-label>{{'voli_add.peso_occupanti'|translate}}</mat-label>
                         <input matInput
                                formControlName="pesoOccupantiInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*">
@@ -227,11 +238,19 @@
                         <mat-label>{{'voli_add.peso_bagaglio'|translate}}</mat-label>
                         <input matInput
                                formControlName="bagaglioInput"
-                               autocomplete="false" 
+                               autocomplete="off" 
                                type="number" 
                                step="1"
                                pattern="\d*">
                     </mat-form-field>
+
+                    <div fxFlex="60" fxLayout="row" fxLayoutAlign="start center" *ngIf="aereoSelezionato">
+                        <div fxLayoutGap="20px">
+                            <span>{{'voli_add.peso_a_vuoto'|translate}}: <b>{{aereoSelezionato.pesoVuoto}}</b></span>
+                            <span>{{'voli_add.peso_carburante'|translate}}: <b>{{pesoCarburanteSX + pesoCarburanteDX}}</b></span>
+                            <span>{{'voli_add.peso_totale'|translate}}: <b>{{aereoSelezionato.pesoVuoto + pesoOccupanti + pesoBagaglio +  pesoCarburanteSX + pesoCarburanteDX}}</b></span>
+                        </div>
+                    </div>
 
                 </form>
             </div>

@@ -60,6 +60,14 @@ export class VoliAddComponent implements OnInit {
   submitting = false;
   submitted = false;
 
+  rangeOreAtterraggio : number[];
+  rangeMinutiAtterraggio = [...Array(60).keys()];
+  get aereoSelezionato() {return this.addVoloForm.value.aereoSelect} ;
+  get pesoCarburanteSX() {return (this.addVoloForm.get('carburanteInizialeSXInput').value * environment.densitaCarburante)||null};
+  get pesoCarburanteDX() {return (this.addVoloForm.get('carburanteInizialeDXInput').value * environment.densitaCarburante)||null};
+  get pesoOccupanti() {return this.addVoloForm.get('pesoOccupantiInput').value||null};
+  get pesoBagaglio() {return this.addVoloForm.get('bagaglioInput').value ||null};
+
   constructor(private auth: AuthenticationService,
               private aereiAPI: AereiService,
               private personeAPI: PersoneService,
@@ -211,6 +219,13 @@ export class VoliAddComponent implements OnInit {
     this.addVoloForm.get('oreAtterraggioInput').setErrors(null);
     this.addVoloForm.get('minutiAtterraggioInput').setErrors(null);
     this.aggiornaDurata();
+    let range = [];
+    for (let index = this.addVoloForm.value.aereoSelect.voloPiuRecente.orametroOreFine; 
+         index < this.addVoloForm.value.aereoSelect.voloPiuRecente.orametroOreFine + 4; 
+         index++) {
+      range = [...range, index];
+    }
+    this.rangeOreAtterraggio = range;
   }
 
   /**

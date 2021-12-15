@@ -104,14 +104,14 @@ export class VoliDettaglioComponent implements OnInit {
   }
 
   pesoCarburante(): number {
-    return (this.volo.carburanteInizialeSx + this.volo.carburanteInizialeDx) * environment.densitaCarburante || null;
+    return ((this.volo.carburanteInizialeSx + this.volo.carburanteInizialeDx) * environment.densitaCarburante) || null;
   }
 
   pesoTotale(): number {
-    return (this.volo.pesoVuoto + 
+    return ((this.volo.pesoVuoto + 
             this.volo.pesoOccupanti + 
             this.volo.bagaglio + 
-            this.pesoCarburante());
+            this.pesoCarburante()) || null);
   }
 
   ngOnInit(): void {
