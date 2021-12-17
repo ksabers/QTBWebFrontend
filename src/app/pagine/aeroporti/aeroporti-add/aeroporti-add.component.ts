@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { TipiAeroportiService } from 'src/app/servizi/tipi-aeroporti.service/tipi-aeroporti.service';
 import { TipoAeroporto } from 'src/app/viewmodels/tipi-aeroporti/tipo-aeroporto';
+import { validateBasis } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-aeroporti-add',
@@ -35,6 +36,7 @@ export class AeroportiAddComponent implements OnInit {
       ],
       denominazioneInput: ['',
         [
+          Validators.maxLength(4000)
         ]
       ],
       identificativoInput: ['',
@@ -69,10 +71,107 @@ export class AeroportiAddComponent implements OnInit {
           Validators.maxLength(5)
         ]
       ],
+      radioInput: ['',
+        [
+          Validators.maxLength(50)
+        ]
+      ],
+      tipoAeroportoSelect: ['',
+        [
+        ]
+      ],
+      gradiLatInput: ['',
+        [
+          Validators.min(0),
+          Validators.max(359),
+          Validators.pattern('[0-9]{1,3}')
+        ]
+      ],
+      minutiLatInput: ['',
+        [
+          Validators.min(0),
+          Validators.max(59),
+          Validators.pattern('[0-9]{1,2}')
+        ]
+      ],
+      secondiLatInput: ['',
+        [
+          Validators.min(0),
+          Validators.max(59),
+          Validators.pattern('[0-9]{1,2}|[0-9]{1,2}.[0-9]{1,4}')
+        ]
+      ],
+      nordSudSelect: ['N',
+        [
+        ]
+      ],
+      gradiLongInput: ['',
+        [
+          Validators.min(0),
+          Validators.max(359),
+          Validators.pattern('[0-9]{1,3}')
+        ]
+      ],
+      minutiLongInput: ['',
+        [
+          Validators.min(0),
+          Validators.max(59),
+          Validators.pattern('[0-9]{1,2}')
+        ]
+      ],
+      secondiLongInput: ['',
+        [
+          Validators.min(0),
+          Validators.max(59),
+          Validators.pattern('[0-9]{1,2}|[0-9]{1,2}.[0-9]{1,4}')
+        ]
+      ],
+      estOvestSelect: ['E',
+        [
+        ]
+      ],
+      lunghezzaPistaInput: ['',
+        [
+          Validators.min(0),
+          Validators.max(9999),
+          Validators.pattern(/^[0-9]\d*$/)
+        ]
+      ],
+      tipoPistaSelect: ['false',
+        [
+        ]
+      ],
+      indirizzoInput: ['',
+        [
+          Validators.maxLength(100)
+        ]
+      ],
+      telefonoInput: ['',
+        [
+          Validators.maxLength(50)
+        ]
+      ],
+      emailInput: ['',
+        [
+          Validators.email,
+          Validators.maxLength(50)
+        ]
+      ],
+      webInput: ['',
+        [
+          Validators.maxLength(50)
+        ]
+      ],
+      noteInput: ['',
+        [
+          Validators.maxLength(4000)
+        ]
+      ],
     });
 
     this.tipiAeroportiAPI.getList().subscribe(data => {
       this.listaTipiAeroporti = data;
+      this.addAeroportoForm.controls.tipoAeroportoSelect.setValue(this.listaTipiAeroporti[0]); // valore di default della select
       this.loading = false;  // toglie lo spinner
     })
   }
@@ -80,6 +179,7 @@ export class AeroportiAddComponent implements OnInit {
   tornaPaginaAeroporti(): void {
     this.router.navigate(['aeroporti']);
   }
+
 
   submitForm(): void {
 

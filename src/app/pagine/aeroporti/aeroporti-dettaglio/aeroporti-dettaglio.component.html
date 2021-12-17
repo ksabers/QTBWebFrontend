@@ -60,7 +60,9 @@
                   <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
                     <input matInput disabled [placeholder]="'aeroporti_dettaglio.lunghezza_pista'|translate" 
                            [value]="aeroporto.lunghezza + ' (' +
-                           (aeroporto.asfalto ? ('aeroporti_dettaglio.asfalto'|translate) : ('aeroporti_dettaglio.erba'|translate)) + ')'"/>
+                           (aeroporto.asfalto ? 
+                           ('aeroporti_dettaglio.asfalto'|translate).toLowerCase() : 
+                           ('aeroporti_dettaglio.erba'|translate).toLowerCase()) + ')'"/>
                   </mat-form-field>
 
                   <mat-form-field floatLabel="always" class="static-text" fxFlex="70">
