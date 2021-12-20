@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { TipiAeroportiService } from './../../../servizi/tipi-aeroporti.service/tipi-aeroporti.service';
 import { TipoAeroporto } from './../../../viewmodels/tipi-aeroporti/tipo-aeroporto';
-import { campiForm } from './campi-form';
+import { AeroportiAddForm } from './aeroporti-add-form';
 
 @Component({
   selector: 'app-aeroporti-add',
@@ -25,7 +25,8 @@ export class AeroportiAddComponent implements OnInit {
               private tipiAeroportiAPI: TipiAeroportiService) { }
 
   ngOnInit(): void {
-    this.addAeroportoForm = this.fb.group(campiForm);  // la lista dei campi del reactive form è in file separato
+    const form = new AeroportiAddForm();
+    this.addAeroportoForm = this.fb.group(form.campi);  // la lista dei campi del reactive form è in file separato
     this.tipiAeroportiAPI.getList().subscribe(data => {
       this.listaTipiAeroporti = data;
       this.addAeroportoForm.controls.tipoAeroportoSelect.setValue(this.listaTipiAeroporti[0]); // valore di default della select

@@ -15,6 +15,7 @@ import { Persona } from './../../../viewmodels/persona';
 import { Aeroporto } from './../../../viewmodels/aeroporto';
 import { Volo } from './../../../viewmodels/voli/volo';
 import { environment } from './../../../../environments/environment';
+import { VoliAddForm } from './voli-add-form';
 
 
 
@@ -81,106 +82,11 @@ export class VoliAddComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // Campi del reactive form
-    this.addVoloForm = this.fb.group({
-      aereoSelect: ['',
-        [
-          Validators.required
-        ]
-      ],
-      pilotaSelect: ['',
-        [
-          Validators.required
-        ]
-      ],
-      passeggeroSelect: '',
-      dataOraAtterraggioInput: [this.utils.LocalDateTime(), 
-        [
-          Validators.required
-        ]
-      ],
-      oreDecolloInput: ['',
-        [
-          Validators.required,
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      minutiDecolloInput: ['',
-        [
-          Validators.required,
-          Validators.pattern(/^[0-9]\d*$/),
-          Validators.min(0),
-          Validators.max(59)
-        ]
-      ],
-      oreAtterraggioInput: ['',
-        [
-          Validators.required,
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      minutiAtterraggioInput: ['',
-        [
-          Validators.required,
-          Validators.pattern(/^[0-9]\d*$/),
-          Validators.min(0),
-          Validators.max(59)
-        ]
-      ],
-      aeroportoDecolloSelect: ['', 
-        [
-          Validators.required
-        ]
-      ],
-      aeroportoAtterraggioSelect: ['',
-        [
-          Validators.required
-        ]
-      ],
-      descrizioneInput: ['',
-        [
-          Validators.maxLength(4000)
-        ]
-      ],
-
-      carburanteInizialeSXInput: ['',
-        [
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      carburanteInizialeDXInput: ['',
-        [
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      carburanteAggiuntoSXInput: ['',
-        [
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      carburanteAggiuntoDXInput: ['',
-        [
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      olioInput: ['',
-        [
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      pesoOccupantiInput: [environment.pesoMedio,
-        [
-          Validators.pattern(/^[0-9]\d*$/)
-        ]
-      ],
-      bagaglioInput: ['',
-      [
-        Validators.pattern(/^[0-9]\d*$/)
-      ]
-    ]
-    }, 
-    { validators: [ValidatoreOrametro, ValidatorePasseggero]});  // questi sono i validatori a livello di form
-
+    const form = new VoliAddForm(this.utils);
+    this.addVoloForm = this.fb.group(form.campi, {
+      validators: [ValidatoreOrametro, ValidatorePasseggero] // questi sono i validatori a livello di form
+    });  
+ 
     this.aereiAPI.getList().subscribe(data => {
       this.listaAerei = data;
       this.personeAPI.getList().subscribe(data => {
