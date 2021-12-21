@@ -1,10 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 
 import { TipiAeroportiService } from './../../../servizi/tipi-aeroporti.service/tipi-aeroporti.service';
 import { TipoAeroporto } from './../../../viewmodels/tipi-aeroporti/tipo-aeroporto';
 import { AeroportiAddForm } from './aeroporti-add-form';
+
+// Validatore custom che controlla che i campi delle coordinate siano o tutti pieni
+// o tutti vuoti. Viene applicato a livello di form 
+const ValidatoreCoordinate: ValidatorFn = (fg: FormGroup) => {
+  if (!(fg.get('gradiLatInput').value) &&
+      !(fg.get('minutiLatInput').value ) &&
+      !(fg.get('secondiLatInput').value) &&
+      !(fg.get('gradiLongInput').value) &&
+      !(fg.get('minutiLongInput').value) &&
+      !(fg.get('secondiLongInput').value)) {
+    return null
+  } else {
+    if ((fg.get('gradiLatInput').value) &&
+        (fg.get('minutiLatInput').value) &&
+        (fg.get('secondiLatInput').value) &&
+        (fg.get('gradiLongInput').value) &&
+        (fg.get('minutiLongInput').value) &&
+        (fg.get('secondiLongInput').value)) {
+      return null
+    } else {
+      return { coordinate: true }
+    }
+  }
+};
 
 @Component({
   selector: 'app-aeroporti-add',
@@ -26,7 +50,9 @@ export class AeroportiAddComponent implements OnInit {
 
   ngOnInit(): void {
     const form = new AeroportiAddForm();
-    this.addAeroportoForm = this.fb.group(form.campi);  // la lista dei campi del reactive form è in file separato
+    this.addAeroportoForm = this.fb.group(form.campi, { // la lista dei campi del reactive form è in file separato
+      validators: [ValidatoreCoordinate]     // questo validatore è a livello di form
+    });  
     this.tipiAeroportiAPI.getList().subscribe(data => {
       this.listaTipiAeroporti = data;
       this.addAeroportoForm.controls.tipoAeroportoSelect.setValue(this.listaTipiAeroporti[0]); // valore di default della select
