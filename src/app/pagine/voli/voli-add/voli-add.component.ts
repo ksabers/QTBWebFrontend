@@ -219,8 +219,8 @@ export class VoliAddComponent implements OnInit {
         this.submitted = true; // disabilita il pulsante di submit
 
         // mostra il messaggio di OK e dopo due secondi torna alla lista voli
-        let snackBarRef = this._snackBar.open(this.translate.instant('voli.volo_inserito'), 
-                                            this.translate.instant('voli.torna_alla_lista'), 
+        let snackBarRef = this._snackBar.open(this.translate.instant('voli_add.volo_inserito'), 
+                                            this.translate.instant('voli_add.torna_alla_lista'), 
                                             { duration: 2000 });
         snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaVoli();});
       },
@@ -229,8 +229,8 @@ export class VoliAddComponent implements OnInit {
         this.submitted = true; // disabilita il pulsante di submit
 
         // mostra il messaggio di errore e si blocca finché non viene chiuso, poi torna alla lista voli
-        let snackBarRef = this._snackBar.open(this.translate.instant('voli.errore_inserimento') + ': ' + error.message, 
-                                              this.translate.instant('voli.chiudi'));
+        let snackBarRef = this._snackBar.open(this.translate.instant('voli_add.errore_inserimento') + ': ' + error.message, 
+                                              this.translate.instant('voli_add.chiudi'));
         snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaVoli();});
       }
     });

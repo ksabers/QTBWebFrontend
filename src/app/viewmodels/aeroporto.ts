@@ -1,5 +1,5 @@
 export class Aeroporto {
-  id: string;
+  id: number;
   nome: string;
   denominazione: string;
   idTipoAeroporto: number;
@@ -8,7 +8,7 @@ export class Aeroporto {
   coordinate: string;
   icao: string;
   iata: string;
-  qnh: string;
+  qnh: number;
   qfu: string;
   asfalto: boolean;
   lunghezza: number;

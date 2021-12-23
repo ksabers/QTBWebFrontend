@@ -45,4 +45,16 @@ export class UtilsService {
       return -decimale;
     }
   }
+
+  coordinate(gradiLat: string, minutiLat: string, secondiLat: string, nordSud: string,
+             gradiLong: string, minutiLong: string, secondiLong: string, estOvest: string): string {
+
+      if (gradiLat && minutiLat && secondiLat && gradiLong && minutiLong && secondiLong) {
+        return gradiLat + '° ' + minutiLat + '′ ' + secondiLat + '″ ' + nordSud + ' - ' + 
+               gradiLong + '° ' + minutiLong + '′ ' + secondiLong + '″ ' + estOvest
+      } else {
+        return null;
+      }
+
+  }
 }
