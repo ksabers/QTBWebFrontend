@@ -7,7 +7,8 @@ export const environment = {
   APIUrl: 'https://localhost:5001',
   copyrightBy: 'Giorgio Borgo',
   titoloApplicazione: 'QTBWeb',
-  giorniScadenze: 60,
+  giorniScadenze: 30,  // entro quanti giorni da oggi una scadenza è "in scadenza"
+  oreScadenze: 1,  // entro quante ore di volo una scadenza è "in scadenza"
   dashboardPiloti: 5,
   dashboardAerei: 5,
   pesoMedio: 70,

@@ -57,4 +57,16 @@ export class UtilsService {
       }
 
   }
+
+  /**
+   * Ritorna la differenza in giorni tra due date
+   *
+   * @param {Date} dataInizio
+   * @param {Date} dataFine
+   * @return {*}  {number}
+   * @memberof UtilsService
+   */
+  dateDiff(dataMaggiore: Date, dataMinore: Date): number {
+    return Math.ceil((dataMaggiore.getTime() - dataMinore.getTime()) / (1000 * 3600 * 24))
+  }
 }
