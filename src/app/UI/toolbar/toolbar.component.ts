@@ -19,7 +19,13 @@ export class ToolbarComponent implements OnInit {
   public lingua: string;
   public nomeLingua: string;
   public notifiche = 0;
-  public scadenzePersona: ScadenzaGenerica[];
+  public scadenzePersonaFlat: {
+    id: number,
+    tipo: string,
+    data: Date,
+    minuti: number,
+    scaduta: boolean
+  }[] = [];
   public scadenzeAereiFlat: {
     id: number,
     aereo: number,
@@ -30,7 +36,7 @@ export class ToolbarComponent implements OnInit {
     minutiVolo: number,
     minutiPregressi: number,
     minutiScadenza: number,
-    note: string
+    scaduta: boolean
   }[] = [];
   public linguaggi = environment.linguaggi;
   public nomeCognomeUtente: string;
@@ -55,30 +61,60 @@ export class ToolbarComponent implements OnInit {
     this.scadenzeAPI.get(this.auth.currentUserValue.persona).subscribe(data => {
       
       // recupera le scadenze della persona, ma non ancora filtrate per data o per ore di volo
-      this.scadenzePersona = data.scadenzePersona;
-      
+      data.scadenzePersona.forEach(scadenza => {
+        this.scadenzePersonaFlat.push({
+          id: scadenza.id,
+          tipo: scadenza.tipo,
+          data: scadenza.data,
+          minuti: scadenza.minuti,
+          scaduta: (
+                      (scadenza.data != null)
+                      &&
+                      (this.utils.dateDiff(new Date(scadenza.data), new Date()) <= 0)
+                   ||
+                      (scadenza.minuti != null)
+                      &&
+                      (data.minutiVoloDaPilota != null)
+                      &&
+                      (scadenza.minuti - (data.minutiPregressi + data.minutiVoloDaPilota) <= 0)
+                   ) 
+        })
+      });
+ 
       // recupera le scadenze degli aerei, ma non ancora filtrate per data o per ore di volo
       data.scadenzeAerei.forEach(scadenzaEsterna => {
         scadenzaEsterna.scadenzeAereo.forEach(scadenzaInterna => {
           this.scadenzeAereiFlat.push({
-                                        id: scadenzaInterna.id,
-                                        aereo: scadenzaEsterna.aereo,
-                                        modello: scadenzaEsterna.modello,
-                                        marche: scadenzaEsterna.marche,
-                                        tipo: scadenzaInterna.tipo,
-                                        data: scadenzaInterna.data,
-                                        minutiPregressi: scadenzaEsterna.minutiPregressi,
-                                        minutiVolo: scadenzaEsterna.minutiVolo,
-                                        minutiScadenza: scadenzaInterna.minuti,
-                                        note: scadenzaInterna.note
-                                      })          
+            id: scadenzaInterna.id,
+            aereo: scadenzaEsterna.aereo,
+            modello: scadenzaEsterna.modello,
+            marche: scadenzaEsterna.marche,
+            tipo: scadenzaInterna.tipo,
+            data: scadenzaInterna.data,
+            minutiPregressi: scadenzaEsterna.minutiPregressi,
+            minutiVolo: scadenzaEsterna.minutiVolo,
+            minutiScadenza: scadenzaInterna.minuti,
+            scaduta: (
+              (
+                (scadenzaInterna.data != null)
+                &&
+                (this.utils.dateDiff(new Date(scadenzaInterna.data), new Date()) <= environment.giorniScadenze)
+              )
+              ||
+              (
+                (scadenzaInterna.minuti != null)
+                &&
+                (scadenzaInterna.minuti - (scadenzaEsterna.minutiPregressi + scadenzaEsterna.minutiVolo) <= 0)
+              )
+            )
+          })          
         });
       });
 
       // filtriamo le scadenze della persona in modo da includere solo quelle veramente in scadenza
       // (in base alla data e/o alle ore di volo e tenendo conto dell'intervallo settato in environment)
-      this.scadenzePersona = 
-      this.scadenzePersona.filter(scadenza =>
+      this.scadenzePersonaFlat = 
+      this.scadenzePersonaFlat.filter(scadenza =>
         (
           (scadenza.data != null)
           &&
@@ -113,7 +149,8 @@ export class ToolbarComponent implements OnInit {
           )
           );
 
-      this.notifiche = this.scadenzePersona.length + this.scadenzeAereiFlat.length;
+      console.log(JSON.stringify(this.scadenzePersonaFlat));
+      this.notifiche = this.scadenzePersonaFlat.length + this.scadenzeAereiFlat.length;
       this.loading = false;
     });
   }

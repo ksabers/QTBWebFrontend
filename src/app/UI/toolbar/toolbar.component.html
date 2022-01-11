@@ -54,13 +54,21 @@
 </mat-menu>
 
 <mat-menu #menuNotifiche="matMenu">
-  <button mat-menu-item *ngFor="let scadenza of scadenzePersona">
-    <mat-icon>perm_contact_calendar</mat-icon>
-    <span>{{scadenza.tipo + ' - ' + (scadenza.data|date:'dd/MM/y')}}</span>
+  <button mat-menu-item *ngFor="let scadenza of scadenzePersonaFlat" [ngClass]="{'scaduta': scadenza.scaduta}"> 
+    <mat-icon [ngClass]="{'scaduta': scadenza.scaduta}">perm_contact_calendar</mat-icon>
+    <span>
+      {{scadenza.tipo + 
+        (scadenza.data ? ' - ' + (scadenza.data|date:'dd/MM/y') : '') + 
+        (scadenza.minuti ? ' - ' + ((scadenza.minuti / 60)|number:'.0-2') + ' ' + ('toolbar.ore'|translate) : '')}}
+    </span>
   </button>
-  <mat-divider *ngIf="scadenzePersona && scadenzeAereiFlat && scadenzePersona.length > 0 && scadenzeAereiFlat.length > 0"></mat-divider>
-  <button mat-menu-item *ngFor="let scadenza of scadenzeAereiFlat">
-    <mat-icon>airplane_ticket</mat-icon>
-    <span [matTooltip]="scadenza.modello">{{scadenza.marche}}</span><span>{{' - ' + scadenza.tipo + ' - ' + (scadenza.data|date:'dd/MM/y')}}</span>
+  <mat-divider *ngIf="scadenzePersonaFlat && scadenzeAereiFlat && scadenzePersonaFlat.length > 0 && scadenzeAereiFlat.length > 0"></mat-divider>
+  <button mat-menu-item *ngFor="let scadenza of scadenzeAereiFlat" [ngClass]="{'scaduta': scadenza.scaduta}">
+    <mat-icon [ngClass]="{'scaduta': scadenza.scaduta}">airplane_ticket</mat-icon>
+    <span [matTooltip]="scadenza.modello">
+      {{scadenza.marche + ' - ' + scadenza.tipo + 
+      (scadenza.data ? ' - ' + (scadenza.data|date:'dd/MM/y') :'') + 
+      (scadenza.minutiScadenza ? ' - ' + ((scadenza.minutiScadenza / 60)|number:'.0-2') + ' ' + ('toolbar.ore'|translate) : '')}}
+    </span>
   </button>
 </mat-menu>
