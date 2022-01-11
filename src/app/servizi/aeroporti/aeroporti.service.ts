@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpService } from './../http.service/http.service';
-import { Persona } from 'src/app/viewmodels/persona';
+
+import { HttpService } from '../http/http.service';
+import { Aeroporto } from '../../viewmodels/aeroporto';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersoneService extends HttpService<Persona>{
+export class AeroportiService extends HttpService<Aeroporto>{
 
   constructor(protected override httpClient: HttpClient) {
     super(httpClient);
    }
 
    getResourceUrl(): string {
-    return '/api/persone';
+    return '/api/aeroporti';
   }
 }

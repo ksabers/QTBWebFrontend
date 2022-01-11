@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Aeroporto } from 'src/app/viewmodels/aeroporto';
-import { AeroportiService } from '../../servizi/aeroporti.service/aeroporti.service';
+import { AeroportiService } from '../../servizi/aeroporti/aeroporti.service';
 import { AeroportiDettaglioComponent } from './aeroporti-dettaglio/aeroporti-dettaglio.component';
 
 @Component({

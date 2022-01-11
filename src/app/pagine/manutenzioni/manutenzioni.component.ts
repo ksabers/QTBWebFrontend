@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Manutenzione } from 'src/app/viewmodels/manutenzione';
-import { ManutenzioniService } from '../../servizi/manutenzioni.service/manutenzioni.service';
+import { ManutenzioniService } from '../../servizi/manutenzioni/manutenzioni.service';
 import { ManutenzioniDettaglioComponent } from './manutenzioni-dettaglio/manutenzioni-dettaglio.component';
 
 @Component({

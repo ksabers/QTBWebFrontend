@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { HttpService } from '../http.service/http.service';
+import { HttpService } from '../http/http.service';
 import { Scadenza } from '../../viewmodels/scadenze/scadenza';
 
 @Injectable({

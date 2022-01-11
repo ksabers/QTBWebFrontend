@@ -4,7 +4,7 @@ import { latLng, LatLngBounds, latLngBounds, tileLayer, Map, marker, Marker, ico
 
 import { environment } from './../../../../environments/environment';
 import { Volo } from './../../../viewmodels/voli/volo';
-import { UtilsService } from './../../../servizi/utils.service/utils.service';
+import { UtilsService } from '../../../servizi/utils/utils.service';
 
 @Component({
   selector: 'app-voli-dettaglio',

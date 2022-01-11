@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Persona } from 'src/app/viewmodels/persona';
 import { PersoneDettaglioComponent } from './persone-dettaglio/persone-dettaglio.component';
-import { PersoneService } from './../../servizi/persone.service/persone.service';
+import { PersoneService } from '../../servizi/persone/persone.service';
 
 @Component({
   selector: 'app-persone',

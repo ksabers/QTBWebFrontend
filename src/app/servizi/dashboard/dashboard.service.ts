@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { HttpService } from './../http.service/http.service';
-import { OreDiVoloPerPilota } from './../../viewmodels/dashboard/oreDiVoloPerPilota';
-import { OreDiVoloPerAereo } from './../../viewmodels/dashboard/oreDiVoloPerAereo';
+import { HttpService } from '../http/http.service';
+import { OreDiVoloPerPilota } from '../../viewmodels/dashboard/oreDiVoloPerPilota';
+import { OreDiVoloPerAereo } from '../../viewmodels/dashboard/oreDiVoloPerAereo';
 
 @Injectable({
   providedIn: 'root'

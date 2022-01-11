@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { TipiAeroportiService } from './../../../servizi/tipi-aeroporti.service/tipi-aeroporti.service';
+import { TipiAeroportiService } from '../../../servizi/tipi-aeroporti/tipi-aeroporti.service';
 import { TipoAeroporto } from './../../../viewmodels/tipi-aeroporti/tipo-aeroporto';
 import { AeroportiAddForm } from './aeroporti-add-form';
 import { Aeroporto } from './../../../viewmodels/aeroporto';
-import { UtilsService } from './../../../servizi/utils.service/utils.service';
-import { AeroportiService } from './../../../servizi/aeroporti.service/aeroporti.service';
+import { UtilsService } from '../../../servizi/utils/utils.service';
+import { AeroportiService } from '../../../servizi/aeroporti/aeroporti.service';
 
 // Validatore custom che controlla che i campi delle coordinate siano o tutti pieni
 // o tutti vuoti. Viene applicato a livello di form 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { HttpService } from './../http.service/http.service';
+import { HttpService } from '../http/http.service';
 import { Aereo } from '../../viewmodels/aerei/aereo';
 
 @Injectable({

@@ -5,11 +5,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthenticationService } from './../../../auth/auth.service';
-import { AereiService } from './../../../servizi/aerei.service/aerei.service';
-import { PersoneService } from './../../../servizi/persone.service/persone.service';
-import { AeroportiService } from './../../../servizi/aeroporti.service/aeroporti.service';
-import { VoliService } from './../../../servizi/voli.service/voli.service';
-import { UtilsService } from './../../../servizi/utils.service/utils.service';
+import { AereiService } from '../../../servizi/aerei/aerei.service';
+import { PersoneService } from '../../../servizi/persone/persone.service';
+import { AeroportiService } from '../../../servizi/aeroporti/aeroporti.service';
+import { VoliService } from '../../../servizi/voli/voli.service';
+import { UtilsService } from '../../../servizi/utils/utils.service';
 import { Aereo } from '../../../viewmodels/aerei/aereo';
 import { Persona } from './../../../viewmodels/persona';
 import { Aeroporto } from './../../../viewmodels/aeroporto';

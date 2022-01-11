@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { UtilsService } from 'src/app/servizi/utils.service/utils.service';
+import { UtilsService } from 'src/app/servizi/utils/utils.service';
 import { ScadenzaGenerica } from 'src/app/viewmodels/scadenze/scadenzaGenerica';
 import { environment } from 'src/environments/environment';
 

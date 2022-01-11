@@ -14,7 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { PaginatorIntlService } from './servizi/paginator.international.service/paginator.international.service';
+import { PaginatorIntlService } from './servizi/paginator.international/paginator.international.service';
 
 @NgModule({
   declarations: [

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { environment } from './../../../../environments/environment';
 import { Aeroporto } from './../../../viewmodels/aeroporto';
-import { UtilsService } from './../../../servizi/utils.service/utils.service';
+import { UtilsService } from '../../../servizi/utils/utils.service';
 
 import { latLng, tileLayer, Map, marker, Marker, icon, MapOptions } from 'leaflet';
 

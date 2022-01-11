@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Volo } from 'src/app/viewmodels/voli/volo';
 import { VoliDettaglioComponent } from './voli-dettaglio/voli-dettaglio.component';
-import { VoliService } from '../../servizi/voli.service/voli.service';
+import { VoliService } from '../../servizi/voli/voli.service';
 
 @Component({
   selector: 'app-voli',

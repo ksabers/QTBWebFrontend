@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from './../../../environments/environment';
-import { DashboardOreDiVoloPerPilotaService, DashboardOreDiVoloPerAereoService } from '../../servizi/dashboard.service/dashboard.service';
+import { DashboardOreDiVoloPerPilotaService, DashboardOreDiVoloPerAereoService } from '../../servizi/dashboard/dashboard.service';
 import { OreDiVoloPerAereo } from './../../viewmodels/dashboard/oreDiVoloPerAereo';
 import { OreDiVoloPerPilota } from './../../viewmodels/dashboard/oreDiVoloPerPilota';
 
