@@ -19,6 +19,9 @@ import { ManutenzioniDettaglioComponent } from './manutenzioni/manutenzioni-dett
 
 import { VoliAddComponent } from './voli/voli-add/voli-add.component';
 import { AeroportiAddComponent } from './aeroporti/aeroporti-add/aeroporti-add.component';
+import { PersoneAddComponent } from './persone/persone-add/persone-add.component';
+import { AereiAddComponent } from './aerei/aerei-add/aerei-add.component';
+import { ManutenzioniAddComponent } from './manutenzioni/manutenzioni-add/manutenzioni-add.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { AeroportiAddComponent } from './aeroporti/aeroporti-add/aeroporti-add.c
     VoliAddComponent,
     AeroportiDettaglioComponent,
     ManutenzioniDettaglioComponent,
-    AeroportiAddComponent
+    AeroportiAddComponent,
+    PersoneAddComponent,
+    AereiAddComponent,
+    ManutenzioniAddComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +62,10 @@ import { AeroportiAddComponent } from './aeroporti/aeroporti-add/aeroporti-add.c
     AeroportiDettaglioComponent,
     ManutenzioniComponent,
     ScadenzeComponent,
-    ManutenzioniDettaglioComponent
+    ManutenzioniDettaglioComponent,
+    PersoneAddComponent,
+    AereiAddComponent,
+    ManutenzioniAddComponent
   ]
 })
 export class PagineModule { }

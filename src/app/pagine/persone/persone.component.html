@@ -40,7 +40,13 @@
     </ng-container>
 
     <ng-container matColumnDef="dettagli" >
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayoutAlign="end center">
+          <button mat-icon-button color="primary" [routerLink]="'/persone-add'" [matTooltip]="'persone.nuova_persona'|translate">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let persona" >
         <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >
           <button mat-icon-button color="primary" (click)="apriDettagli(persona)" [matTooltip]="'persone.dettagli'|translate"><mat-icon>info</mat-icon></button>

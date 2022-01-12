@@ -12,6 +12,9 @@ import { AeroportiComponent } from './pagine/aeroporti/aeroporti.component';
 import { ManutenzioniComponent } from './pagine/manutenzioni/manutenzioni.component';
 import { ScadenzeComponent } from './pagine/scadenze/scadenze.component';
 import { AeroportiAddComponent } from './pagine/aeroporti/aeroporti-add/aeroporti-add.component';
+import { PersoneAddComponent } from './pagine/persone/persone-add/persone-add.component';
+import { AereiAddComponent } from './pagine/aerei/aerei-add/aerei-add.component';
+import { ManutenzioniAddComponent } from './pagine/manutenzioni/manutenzioni-add/manutenzioni-add.component';
 
 
 const routes: Routes = [
@@ -48,6 +51,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'aerei-add',
+    component: AereiAddComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
     path: 'aeroporti',
     component: AeroportiComponent,
     canActivate: [AuthGuard]
@@ -60,8 +69,20 @@ const routes: Routes = [
   },
 
   {
+    path: 'persone-add',
+    component: PersoneAddComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
     path: 'manutenzioni',
     component: ManutenzioniComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'manutenzioni-add',
+    component: ManutenzioniAddComponent,
     canActivate: [AuthGuard]
   },
 

@@ -31,7 +31,13 @@
     </ng-container>
 
     <ng-container matColumnDef="dettagli" >
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayoutAlign="end center">
+          <button mat-icon-button color="primary" [routerLink]="'/aerei-add'" [matTooltip]="'aerei.nuovo_aereo'|translate">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let aereo">
         <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >
           <button mat-icon-button color="primary" (click)="apriDettagli(aereo)" [matTooltip]="'aerei.dettagli'|translate"><mat-icon>info</mat-icon></button>
