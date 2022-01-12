@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './../http/http.service';
-import { Persona } from 'src/app/viewmodels/persona';
+import { Persona } from 'src/app/viewmodels/persone/persona';
 
 @Injectable({
   providedIn: 'root'

@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from './../../environments/environment';
-import { Utente } from './../viewmodels/utente';
-import { Login } from './../viewmodels/login';
+import { Utente } from '../viewmodels/login/utente';
+import { Login } from '../viewmodels/login/login';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {

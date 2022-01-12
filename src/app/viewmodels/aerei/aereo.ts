@@ -1,4 +1,4 @@
-import { Proprietario } from '../proprietario';
+import { Proprietario } from '../persone/proprietario';
 import { Volo } from '../voli/volo';
 
 export class Aereo {

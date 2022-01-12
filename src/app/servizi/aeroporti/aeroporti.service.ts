@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { HttpService } from '../http/http.service';
-import { Aeroporto } from '../../viewmodels/aeroporto';
+import { Aeroporto } from '../../viewmodels/aeroporti/aeroporto';
 
 @Injectable({
   providedIn: 'root'

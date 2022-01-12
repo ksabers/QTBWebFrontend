@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Persona } from 'src/app/viewmodels/persona';
+import { Persona } from 'src/app/viewmodels/persone/persona';
 import { PersoneDettaglioComponent } from './persone-dettaglio/persone-dettaglio.component';
 import { PersoneService } from '../../servizi/persone/persone.service';
 

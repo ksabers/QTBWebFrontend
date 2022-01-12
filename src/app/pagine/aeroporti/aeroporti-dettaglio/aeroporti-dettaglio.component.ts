@@ -2,7 +2,7 @@ import { Component,  Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { environment } from './../../../../environments/environment';
-import { Aeroporto } from './../../../viewmodels/aeroporto';
+import { Aeroporto } from '../../../viewmodels/aeroporti/aeroporto';
 import { UtilsService } from '../../../servizi/utils/utils.service';
 
 import { latLng, tileLayer, Map, marker, Marker, icon, MapOptions } from 'leaflet';

@@ -1,4 +1,4 @@
-import { AereoPosseduto } from './aerei/aereo-posseduto';
+import { AereoPosseduto } from '../aerei/aereo-posseduto';
 
 export class Persona {
   id: number;

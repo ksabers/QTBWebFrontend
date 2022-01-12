@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 
 import {TranslateService} from '@ngx-translate/core';
 import { AuthenticationService } from './auth/auth.service';
-import { Utente } from './viewmodels/utente';
+import { Utente } from './viewmodels/login/utente';
 
 import { environment } from 'src/environments/environment';
 

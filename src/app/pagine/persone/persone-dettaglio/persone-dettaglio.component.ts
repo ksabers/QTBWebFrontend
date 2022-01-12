@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Persona } from 'src/app/viewmodels/persona';
+import { Persona } from 'src/app/viewmodels/persone/persona';
 
 @Component({
   selector: 'app-persone-dettaglio',

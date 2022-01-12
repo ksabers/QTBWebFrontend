@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TipiAeroportiService } from '../../../servizi/tipi-aeroporti/tipi-aeroporti.service';
 import { TipoAeroporto } from './../../../viewmodels/tipi-aeroporti/tipo-aeroporto';
 import { AeroportiAddForm } from './aeroporti-add-form';
-import { Aeroporto } from './../../../viewmodels/aeroporto';
+import { Aeroporto } from '../../../viewmodels/aeroporti/aeroporto';
 import { UtilsService } from '../../../servizi/utils/utils.service';
 import { AeroportiService } from '../../../servizi/aeroporti/aeroporti.service';
 
