@@ -23,6 +23,7 @@ import { PersoneAddComponent } from './persone/persone-add/persone-add.component
 import { AereiAddComponent } from './aerei/aerei-add/aerei-add.component';
 import { ManutenzioniAddComponent } from './manutenzioni/manutenzioni-add/manutenzioni-add.component';
 import { Min2hhmmPipe } from '../shared/min2hhmm.pipe/min2hhmm.pipe';
+import { ScadenzeAddComponent } from './scadenze/scadenze-add/scadenze-add.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { Min2hhmmPipe } from '../shared/min2hhmm.pipe/min2hhmm.pipe';
     AeroportiAddComponent,
     PersoneAddComponent,
     AereiAddComponent,
-    ManutenzioniAddComponent
+    ManutenzioniAddComponent,
+    ScadenzeAddComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +68,8 @@ import { Min2hhmmPipe } from '../shared/min2hhmm.pipe/min2hhmm.pipe';
     ManutenzioniDettaglioComponent,
     PersoneAddComponent,
     AereiAddComponent,
-    ManutenzioniAddComponent
+    ManutenzioniAddComponent,
+    ScadenzeAddComponent
   ],
   providers: [Min2hhmmPipe]
 })

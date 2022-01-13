@@ -15,6 +15,7 @@ import { AeroportiAddComponent } from './pagine/aeroporti/aeroporti-add/aeroport
 import { PersoneAddComponent } from './pagine/persone/persone-add/persone-add.component';
 import { AereiAddComponent } from './pagine/aerei/aerei-add/aerei-add.component';
 import { ManutenzioniAddComponent } from './pagine/manutenzioni/manutenzioni-add/manutenzioni-add.component';
+import { ScadenzeAddComponent } from './pagine/scadenze/scadenze-add/scadenze-add.component';
 
 
 const routes: Routes = [
@@ -89,6 +90,12 @@ const routes: Routes = [
   {
     path: 'scadenze',
     component: ScadenzeComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'scadenze-add',
+    component: ScadenzeAddComponent,
     canActivate: [AuthGuard]
   },
 
