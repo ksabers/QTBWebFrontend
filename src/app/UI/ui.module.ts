@@ -7,13 +7,15 @@ import { MainComponent } from './main/main.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { LoginComponent } from '../UI/login/login.component';
+import { ProfiloComponent } from './profilo/profilo.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     SidebarComponent,
     ToolbarComponent,
-    LoginComponent
+    LoginComponent,
+    ProfiloComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { LoginComponent } from '../UI/login/login.component';
     MainComponent,
     SidebarComponent,
     ToolbarComponent,
-    LoginComponent
+    LoginComponent,
+    ProfiloComponent
   ]
 })
 export class UIModule { }

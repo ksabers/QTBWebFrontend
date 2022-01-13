@@ -44,7 +44,7 @@
 </mat-menu>
 
 <mat-menu #menuUtente="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="apri_profilo()">
     <mat-icon>manage_accounts</mat-icon>{{'toolbar.profilo'|translate}}
   </button>
   <mat-divider></mat-divider>

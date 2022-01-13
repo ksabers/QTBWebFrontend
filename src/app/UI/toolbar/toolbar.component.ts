@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { UtilsService } from 'src/app/servizi/utils/utils.service';
-import { ScadenzaGenerica } from 'src/app/viewmodels/scadenze/scadenzaGenerica';
-import { environment } from 'src/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
 
+import { UtilsService } from './../../servizi/utils/utils.service';
+import { environment } from './../../../environments/environment';
 import { AuthenticationService } from './../../auth/auth.service';
 import { ScadenzeService } from './../../servizi/scadenze/scadenze.service';
-
-
+import { ProfiloComponent } from '../profilo/profilo.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -45,6 +44,7 @@ export class ToolbarComponent implements OnInit {
   constructor(private translate: TranslateService,
               private auth: AuthenticationService,
               private scadenzeAPI: ScadenzeService,
+              private dialog: MatDialog,
               private utils: UtilsService) {
     this.lingua = this.translate.currentLang;
     this.nomeLingua = environment.linguaggi.find(lingua => lingua.codice == this.translate.currentLang).nome;
@@ -152,6 +152,10 @@ export class ToolbarComponent implements OnInit {
       this.notifiche = this.scadenzePersonaFlat.length + this.scadenzeAereiFlat.length;
       this.loading = false;
     });
+  }
+
+  apri_profilo(): void {
+    const dialogRef = this.dialog.open(ProfiloComponent);
   }
 
   logout(): void {
