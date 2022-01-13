@@ -149,7 +149,6 @@ export class ToolbarComponent implements OnInit {
           )
           );
 
-      console.log(JSON.stringify(this.scadenzePersonaFlat));
       this.notifiche = this.scadenzePersonaFlat.length + this.scadenzeAereiFlat.length;
       this.loading = false;
     });

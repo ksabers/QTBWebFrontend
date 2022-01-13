@@ -59,7 +59,7 @@
     <span>
       {{scadenza.tipo + 
         (scadenza.data ? ' - ' + (scadenza.data|date:'dd/MM/y') : '') + 
-        (scadenza.minuti ? ' - ' + ((scadenza.minuti / 60)|number:'.0-2') + ' ' + ('toolbar.ore'|translate) : '')}}
+        (scadenza.minuti ? ' - ' + (scadenza.minuti|min2hhmm) + ' ' + ('toolbar.ore'|translate) : '')}}
     </span>
   </button>
   <mat-divider *ngIf="scadenzePersonaFlat && scadenzeAereiFlat && scadenzePersonaFlat.length > 0 && scadenzeAereiFlat.length > 0"></mat-divider>

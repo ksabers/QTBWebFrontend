@@ -22,6 +22,7 @@ import { AeroportiAddComponent } from './aeroporti/aeroporti-add/aeroporti-add.c
 import { PersoneAddComponent } from './persone/persone-add/persone-add.component';
 import { AereiAddComponent } from './aerei/aerei-add/aerei-add.component';
 import { ManutenzioniAddComponent } from './manutenzioni/manutenzioni-add/manutenzioni-add.component';
+import { Min2hhmmPipe } from '../shared/min2hhmm.pipe/min2hhmm.pipe';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ManutenzioniAddComponent } from './manutenzioni/manutenzioni-add/manute
     PersoneAddComponent,
     AereiAddComponent,
     ManutenzioniAddComponent
-  ]
+  ],
+  providers: [Min2hhmmPipe]
 })
 export class PagineModule { }

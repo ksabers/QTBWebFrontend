@@ -5,7 +5,7 @@
 <mat-card *ngIf="!loading">
   <mat-card-content>
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <mat-form-field class="example-full-width" appearance="standard">
+      <mat-form-field appearance="standard">
         <mat-label>{{'persone.filtra'|translate}}</mat-label>
         <input matInput autocomplete="off" placeholder="" (keyup)="applyFilter($event)">
       </mat-form-field>

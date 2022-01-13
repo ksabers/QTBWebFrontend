@@ -6,6 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class Min2hhmmPipe implements PipeTransform {
 
   transform(minuti: number): string {
-    return Math.trunc(minuti / 60) + ':' + (minuti % 60);
+    let ore = Math.trunc(minuti / 60);
+    let resto = minuti % 60;
+    if (resto == 0) {
+      return ore.toString();
+    }
+    else {
+      return ore + ':' + Math.abs(resto);
+    }
   }
 }

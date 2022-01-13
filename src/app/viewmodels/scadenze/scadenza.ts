@@ -1,3 +1,4 @@
+import { ScadenzeAereo } from "./scadenzeAereo";
 import { ScadenzaGenerica } from "./scadenzaGenerica";
 
 export class Scadenza {
@@ -7,14 +8,5 @@ export class Scadenza {
   minutiPregressi: number;
   minutiVoloDaPilota: number;
   scadenzePersona: ScadenzaGenerica[];
-  scadenzeAerei: [
-    {
-      aereo: number,
-      modello: string,
-      marche: string,
-      minutiPregressi: number,
-      minutiVolo: number,
-      scadenzeAereo: ScadenzaGenerica[]
-    }
-  ];
+  scadenzeAerei: ScadenzeAereo[];
 }
