@@ -18,7 +18,7 @@
                       fxFlexFill
                       fxLayoutGap="20px grid">
 
-                      <mat-form-field fxFlex="33">
+                    <mat-form-field fxFlex="33">
                         <mat-label>{{'voli_add.aereo'|translate}}</mat-label>
                         <mat-select formControlName="aereoSelect"
                             (selectionChange)="cambiaAereo()">
@@ -147,7 +147,17 @@
                         </div>
                     </div>
 
-                    <mat-form-field fxFlex="50">
+                    <mat-form-field fxFlex="34">
+                        <mat-label>{{'voli_add.tipo_volo'|translate}}</mat-label>
+                        <mat-select formControlName="tipoVoloSelect">
+                            <mat-option *ngFor="let tipo of listaTipiVoli"[value]="tipo">
+                                {{tipo.descrizione}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'voli_add.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="33">
                         <mat-label>{{'voli_add.decollo_da'|translate}}</mat-label>
                         <mat-select formControlName="aeroportoDecolloSelect">
                             <mat-option *ngFor="let aeroporto of listaAeroporti" [value]="aeroporto">
@@ -157,7 +167,7 @@
                         <mat-error>{{'voli_add.errore_campo_obbligatorio'|translate}}</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex="50">
+                    <mat-form-field fxFlex="33">
                         <mat-label>{{'voli_add.atterraggio_a'|translate}}</mat-label>
                         <mat-select formControlName="aeroportoAtterraggioSelect">
                             <mat-option *ngFor="let aeroporto of listaAeroporti" [value]="aeroporto">

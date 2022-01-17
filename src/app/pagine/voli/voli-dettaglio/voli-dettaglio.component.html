@@ -34,21 +34,26 @@
                                        ('voli.nessuno'|translate)"/>
                     </mat-form-field>
 
-                    <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="25">
+                        <input matInput disabled [placeholder]="'voli_dettaglio.tipo_volo'|translate" 
+                               [value]="volo.tipoVolo"/>
+                      </mat-form-field>
+
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="25">
                         <input matInput disabled [placeholder]="'voli_dettaglio.ora_decollo'|translate"
                                [value]="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y') ? 
                                         (volo.oraInizio|date:'dd/MM/y') + ' - ' + volo.oraLocaleDecollo : 
                                         volo.oraLocaleDecollo"/>
                     </mat-form-field>
 
-                    <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="25">
                         <input matInput disabled [placeholder]="'voli_dettaglio.ora_atterraggio'|translate"
                                [value]="(volo.oraInizio|date:'dd/MM/y')!= (volo.oraFine|date:'dd/MM/y') ? 
                                (volo.oraFine|date:'dd/MM/y') + ' - ' + volo.oraLocaleAtterraggio : 
                                volo.oraLocaleAtterraggio"/>
                     </mat-form-field>
 
-                    <mat-form-field floatLabel="always" class="static-text" fxFlex="33">
+                    <mat-form-field floatLabel="always" class="static-text" fxFlex="25">
                         <input matInput disabled [placeholder]="'voli_dettaglio.durata'|translate"
                                [value]="volo.durata"/>
                     </mat-form-field>

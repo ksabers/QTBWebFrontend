@@ -1,6 +1,8 @@
 export class Volo {
   id: number;
   descrizione: string;
+  idTipoVolo: number;
+  tipoVolo: string;
   idAereo: number;
   modello: string;
   marche: string;

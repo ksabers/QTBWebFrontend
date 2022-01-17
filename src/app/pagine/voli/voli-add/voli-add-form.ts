@@ -1,4 +1,5 @@
 import { Validators } from '@angular/forms';
+
 import { UtilsService } from '../../../servizi/utils/utils.service';
 import { environment } from './../../../../environments/environment';
 
@@ -13,6 +14,7 @@ public get campi() {
     aereoSelect:                ['',                         [Validators.required]],
     pilotaSelect:               ['',                         [Validators.required]],
     passeggeroSelect:           ['',                         []],
+    tipoVoloSelect:             [null,                       []],
     dataOraAtterraggioInput:    [this.utils.LocalDateTime(), [Validators.required]],
     oreDecolloInput:            ['',                         [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
     minutiDecolloInput:         ['',                         [Validators.required,

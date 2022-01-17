@@ -8,6 +8,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { LoginComponent } from '../UI/login/login.component';
 import { ProfiloComponent } from './profilo/profilo.component';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ProfiloComponent } from './profilo/profilo.component';
     SidebarComponent,
     ToolbarComponent,
     LoginComponent,
-    ProfiloComponent
+    ProfiloComponent,
+    InfoComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { ProfiloComponent } from './profilo/profilo.component';
     SidebarComponent,
     ToolbarComponent,
     LoginComponent,
-    ProfiloComponent
+    ProfiloComponent,
+    InfoComponent
   ]
 })
 export class UIModule { }

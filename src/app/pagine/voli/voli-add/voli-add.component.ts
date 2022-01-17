@@ -9,14 +9,16 @@ import { AereiService } from '../../../servizi/aerei/aerei.service';
 import { PersoneService } from '../../../servizi/persone/persone.service';
 import { AeroportiService } from '../../../servizi/aeroporti/aeroporti.service';
 import { VoliService } from '../../../servizi/voli/voli.service';
+import { TipiVoliService } from 'src/app/servizi/tipi-voli/tipi-voli.service';
 import { UtilsService } from '../../../servizi/utils/utils.service';
 import { Aereo } from '../../../viewmodels/aerei/aereo';
 import { Persona } from '../../../viewmodels/persone/persona';
 import { Aeroporto } from '../../../viewmodels/aeroporti/aeroporto';
 import { Volo } from './../../../viewmodels/voli/volo';
+import { TipoVolo } from './../../../viewmodels/tipi-voli/tipo-volo';
 import { environment } from './../../../../environments/environment';
 import { VoliAddForm } from './voli-add-form';
-
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 // Validatore custom che controlla che l'orametro finale sia successivo all'orametro iniziale
@@ -52,6 +54,7 @@ export class VoliAddComponent implements OnInit {
   listaPiloti: Persona[];
   listaPasseggeri: Persona[];
   listaAeroporti: Aeroporto[];
+  listaTipiVoli: TipoVolo[];
 
   oraLocaleDecollo: string;
   oraLocaleAtterraggio: string;
@@ -73,6 +76,7 @@ export class VoliAddComponent implements OnInit {
               private aereiAPI: AereiService,
               private personeAPI: PersoneService,
               private aeroportiAPI: AeroportiService,
+              private tipiVoliAPI: TipiVoliService,
               private voliAPI: VoliService,
               private _snackBar: MatSnackBar,
               private fb: FormBuilder,
@@ -85,26 +89,29 @@ export class VoliAddComponent implements OnInit {
     const form = new VoliAddForm(this.utils);
     this.addVoloForm = this.fb.group(form.campi, {
       validators: [ValidatoreOrametro, ValidatorePasseggero] // questi sono i validatori a livello di form
-    });  
- 
-    this.aereiAPI.getList().subscribe(data => {
-      this.listaAerei = data;
-      this.personeAPI.getList().subscribe(data => {
-        this.listaPiloti = data.filter(persona => persona.pilota == true);
-        this.listaPasseggeri = data;
-        this.aeroportiAPI.getList().subscribe(data => {
-          this.listaAeroporti = data;
+    });
 
-          // Se l'utente collegato è un pilota, lo seleziona
-          let pilotaCorrente = this.listaPiloti.find(pilota => pilota.id === this.auth.currentUserValue.persona);
-          if (pilotaCorrente) {
-            this.addVoloForm.patchValue({
-              pilotaSelect: pilotaCorrente
-            });  
-          }
-          this.loading = false;  // toglie lo spinner
-        });
-      });      
+    this.tipiVoliAPI.getList().subscribe(data => {
+      this.listaTipiVoli = data;
+      this.aereiAPI.getList().subscribe(data => {
+        this.listaAerei = data;
+        this.personeAPI.getList().subscribe(data => {
+          this.listaPiloti = data.filter(persona => persona.pilota == true);
+          this.listaPasseggeri = data;
+          this.aeroportiAPI.getList().subscribe(data => {
+            this.listaAeroporti = data;
+
+            // Se l'utente collegato è un pilota, lo seleziona
+            let pilotaCorrente = this.listaPiloti.find(pilota => pilota.id === this.auth.currentUserValue.persona);
+            if (pilotaCorrente) {
+              this.addVoloForm.patchValue({
+                pilotaSelect: pilotaCorrente
+              });  
+            }
+            this.loading = false;  // toglie lo spinner
+          });
+        });      
+    });
     });
   }
 
@@ -193,6 +200,7 @@ export class VoliAddComponent implements OnInit {
     let nuovoVolo = new Volo();
 
     nuovoVolo.descrizione =  this.addVoloForm.get('descrizioneInput').value || '';
+    nuovoVolo.idTipoVolo = this.addVoloForm.get('tipoVoloSelect').value ? this.addVoloForm.get('tipoVoloSelect').value.id : this.listaTipiVoli[0].id;
     nuovoVolo.idAereo = this.addVoloForm.get('aereoSelect').value.id || null;
     nuovoVolo.idPilota = this.addVoloForm.get('pilotaSelect').value.id || null;
     nuovoVolo.idPasseggero = this.addVoloForm.get('passeggeroSelect').value.id ? this.addVoloForm.get('passeggeroSelect').value.id : null;
