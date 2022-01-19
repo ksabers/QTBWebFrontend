@@ -16,6 +16,9 @@ import { AppComponent } from './app.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { PaginatorIntlService } from './servizi/paginator.international/paginator.international.service';
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { environment } from './../environments/environment'
+
 @NgModule({
   declarations: [
     AppComponent
@@ -46,7 +49,9 @@ import { PaginatorIntlService } from './servizi/paginator.international/paginato
         return service;
       },
       deps: [TranslateService]
-    }
+    },
+    { provide: MAT_DATE_LOCALE,
+      useValue: environment.linguaggi[0].codice }  // questo serve per impostare la lingua dei datepicker
   ],
   exports: [TranslateModule],
   bootstrap: [AppComponent]

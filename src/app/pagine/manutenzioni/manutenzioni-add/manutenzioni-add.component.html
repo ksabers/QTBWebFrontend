@@ -18,11 +18,11 @@
                       fxFlexFill
                       fxLayoutGap="20px grid">
 
-                      <mat-form-field fxFlex="25">
+                    <mat-form-field fxFlex="25">
                         <mat-label>{{'manutenzioni_add.aereo'|translate}}</mat-label>
-                        <mat-select formControlName="aereoSelect">
+                        <mat-select formControlName="aereoSelect" (selectionChange)="filtraListaVoli()">
                             <mat-option *ngFor="let aereo of listaAerei" [value]="aereo">
-                                {{aereo.marche + ' - ' + aereo.modello}}
+                            {{aereo.marche + ' - ' + aereo.modello}}
                             </mat-option>
                         </mat-select>
                         <mat-error>{{'manutenzioni_add.errore_campo_obbligatorio'|translate}}</mat-error>
@@ -38,8 +38,8 @@
                         <mat-error>{{'manutenzioni_add.errore_campo_obbligatorio'|translate}}</mat-error>
                     </mat-form-field>
 
-                    <mat-radio-group fxFlex="25" formControlName="manutenzioneOrdinariaRadio">
-                        <mat-radio-button [value]="true">{{'manutenzioni_add.ordinaria'|translate}}</mat-radio-button>
+                    <mat-radio-group fxFlex="25" formControlName="manutenzioneOrdinariaRadio" color="primary" class="verticale">
+                        <mat-radio-button [value]="true" class="not-last">{{'manutenzioni_add.ordinaria'|translate}}</mat-radio-button>
                         <mat-radio-button [value]="false">{{'manutenzioni_add.straordinaria'|translate}}</mat-radio-button>
                     </mat-radio-group>
 
@@ -50,8 +50,59 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
 
+                    <mat-form-field fxFlex="25">
+                        <mat-label>{{'manutenzioni_add.effettuata_da'|translate}}</mat-label>
+                        <mat-select formControlName="personaSelect">
+                            <mat-option *ngFor="let persona of listaPersone" [value]="persona">
+                            {{persona.nome + ' ' + persona.cognome}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="25">
+                        <mat-label>{{'manutenzioni_add.volo'|translate}}</mat-label>
+                        <mat-select formControlName="voloSelect">
+                            <mat-option *ngFor="let volo of listaVoliFiltrata" [value]="volo">
+                            {{volo.id + ' - ' + (volo.oraInizio|date:'dd/MM/y')}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="50">
+                        <mat-label>{{'manutenzioni_add.descrizione'|translate}}</mat-label>
+                        <textarea matInput formControlName="descrizioneInput" rows="2" maxlength="4000"></textarea>
+                        <mat-hint>
+                            {{4000 - addManutenzioneForm.get('descrizioneInput').value.toString().length + 
+                              ' ' + ('manutenzioni_add.caratteri_rimanenti'|translate)}}
+                        </mat-hint>
+                        <mat-error>{{'manutenzioni_add.errore_descrizione_troppo_lunga'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-radio-group class="orizzontale" color="primary" formControlName="scadenzaRadio" fxFlex="100">
+                        <label>{{'manutenzioni_add.inserimento_scadenza'|translate}}</label>
+                        <mat-radio-button [value]="true" class="not-last">{{'manutenzioni_add.si'|translate}}</mat-radio-button>
+                        <mat-radio-button [value]="false">{{'manutenzioni_add.no'|translate}}</mat-radio-button>
+                    </mat-radio-group>
+
+                    <div *ngIf="addManutenzioneForm.value.scadenzaRadio">
+
+                    </div>
+
                 </form>
             </div>
         </mat-card-content>
+
+        <mat-card-actions *ngIf="!loading">
+            <div fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button (click)="tornaPaginaManutenzioni()">{{'manutenzioni_add.annulla'|translate}}</button>
+                <button mat-raised-button color="primary" [disabled]="addManutenzioneForm.invalid || submitted" (click)="submitForm()">
+                    <span *ngIf="!submitting">{{'manutenzioni_add.inserisci_manutenzione'|translate}}</span>
+                    <span *ngIf="submitting" fxLayout="row" fxLayoutAlign="center center" style="width:82px">
+                        <mat-spinner [diameter]="36" color="accent"></mat-spinner>
+                    </span>
+                </button>
+            </div>
+        </mat-card-actions>
+
     </mat-card>
 </div>

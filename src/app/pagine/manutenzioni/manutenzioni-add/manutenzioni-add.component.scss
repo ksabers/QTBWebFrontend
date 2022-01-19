@@ -18,10 +18,21 @@
     color: red;
   }
 
-  mat-radio-group {
+  mat-radio-group.verticale {
     display: flex;
     flex-direction: column;
-    margin: 15px 0;
     align-items: flex-start;
+    mat-radio-button.not-last {
+      margin-bottom: 2px;
+    }
   }
-  
+
+  mat-radio-group.orizzontale {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    label {margin-right: 10px}
+    mat-radio-button.not-last {
+      margin-right: 20px;
+    }
+  }

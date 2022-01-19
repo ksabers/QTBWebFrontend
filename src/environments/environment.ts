@@ -15,7 +15,7 @@ export const environment = {
   densitaCarburante: 0.75,
   linguaggi:
   [
-    {codice: 'it-IT', nome: 'Italiano'},
+    {codice: 'it-IT', nome: 'Italiano'},  // il primo linguaggio è quello di default
     {codice: 'en-US', nome: 'English'}
   ],
   mappa: {
