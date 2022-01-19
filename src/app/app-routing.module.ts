@@ -41,6 +41,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'voli/:id',
+    component: VoliComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
     path: 'voli-add',
     component: VoliAddComponent,
     canActivate: [AuthGuard]

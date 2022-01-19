@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router'
+
 import { Volo } from 'src/app/viewmodels/voli/volo';
 import { VoliDettaglioComponent } from './voli-dettaglio/voli-dettaglio.component';
 import { VoliService } from '../../servizi/voli/voli.service';
@@ -17,6 +19,7 @@ export class VoliComponent implements OnInit {
   loading = true;
   datasource = new MatTableDataSource<Volo>();
   valoriTabella: Volo[];
+  idVoloParametro: number;
 
   // ATTENZIONE: paginator e sort devono essere fatti come proprietà (con il set)
   // altrimenti non funzionano!
@@ -36,14 +39,19 @@ export class VoliComponent implements OnInit {
   columnsToDisplay = ['id', 'aereo', 'pilota', 'passeggero', 'data', 'durata', 'decollo', 'atterraggio', 'dettagli'];
 
   constructor(private voliAPI: VoliService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
+    this.idVoloParametro = +this.route.snapshot.paramMap.get('id');  //operatore unario per convertire string in number
     this.voliAPI.getList().subscribe(data => {
       this.datasource.data = data;
       this.valoriTabella = data;
       this.loading = false;
+      if (this.idVoloParametro) {
+        this.apriDettagli(this.valoriTabella.find(volo => volo.id == this.idVoloParametro));
+      }
     });
 
     // trucco per far funzionare il sorting quando le colonne si chiamano in modo diverso

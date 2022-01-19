@@ -3,9 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { VoliService } from '../../servizi/voli/voli.service';
 import { Manutenzione } from 'src/app/viewmodels/manutenzioni/manutenzione';
 import { ManutenzioniService } from '../../servizi/manutenzioni/manutenzioni.service';
 import { ManutenzioniDettaglioComponent } from './manutenzioni-dettaglio/manutenzioni-dettaglio.component';
+import { VoliDettaglioComponent } from '../voli/voli-dettaglio/voli-dettaglio.component';
 
 @Component({
   selector: 'app-manutenzioni',
@@ -33,9 +36,10 @@ export class ManutenzioniComponent implements OnInit {
     }
   }
 
-  columnsToDisplay = ['data', 'descrizione', 'aereo', 'persona', 'dettagli'];
+  columnsToDisplay = ['data', 'aereo', 'descrizione', 'tipo', 'ordinaria', 'persona', 'volo', 'dettagli'];
 
   constructor(private manutenzioniAPI: ManutenzioniService,
+              private voliAPI: VoliService,
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -57,5 +61,11 @@ export class ManutenzioniComponent implements OnInit {
 
   apriDettagli(manutenzione: Manutenzione): void {
     const dialogRef = this.dialog.open(ManutenzioniDettaglioComponent, {data: manutenzione});
+  }
+
+  apriDettagliVolo(idVolo: number): void {
+    this.voliAPI.get(idVolo).subscribe(data => {
+      const dialogRef = this.dialog.open(VoliDettaglioComponent, {data: data});
+    })
   }
 }
