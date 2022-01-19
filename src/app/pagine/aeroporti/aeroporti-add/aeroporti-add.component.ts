@@ -73,7 +73,6 @@ export class AeroportiAddComponent implements OnInit {
     this.router.navigate(['aeroporti']);
   }
 
-
   submitForm(): void {
     this.submitting = true;  // mostra lo spinner
     let nuovoAeroporto = new Aeroporto();
@@ -102,8 +101,6 @@ export class AeroportiAddComponent implements OnInit {
     nuovoAeroporto.email = this.addAeroportoForm.get('emailInput').value || null;
     nuovoAeroporto.web = this.addAeroportoForm.get('webInput').value || null;
     nuovoAeroporto.note = this.addAeroportoForm.get('noteInput').value || null;
-
-    console.log(JSON.stringify(nuovoAeroporto));
 
       this.aeroportiAPI.add(nuovoAeroporto).subscribe({
       next: () => {

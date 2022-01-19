@@ -1,1 +1,57 @@
-<p>manutenzioni-add works!</p>
+<div class="component-container" fxLayoutAlign="space-around start">
+    <mat-card>
+
+        <mat-card-header>
+            <mat-card-title>{{'manutenzioni_add.inserisci_nuova_manutenzione'|translate}}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div *ngIf="loading" fxLayout="row" fxLayoutAlign="center center">
+                <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
+            </div>
+            <div *ngIf="!loading">
+                <form [formGroup]="addManutenzioneForm"
+                      ng-submit="addManutenzioneForm.$valid"
+                      (ngSubmit)="submitForm()"
+                      novalidate
+                      fxLayout="row wrap"
+                      fxFlexFill
+                      fxLayoutGap="20px grid">
+
+                      <mat-form-field fxFlex="25">
+                        <mat-label>{{'manutenzioni_add.aereo'|translate}}</mat-label>
+                        <mat-select formControlName="aereoSelect">
+                            <mat-option *ngFor="let aereo of listaAerei" [value]="aereo">
+                                {{aereo.marche + ' - ' + aereo.modello}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'manutenzioni_add.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="25">
+                        <mat-label>{{'manutenzioni_add.tipo'|translate}}</mat-label>
+                        <mat-select formControlName="tipoManutenzioneSelect">
+                            <mat-option *ngFor="let manutenzione of listaTipiManutenzioni" [value]="manutenzione">
+                                {{manutenzione.descrizione}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'manutenzioni_add.errore_campo_obbligatorio'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-radio-group fxFlex="25" formControlName="manutenzioneOrdinariaRadio">
+                        <mat-radio-button [value]="true">{{'manutenzioni_add.ordinaria'|translate}}</mat-radio-button>
+                        <mat-radio-button [value]="false">{{'manutenzioni_add.straordinaria'|translate}}</mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-form-field fxFlex="25">
+                        <mat-label>{{'manutenzioni_add.data_manutenzione'|translate}}</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="dataManutenzioneInput">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

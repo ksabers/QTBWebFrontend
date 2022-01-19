@@ -22,7 +22,7 @@
                         <mat-label>{{'voli_add.aereo'|translate}}</mat-label>
                         <mat-select formControlName="aereoSelect"
                             (selectionChange)="cambiaAereo()">
-                            <mat-option *ngFor="let aereo of listaAerei"[value]="aereo">
+                            <mat-option *ngFor="let aereo of listaAerei" [value]="aereo">
                                 {{aereo.marche + ' - ' + aereo.modello}}
                             </mat-option>
                         </mat-select>

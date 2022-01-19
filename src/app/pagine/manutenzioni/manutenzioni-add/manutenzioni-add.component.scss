@@ -1,0 +1,27 @@
+.component-container {
+    height: calc(100vh - 64px);
+  }
+  mat-card {
+    margin-top: 20px;
+    width: 80%;
+  }
+  
+  form {
+    width: 100%;
+  }
+  
+  textarea {
+    resize: none !important;
+  }
+  
+  mat-hint.mat-error {
+    color: red;
+  }
+
+  mat-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+  
