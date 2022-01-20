@@ -30,8 +30,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatListModule} from '@angular/material/list';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge';
 import { LayoutModule } from '@angular/cdk/layout';
 
 const materialModules = [

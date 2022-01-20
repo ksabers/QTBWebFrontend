@@ -13,6 +13,8 @@ import { Aereo } from './../../../viewmodels/aerei/aereo';
 import { Persona } from './../../../viewmodels/persone/persona';
 import { TipoManutenzione } from './../../../viewmodels/tipi-manutenzioni/tipo-manutenzione';
 import { Volo } from './../../../viewmodels/voli/volo';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatRadioChange } from '@angular/material/radio';
 
 
 @Component({
@@ -31,6 +33,7 @@ export class ManutenzioniAddComponent implements OnInit {
   listaPersone: Persona[];
   listaVoli: Volo[];
   listaVoliFiltrata: Volo[];
+  favoriteSeason: string;
 
   constructor(private translate: TranslateService,
               private dateAdapter: DateAdapter<any>,
@@ -71,6 +74,51 @@ export class ManutenzioniAddComponent implements OnInit {
   tornaPaginaManutenzioni(): void {
     this.router.navigate(['manutenzioni']);
   }
+
+  switchEspressaInOreVolo(){
+    if (this.addManutenzioneForm.get('espressaInOreVolo').value) {
+      this.addManutenzioneForm.get('oreAssoluteRadio').enable();
+      this.switchOreAssoluteRadio();  
+    }
+    else {
+      this.addManutenzioneForm.get('oreAssoluteRadio').disable();
+      this.addManutenzioneForm.get('oreAssoluteInput').disable();
+      this.addManutenzioneForm.get('oreDeltaInput').disable();
+    }
+  }
+
+  switchEspressaInData(){
+    if (this.addManutenzioneForm.get('espressaInData').value) {
+      this.addManutenzioneForm.get('dataAssolutaRadio').enable();
+      this.switchDataAssolutaRadio();   
+    }
+    else {
+      this.addManutenzioneForm.get('dataAssolutaRadio').disable();
+      this.addManutenzioneForm.get('dataAssolutaInput').disable();
+      this.addManutenzioneForm.get('giorniDeltaInput').disable();
+    }
+  }
+
+  switchOreAssoluteRadio() {
+    if (this.addManutenzioneForm.get('oreAssoluteRadio').value == 'assolute') {
+      this.addManutenzioneForm.get('oreAssoluteInput').enable();
+      this.addManutenzioneForm.get('oreDeltaInput').disable();
+    } else {
+      this.addManutenzioneForm.get('oreAssoluteInput').disable();
+      this.addManutenzioneForm.get('oreDeltaInput').enable();
+    }
+  }
+
+  switchDataAssolutaRadio() {
+    if (this.addManutenzioneForm.get('dataAssolutaRadio').value == 'assolute') {
+      this.addManutenzioneForm.get('dataAssolutaInput').enable();
+      this.addManutenzioneForm.get('giorniDeltaInput').disable();
+    } else {
+      this.addManutenzioneForm.get('dataAssolutaInput').disable();
+      this.addManutenzioneForm.get('giorniDeltaInput').enable();
+    }
+  }
+
   submitForm(): void {
   }
 }

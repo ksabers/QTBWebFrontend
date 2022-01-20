@@ -78,14 +78,119 @@
                         <mat-error>{{'manutenzioni_add.errore_descrizione_troppo_lunga'|translate}}</mat-error>
                     </mat-form-field>
 
-                    <mat-radio-group class="orizzontale" color="primary" formControlName="scadenzaRadio" fxFlex="100">
+                    <mat-radio-group class="orizzontale" color="primary" formControlName="presenzaScadenza" fxFlex="100">
                         <label>{{'manutenzioni_add.inserimento_scadenza'|translate}}</label>
                         <mat-radio-button [value]="true" class="not-last">{{'manutenzioni_add.si'|translate}}</mat-radio-button>
                         <mat-radio-button [value]="false">{{'manutenzioni_add.no'|translate}}</mat-radio-button>
                     </mat-radio-group>
 
-                    <div *ngIf="addManutenzioneForm.value.scadenzaRadio">
+                    <div *ngIf="addManutenzioneForm.value.presenzaScadenza" fxFlex="100">
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <mat-checkbox color="primary"
+                                              fxFlex="20"
+                                              formControlName="espressaInOreVolo"
+                                              (change)="switchEspressaInOreVolo()">
+                                    {{'manutenzioni_add.espressa_in_ore_di_volo'|translate}}
+                                </mat-checkbox>
+                                <div fxLayout="column" fxFlex="80">
+                                    <mat-radio-group #rGroup1 formControlName="oreAssoluteRadio" (change)="switchOreAssoluteRadio()">
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        
+                                        <mat-radio-button value="assolute"
+                                                          color="primary"
+                                                          fxFlex="30"
+                                                          radioGroup="rGroup1">
+                                                          {{'manutenzioni_add.ore_complessive'|translate}}:
+                                        </mat-radio-button>
 
+                                        <mat-form-field fxFlex="70">         
+                                            <mat-label>{{'manutenzioni_add.ore_di_volo_complessive'|translate}}</mat-label>
+                                            <input matInput
+                                                   formControlName="oreAssoluteInput"
+                                                   autocomplete="off" 
+                                                   type="number" 
+                                                   step="1"
+                                                   pattern="\d*">
+                                        </mat-form-field>
+
+                                    </div>
+                                   
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+
+                                        <mat-radio-button value="delta"
+                                                          color="primary"
+                                                          fxFlex="30"
+                                                          radioGroup="rGroup1">
+                                                          {{'manutenzioni_add.differenza_da_ore_attuali'|translate}}:
+                                        </mat-radio-button>
+
+                                        <mat-form-field fxFlex="70">         
+                                            <mat-label>{{'manutenzioni_add.differenza_in_ore'|translate}}</mat-label>
+                                            <input matInput
+                                                   formControlName="oreDeltaInput"
+                                                   autocomplete="off" 
+                                                   type="number" 
+                                                   step="1"
+                                                   pattern="\d*">
+                                        </mat-form-field>
+
+                                    </div>
+                                </mat-radio-group>
+                                </div>
+                            </div>
+                            <p><mat-divider [inset]="true"></mat-divider></p>
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <mat-checkbox color="primary" 
+                                              fxFlex="20"
+                                              formControlName="espressaInData"
+                                              (change)="switchEspressaInData()">
+                                    {{'manutenzioni_add.espressa_come_data'|translate}}
+                                </mat-checkbox>
+                                <div fxLayout="column" fxFlex="80">
+                                    <mat-radio-group #rGroup2 formControlName="dataAssolutaRadio" (change)="switchDataAssolutaRadio()">
+                                    <div fxLayout="row" fxLayoutAlign="start center">                       
+                                        <mat-radio-button value="assolute" 
+                                                          color="primary"
+                                                          fxFlex="30"
+                                                          radioGroup="rGroup2">{{'manutenzioni_add.scadra_in_data'|translate}}:</mat-radio-button>
+
+                                        <mat-form-field fxFlex="70">         
+                                            <mat-label>{{'manutenzioni_add.data_della_nuova_scadenza'|translate}}</mat-label>
+                                            <input matInput
+                                                   formControlName="dataAssolutaInput"
+                                                   autocomplete="off" 
+                                                   type="number" 
+                                                   step="1"
+                                                   pattern="\d*">
+                                        </mat-form-field>
+
+
+
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <mat-radio-button value="delta" 
+                                                          color="primary"
+                                                          fxFlex="30"
+                                                          radioGroup="rGroup2">
+                                            {{'manutenzioni_add.dopo_un_periodo_di'|translate}}:
+                                        </mat-radio-button>
+
+                                                          
+                                        <mat-form-field fxFlex="70">         
+                                            <mat-label>{{'manutenzioni_add.differenza_in_giorni'|translate}}</mat-label>
+                                            <input matInput
+                                                    formControlName="giorniDeltaInput"
+                                                    autocomplete="off" 
+                                                    type="number" 
+                                                    step="1"
+                                                    pattern="\d*">
+                                    </mat-form-field>
+                                    </div>
+                                </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </form>
