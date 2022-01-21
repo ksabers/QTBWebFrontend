@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -13,8 +13,10 @@ import { Aereo } from './../../../viewmodels/aerei/aereo';
 import { Persona } from './../../../viewmodels/persone/persona';
 import { TipoManutenzione } from './../../../viewmodels/tipi-manutenzioni/tipo-manutenzione';
 import { Volo } from './../../../viewmodels/voli/volo';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatRadioChange } from '@angular/material/radio';
+import { TipoScadenzaAereo } from './../../../viewmodels/tipi-scadenze-aerei/tipo-scadenza-aereo';
+import { TipiScadenzeAereiService } from './../../../servizi/tipi-scadenze-aerei/tipi-scadenze-aerei.service';
+import { UtilsService } from './../../../servizi/utils/utils.service';
+
 
 
 @Component({
@@ -33,7 +35,9 @@ export class ManutenzioniAddComponent implements OnInit {
   listaPersone: Persona[];
   listaVoli: Volo[];
   listaVoliFiltrata: Volo[];
-  favoriteSeason: string;
+  listaTipiScadenzeAerei: TipoScadenzaAereo[];
+  oreDiVoloMinime: number = 0;
+  dataOdierna = new Date();
 
   constructor(private translate: TranslateService,
               private dateAdapter: DateAdapter<any>,
@@ -42,7 +46,9 @@ export class ManutenzioniAddComponent implements OnInit {
               private aereiAPI: AereiService,
               private tipiManutenzioneAPI: TipiManutenzioniService,
               private personeAPI: PersoneService,
-              private voliAPI: VoliService) { }
+              private voliAPI: VoliService,
+              private tipiScadenzeAereiAPI: TipiScadenzeAereiService,
+              private utils: UtilsService) { }
 
   ngOnInit(): void {
     this.translate.onLangChange.subscribe(res => {  // cambia la lingua del datepicker ascoltando l'evento di cambio del translate service
@@ -60,7 +66,10 @@ export class ManutenzioniAddComponent implements OnInit {
           this.listaPersone = data;
           this.voliAPI.getList().subscribe(data => {
             this.listaVoli = data;
-            this.loading = false;
+            this.tipiScadenzeAereiAPI.getList().subscribe(data => {
+              this.listaTipiScadenzeAerei = data;
+              this.loading = false;
+            })
           })
         })
       })
@@ -68,14 +77,35 @@ export class ManutenzioniAddComponent implements OnInit {
   }
 
   filtraListaVoli(): void {
-    this.listaVoliFiltrata = this.listaVoli.filter(volo => volo.idAereo == this.addManutenzioneForm.value.aereoSelect.id)
+    this.listaVoliFiltrata = this.listaVoli.filter(volo => volo.idAereo == this.addManutenzioneForm.value.aereoSelect.id);
+    this.aggiornaPresenzaScadenza();
+    this.oreDiVoloMinime = Math.ceil((this.addManutenzioneForm.value.aereoSelect.minutiPregressi + this.addManutenzioneForm.value.aereoSelect.minutiVolo)/60);
+    this.addManutenzioneForm.get('oreAssoluteInput').setValidators([Validators.required, Validators.min(this.oreDiVoloMinime + 1)]);
+    this.addManutenzioneForm.get('oreAssoluteInput').updateValueAndValidity();
+  }
+
+  aggiornaPresenzaScadenza(): void {
+    if (this.addManutenzioneForm.get('aereoSelect').value && this.addManutenzioneForm.get('tipoManutenzioneSelect').value) {
+      this.addManutenzioneForm.get('presenzaScadenza').enable()
+    } else {
+      this.addManutenzioneForm.get('presenzaScadenza').disable()
+    }
   }
 
   tornaPaginaManutenzioni(): void {
     this.router.navigate(['manutenzioni']);
   }
 
-  switchEspressaInOreVolo(){
+  switchPresenzaScadenza(): void {
+    if (this.addManutenzioneForm.get('presenzaScadenza').value) {
+      this.addManutenzioneForm.get('tipoScadenzaAereoSelect').enable()
+    }
+    else {
+      this.addManutenzioneForm.get('tipoScadenzaAereoSelect').disable()
+    }
+  }
+
+  switchEspressaInOreVolo(): void {
     if (this.addManutenzioneForm.get('espressaInOreVolo').value) {
       this.addManutenzioneForm.get('oreAssoluteRadio').enable();
       this.switchOreAssoluteRadio();  
@@ -87,7 +117,7 @@ export class ManutenzioniAddComponent implements OnInit {
     }
   }
 
-  switchEspressaInData(){
+  switchEspressaInData(): void {
     if (this.addManutenzioneForm.get('espressaInData').value) {
       this.addManutenzioneForm.get('dataAssolutaRadio').enable();
       this.switchDataAssolutaRadio();   
@@ -99,7 +129,7 @@ export class ManutenzioniAddComponent implements OnInit {
     }
   }
 
-  switchOreAssoluteRadio() {
+  switchOreAssoluteRadio(): void {
     if (this.addManutenzioneForm.get('oreAssoluteRadio').value == 'assolute') {
       this.addManutenzioneForm.get('oreAssoluteInput').enable();
       this.addManutenzioneForm.get('oreDeltaInput').disable();
@@ -109,7 +139,7 @@ export class ManutenzioniAddComponent implements OnInit {
     }
   }
 
-  switchDataAssolutaRadio() {
+  switchDataAssolutaRadio(): void {
     if (this.addManutenzioneForm.get('dataAssolutaRadio').value == 'assolute') {
       this.addManutenzioneForm.get('dataAssolutaInput').enable();
       this.addManutenzioneForm.get('giorniDeltaInput').disable();
@@ -117,6 +147,10 @@ export class ManutenzioniAddComponent implements OnInit {
       this.addManutenzioneForm.get('dataAssolutaInput').disable();
       this.addManutenzioneForm.get('giorniDeltaInput').enable();
     }
+  }
+
+  sommaGiorni(delta: number): Date {
+    return this.utils.sommaGiorni(delta);
   }
 
   submitForm(): void {

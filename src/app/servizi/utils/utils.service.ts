@@ -69,4 +69,10 @@ export class UtilsService {
   dateDiff(dataMaggiore: Date, dataMinore: Date): number {
     return Math.ceil((dataMaggiore.getTime() - dataMinore.getTime()) / (1000 * 3600 * 24))
   }
+
+  sommaGiorni(giorni : number): Date {
+    var dataFutura = new Date();
+    dataFutura.setDate(dataFutura.getDate() + giorni);
+    return dataFutura;
+  }
 }

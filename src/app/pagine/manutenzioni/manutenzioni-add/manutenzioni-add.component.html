@@ -30,7 +30,7 @@
 
                     <mat-form-field fxFlex="25">
                         <mat-label>{{'manutenzioni_add.tipo'|translate}}</mat-label>
-                        <mat-select formControlName="tipoManutenzioneSelect">
+                        <mat-select formControlName="tipoManutenzioneSelect" (selectionChange)="aggiornaPresenzaScadenza()">
                             <mat-option *ngFor="let manutenzione of listaTipiManutenzioni" [value]="manutenzione">
                                 {{manutenzione.descrizione}}
                             </mat-option>
@@ -53,6 +53,7 @@
                     <mat-form-field fxFlex="25">
                         <mat-label>{{'manutenzioni_add.effettuata_da'|translate}}</mat-label>
                         <mat-select formControlName="personaSelect">
+                            <mat-option [value]="null"><i>{{'manutenzioni_add.nessuno'|translate}}</i></mat-option>
                             <mat-option *ngFor="let persona of listaPersone" [value]="persona">
                             {{persona.nome + ' ' + persona.cognome}}
                             </mat-option>
@@ -62,6 +63,7 @@
                     <mat-form-field fxFlex="25">
                         <mat-label>{{'manutenzioni_add.volo'|translate}}</mat-label>
                         <mat-select formControlName="voloSelect">
+                            <mat-option [value]="null"><i>{{'manutenzioni_add.nessuno'|translate}}</i></mat-option>
                             <mat-option *ngFor="let volo of listaVoliFiltrata" [value]="volo">
                             {{volo.id + ' - ' + (volo.oraInizio|date:'dd/MM/y')}}
                             </mat-option>
@@ -78,14 +80,43 @@
                         <mat-error>{{'manutenzioni_add.errore_descrizione_troppo_lunga'|translate}}</mat-error>
                     </mat-form-field>
 
-                    <mat-radio-group class="orizzontale" color="primary" formControlName="presenzaScadenza" fxFlex="100">
+                    <mat-radio-group class="orizzontale"
+                                     color="primary"
+                                     formControlName="presenzaScadenza" 
+                                     fxFlex="100" 
+                                     (change)="switchPresenzaScadenza()">
                         <label>{{'manutenzioni_add.inserimento_scadenza'|translate}}</label>
                         <mat-radio-button [value]="true" class="not-last">{{'manutenzioni_add.si'|translate}}</mat-radio-button>
                         <mat-radio-button [value]="false">{{'manutenzioni_add.no'|translate}}</mat-radio-button>
                     </mat-radio-group>
 
-                    <div *ngIf="addManutenzioneForm.value.presenzaScadenza" fxFlex="100">
+                    <div *ngIf="addManutenzioneForm.value.presenzaScadenza" fxFlex="100">                         
+
                         <div fxLayout="column">
+                            
+                            <div fxLayout="row">
+                                <mat-form-field fxFlex="30">
+                                    <mat-label>{{'manutenzioni_add.tipo_scadenza'|translate}}</mat-label>
+                                    <mat-select formControlName="tipoScadenzaAereoSelect">
+                                        <mat-option *ngFor="let tipo of listaTipiScadenzeAerei" [value]="tipo">
+                                            {{tipo.descrizione}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            
+                            <div fxLayout="row">
+                                <mat-form-field fxFlex="100">
+                                    <mat-label>{{'manutenzioni_add.note_scadenza'|translate}}</mat-label>
+                                    <textarea matInput formControlName="noteScadenzaInput" rows="2" maxlength="4000"></textarea>
+                                    <mat-hint>
+                                        {{4000 - addManutenzioneForm.get('noteScadenzaInput').value.toString().length + 
+                                          ' ' + ('manutenzioni_add.caratteri_rimanenti'|translate)}}
+                                    </mat-hint>
+                                    <mat-error>{{'manutenzioni_add.errore_descrizione_troppo_lunga'|translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+
                             <div fxLayout="row" fxLayoutAlign="start center">
                                 <mat-checkbox color="primary"
                                               fxFlex="20"
@@ -104,7 +135,7 @@
                                                           {{'manutenzioni_add.ore_complessive'|translate}}:
                                         </mat-radio-button>
 
-                                        <mat-form-field fxFlex="70">         
+                                        <mat-form-field fxFlex="20">         
                                             <mat-label>{{'manutenzioni_add.ore_di_volo_complessive'|translate}}</mat-label>
                                             <input matInput
                                                    formControlName="oreAssoluteInput"
@@ -112,6 +143,10 @@
                                                    type="number" 
                                                    step="1"
                                                    pattern="\d*">
+                                            <mat-error>
+                                                {{('manutenzioni_add.errore_ore_di_volo'|translate) + ' ' + 
+                                                    oreDiVoloMinime + ' ' + ('manutenzioni_add.ore_di_volo'|translate)}}
+                                            </mat-error>
                                         </mat-form-field>
 
                                     </div>
@@ -125,21 +160,30 @@
                                                           {{'manutenzioni_add.differenza_da_ore_attuali'|translate}}:
                                         </mat-radio-button>
 
-                                        <mat-form-field fxFlex="70">         
+                                        <mat-form-field fxFlex="20">         
                                             <mat-label>{{'manutenzioni_add.differenza_in_ore'|translate}}</mat-label>
                                             <input matInput
                                                    formControlName="oreDeltaInput"
                                                    autocomplete="off" 
                                                    type="number" 
                                                    step="1"
+                                                   min="1"
                                                    pattern="\d*">
                                         </mat-form-field>
+                                        <span *ngIf="addManutenzioneForm.get('oreDeltaInput').enabled">
+                                            {{addManutenzioneForm.get('oreDeltaInput').valid ? 
+                                            '&nbsp;&nbsp;(' +  (addManutenzioneForm.get('oreDeltaInput').value + oreDiVoloMinime) + 
+                                            ' ' + ('manutenzioni_add.ore_di_volo_complessive'|translate|lowercase) + ')': 
+                                            ''}}
+                                        </span>
 
                                     </div>
                                 </mat-radio-group>
                                 </div>
                             </div>
+
                             <p><mat-divider [inset]="true"></mat-divider></p>
+
                             <div fxLayout="row" fxLayoutAlign="start center">
                                 <mat-checkbox color="primary" 
                                               fxFlex="20"
@@ -155,17 +199,16 @@
                                                           fxFlex="30"
                                                           radioGroup="rGroup2">{{'manutenzioni_add.scadra_in_data'|translate}}:</mat-radio-button>
 
-                                        <mat-form-field fxFlex="70">         
+                                        <mat-form-field fxFlex="20">
                                             <mat-label>{{'manutenzioni_add.data_della_nuova_scadenza'|translate}}</mat-label>
-                                            <input matInput
-                                                   formControlName="dataAssolutaInput"
-                                                   autocomplete="off" 
-                                                   type="number" 
-                                                   step="1"
-                                                   pattern="\d*">
+                                            <input matInput [min]="dataOdierna" 
+                                                            [matDatepicker]="picker1"
+                                                            formControlName="dataAssolutaInput"
+                                                            autoComplete="off">
+                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1></mat-datepicker>
+                                            <mat-error>{{'manutenzioni_add.errore_data_futura'|translate}}</mat-error>
                                         </mat-form-field>
-
-
 
                                     </div>
                                     <div fxLayout="row" fxLayoutAlign="start center">
@@ -175,17 +218,28 @@
                                                           radioGroup="rGroup2">
                                             {{'manutenzioni_add.dopo_un_periodo_di'|translate}}:
                                         </mat-radio-button>
-
-                                                          
-                                        <mat-form-field fxFlex="70">         
+                                        
+                                        <mat-form-field fxFlex="20">         
                                             <mat-label>{{'manutenzioni_add.differenza_in_giorni'|translate}}</mat-label>
                                             <input matInput
                                                     formControlName="giorniDeltaInput"
                                                     autocomplete="off" 
                                                     type="number" 
                                                     step="1"
-                                                    pattern="\d*">
-                                    </mat-form-field>
+                                                    pattern="\d*"
+                                                    [matAutocomplete]="auto">
+                                            <mat-autocomplete #auto="matAutocomplete">
+                                                <mat-option [value]="30">{{'manutenzioni_add.un_mese'|translate}}</mat-option>
+                                                <mat-option [value]="90">{{'manutenzioni_add.tre_mesi'|translate}}</mat-option>
+                                                <mat-option [value]="180">{{'manutenzioni_add.sei_mesi'|translate}}</mat-option>
+                                                <mat-option [value]="365">{{'manutenzioni_add.un_anno'|translate}}</mat-option>
+                                                </mat-autocomplete>
+                                        </mat-form-field>
+                                        <span *ngIf="addManutenzioneForm.get('giorniDeltaInput').enabled">
+                                            {{addManutenzioneForm.get('giorniDeltaInput').valid ? 
+                                            '&nbsp;&nbsp;(' + (sommaGiorni(addManutenzioneForm.get('giorniDeltaInput').value)|date:'dd/MM/y') + ')': 
+                                            ''}}
+                                        </span>
                                     </div>
                                 </mat-radio-group>
                                 </div>
@@ -200,7 +254,14 @@
         <mat-card-actions *ngIf="!loading">
             <div fxLayout="row" fxLayoutAlign="end center">
                 <button mat-raised-button (click)="tornaPaginaManutenzioni()">{{'manutenzioni_add.annulla'|translate}}</button>
-                <button mat-raised-button color="primary" [disabled]="addManutenzioneForm.invalid || submitted" (click)="submitForm()">
+                <button mat-raised-button color="primary" 
+                                          [disabled]="addManutenzioneForm.invalid || 
+                                          submitted
+                                          || 
+                                          (addManutenzioneForm.get('presenzaScadenza').value &&
+                                            !(addManutenzioneForm.get('espressaInOreVolo').value
+                                             ||
+                                             addManutenzioneForm.get('espressaInData').value))" (click)="submitForm()">
                     <span *ngIf="!submitting">{{'manutenzioni_add.inserisci_manutenzione'|translate}}</span>
                     <span *ngIf="submitting" fxLayout="row" fxLayoutAlign="center center" style="width:82px">
                         <mat-spinner [diameter]="36" color="accent"></mat-spinner>
