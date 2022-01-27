@@ -43,7 +43,7 @@
                         <mat-label>{{'voli_add.passeggero'|translate}}</mat-label>
                         <mat-select formControlName="passeggeroSelect"
                             (selectionChange)="cambiaPasseggero()">
-                            <mat-option [value]="0">
+                            <mat-option [value]=null>
                                 <i>{{'voli_add.nessuno'|translate}}</i>
                             </mat-option>
                             <mat-option *ngFor="let passeggero of listaPasseggeri" [value]="passeggero">

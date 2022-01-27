@@ -35,7 +35,7 @@ const ValidatoreOrametro: ValidatorFn = (fg: FormGroup) => {
 // Viene applicato a livello di form
 const ValidatorePasseggero: ValidatorFn = (fg: FormGroup)  => {
   const pilota = fg.get('pilotaSelect').value.id;
-  const passeggero = fg.get('passeggeroSelect').value.id;
+  const passeggero = fg.get('passeggeroSelect').value? fg.get('passeggeroSelect').value.id : null;
   return pilota != null &&  pilota != passeggero
     ? null
     : { passeggero: true };
@@ -148,7 +148,7 @@ export class VoliAddComponent implements OnInit {
    */
   cambiaPasseggero(): void {
     this.addVoloForm.patchValue({
-      pesoOccupantiInput: this.addVoloForm.get('passeggeroSelect').value.id ? environment.pesoMedio * 2 : environment.pesoMedio
+      pesoOccupantiInput: this.addVoloForm.get('passeggeroSelect').value ? environment.pesoMedio * 2 : environment.pesoMedio
     });
   }
   
@@ -203,7 +203,7 @@ export class VoliAddComponent implements OnInit {
     nuovoVolo.idTipoVolo = this.addVoloForm.get('tipoVoloSelect').value ? this.addVoloForm.get('tipoVoloSelect').value.id : this.listaTipiVoli[0].id;
     nuovoVolo.idAereo = this.addVoloForm.get('aereoSelect').value.id || null;
     nuovoVolo.idPilota = this.addVoloForm.get('pilotaSelect').value.id || null;
-    nuovoVolo.idPasseggero = this.addVoloForm.get('passeggeroSelect').value.id ? this.addVoloForm.get('passeggeroSelect').value.id : null;
+    nuovoVolo.idPasseggero = this.addVoloForm.get('passeggeroSelect').value ? this.addVoloForm.get('passeggeroSelect').value.id : null;
     nuovoVolo.oraLocaleDecollo = this.oraLocaleDecollo;
     nuovoVolo.orametroOreInizio =  this.addVoloForm.get('oreDecolloInput').value;
     nuovoVolo.orametroMinutiInizio = this.addVoloForm.get('minutiDecolloInput').value;
