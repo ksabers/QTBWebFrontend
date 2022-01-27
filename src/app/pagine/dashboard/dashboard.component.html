@@ -52,6 +52,35 @@
         </mat-card-content>
       </mat-card>    
     </div>
+
+    <div fxFlex="100%">
+      <mat-card>
+        <mat-card-header *ngIf="!loading3">
+          <mat-card-title>{{'dashboard.carburante_consumato_per_aereo'|translate}}</mat-card-title>
+          <mat-card-subtitle>
+            ({{'dashboard.ultimi_sei_mesi'|translate}})
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="!loading3" class="card-content">
+            <ngx-charts-bar-vertical-stacked 
+            [results] = "valoriConsumiCarburante"
+            [legend] = true
+            [xAxis]= true
+            [yAxis]= true
+            [showXAxisLabel] = true
+            [showYAxisLabel] = true
+            [xAxisLabel] = "'dashboard.aerei'|translate"
+            [yAxisLabel] = "'dashboard.litri'|translate"
+            [legendTitle] = "'dashboard.mesi'|translate"> 
+          </ngx-charts-bar-vertical-stacked>
+          </div>
+          <div *ngIf="loading3" fxLayoutAlign="space-around center">
+            <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
+          </div>
+        </mat-card-content>
+      </mat-card>    
+    </div>
   </div>
 
  </div>

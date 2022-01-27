@@ -17,14 +17,14 @@ export class ManutenzioniAddForm {
         presenzaScadenza:           [{value: false, disabled: true}, ],
         espressaInOreVolo:          [false,                          ],
         espressaInData:             [false                            ],
-        oreAssoluteRadio:           [{value: 'assolute', disabled: true},                      ],
-        dataAssolutaRadio:          [{value: 'assolute', disabled: true}                       ],
-        oreAssoluteInput:           [{value: null, disabled: true}, [Validators.required]                            ],
-        oreDeltaInput:              [{value: null, disabled: true}, [Validators.min(1), Validators.required]                        ],
-        dataAssolutaInput:          [{value: null, disabled: true},  [Validators.required]                           ],
-        giorniDeltaInput:          [{value: null, disabled: true}, [Validators.min(0), Validators.required]                            ],
-        tipoScadenzaAereoSelect:     [{value: null, disabled: true},         [Validators.required]],
-        noteScadenzaInput: ['',  [Validators.maxLength(4000)]]
+        oreAssoluteRadio:           [{value: 'assolute', disabled: true}],
+        dataAssolutaRadio:          [{value: 'assolute', disabled: true}],
+        oreAssoluteInput:           [{value: null, disabled: true}, [Validators.required]],
+        oreDeltaInput:              [{value: null, disabled: true}, [Validators.min(1), Validators.required]],
+        dataAssolutaInput:          [{value: null, disabled: true}, [Validators.required]],
+        giorniDeltaInput:           [{value: null, disabled: true}, [Validators.min(0), Validators.required]],
+        tipoScadenzaAereoSelect:    [{value: null, disabled: true}, [Validators.required]],
+        noteScadenzaInput:          ['',                            [Validators.maxLength(4000)]]
     
     }
 }

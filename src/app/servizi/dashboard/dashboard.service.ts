@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpService } from '../http/http.service';
 import { OreDiVoloPerPilota } from '../../viewmodels/dashboard/oreDiVoloPerPilota';
 import { OreDiVoloPerAereo } from '../../viewmodels/dashboard/oreDiVoloPerAereo';
+import { CarburanteAnnualeJSON } from './../../viewmodels/dashboard/carburanteAnnualeJSON';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,20 @@ export class DashboardOreDiVoloPerAereoService extends HttpService<OreDiVoloPerA
 
    getResourceUrl(): string {
     return '/api/dashboard/oredivoloaerei';
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DashboardCarburanteAnnualePerAereoService extends HttpService<CarburanteAnnualeJSON> {
+  
+  constructor(protected override httpClient: HttpClient) {
+    super(httpClient);
+   }
+
+   getResourceUrl(): string {
+    return '/api/dashboard/carburanteannuale';
   }
 }
 
