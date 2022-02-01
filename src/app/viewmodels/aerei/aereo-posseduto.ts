@@ -1,5 +1,5 @@
 export class AereoPosseduto {
-  id: string;
+  id: number;
   costruttore: string;
   modello: string;
   marche: string;

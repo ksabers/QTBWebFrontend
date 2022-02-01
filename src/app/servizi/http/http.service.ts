@@ -23,9 +23,9 @@ export abstract class HttpService<T> {
     return json;
   }
 
-  getList(): Observable<T[]> {
+  getList(parametro?: string): Observable<T[]> {
 
-    return this.httpClient.get<T[]>(this.APIUrl)
+    return this.httpClient.get<T[]>(this.APIUrl + (parametro ?? ''))
       .pipe(
         map((list) => list.map((item) => this.fromServerModel(item))),
         catchError(this.handleError)

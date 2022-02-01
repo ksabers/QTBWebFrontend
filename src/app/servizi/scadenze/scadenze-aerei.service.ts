@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { HttpService } from './../http/http.service';
-import { TipoAeroporto } from '../../viewmodels/aeroporti/tipo-aeroporto';
+import { HttpService } from '../http/http.service';
+import { ScadenzaAereo } from 'src/app/viewmodels/scadenze/scadenza-aereo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TipiAeroportiService extends HttpService<TipoAeroporto>{
+export class ScadenzeAereiService extends HttpService<ScadenzaAereo>{
 
   constructor(protected override httpClient: HttpClient) {
     super(httpClient);
    }
 
    getResourceUrl(): string {
-    return '/api/aeroporti/tipi';
+    return '/api/scadenzeaerei';
   }
 }

@@ -15,10 +15,9 @@ import { Aereo } from '../../../viewmodels/aerei/aereo';
 import { Persona } from '../../../viewmodels/persone/persona';
 import { Aeroporto } from '../../../viewmodels/aeroporti/aeroporto';
 import { Volo } from './../../../viewmodels/voli/volo';
-import { TipoVolo } from './../../../viewmodels/tipi-voli/tipo-volo';
+import { TipoVolo } from '../../../viewmodels/voli/tipo-volo';
 import { environment } from './../../../../environments/environment';
 import { VoliAddForm } from './voli-add-form';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 // Validatore custom che controlla che l'orametro finale sia successivo all'orametro iniziale
@@ -200,14 +199,14 @@ export class VoliAddComponent implements OnInit {
     let nuovoVolo = new Volo();
 
     nuovoVolo.descrizione =  this.addVoloForm.get('descrizioneInput').value || '';
-    nuovoVolo.idTipoVolo = this.addVoloForm.get('tipoVoloSelect').value ? this.addVoloForm.get('tipoVoloSelect').value.id : this.listaTipiVoli[0].id;
+    nuovoVolo.idTipoVolo = this.addVoloForm.get('tipoVoloSelect').value.id ?? this.listaTipiVoli[0].id;
     nuovoVolo.idAereo = this.addVoloForm.get('aereoSelect').value.id || null;
     nuovoVolo.idPilota = this.addVoloForm.get('pilotaSelect').value.id || null;
-    nuovoVolo.idPasseggero = this.addVoloForm.get('passeggeroSelect').value ? this.addVoloForm.get('passeggeroSelect').value.id : null;
+    nuovoVolo.idPasseggero = this.addVoloForm.get('passeggeroSelect').value.id ?? null;
     nuovoVolo.oraLocaleDecollo = this.oraLocaleDecollo;
     nuovoVolo.orametroOreInizio =  this.addVoloForm.get('oreDecolloInput').value;
     nuovoVolo.orametroMinutiInizio = this.addVoloForm.get('minutiDecolloInput').value;
-    nuovoVolo.oraFine = new Date(this.addVoloForm.get('dataOraAtterraggioInput').value),
+    nuovoVolo.oraFine = new Date(this.addVoloForm.get('dataOraAtterraggioInput').value);
     nuovoVolo.oraLocaleAtterraggio = this.oraLocaleAtterraggio;
     nuovoVolo.orametroOreFine = this.addVoloForm.get('oreAtterraggioInput').value;
     nuovoVolo.orametroMinutiFine = this.addVoloForm.get('minutiAtterraggioInput').value;

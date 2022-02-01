@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { HttpService } from './../http/http.service';
-import { TipoScadenzaAereo } from '../../viewmodels/tipi-scadenze-aerei/tipo-scadenza-aereo';
+import { HttpService } from '../http/http.service';
+import { TipoScadenzaAereo } from 'src/app/viewmodels/scadenze/tipo-scadenza-aereo';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,6 @@ export class TipiScadenzeAereiService extends HttpService<TipoScadenzaAereo>{
    }
 
    getResourceUrl(): string {
-    return '/api/tipiscadenzeaerei';
+    return '/api/scadenzeaerei/tipi';
   }
 }

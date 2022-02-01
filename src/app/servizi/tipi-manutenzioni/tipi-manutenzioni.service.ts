@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { HttpService } from './../http/http.service';
-import { TipoManutenzione } from '../../viewmodels/tipi-manutenzioni/tipo-manutenzione';
+import { TipoManutenzione } from '../../viewmodels/manutenzioni/tipo-manutenzione';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,6 @@ export class TipiManutenzioniService extends HttpService<TipoManutenzione>{
    }
 
    getResourceUrl(): string {
-    return '/api/tipimanutenzioni';
+    return '/api/manutenzioni/tipi';
   }
 }

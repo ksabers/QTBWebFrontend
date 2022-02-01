@@ -3,20 +3,26 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ManutenzioniAddForm } from './manutenzioni-add-form';
-import { AereiService } from './../../../servizi/aerei/aerei.service';
-import { TipiManutenzioniService } from './../../../servizi/tipi-manutenzioni/tipi-manutenzioni.service';
-import { PersoneService } from './../../../servizi/persone/persone.service';
-import { VoliService } from './../../../servizi/voli/voli.service';
-import { Aereo } from './../../../viewmodels/aerei/aereo';
-import { Persona } from './../../../viewmodels/persone/persona';
-import { TipoManutenzione } from './../../../viewmodels/tipi-manutenzioni/tipo-manutenzione';
-import { Volo } from './../../../viewmodels/voli/volo';
-import { TipoScadenzaAereo } from './../../../viewmodels/tipi-scadenze-aerei/tipo-scadenza-aereo';
-import { TipiScadenzeAereiService } from './../../../servizi/tipi-scadenze-aerei/tipi-scadenze-aerei.service';
-import { UtilsService } from './../../../servizi/utils/utils.service';
+import { AereiService } from 'src/app/servizi/aerei/aerei.service';
+import { TipiManutenzioniService } from 'src/app/servizi/tipi-manutenzioni/tipi-manutenzioni.service';
+import { PersoneService } from 'src/app/servizi/persone/persone.service';
+import { VoliService } from 'src/app/servizi/voli/voli.service';
+import { Aereo } from 'src/app/viewmodels/aerei/aereo';
+import { Persona } from 'src/app/viewmodels/persone/persona';
+import { TipoManutenzione } from 'src/app/viewmodels/manutenzioni/tipo-manutenzione';
+import { Volo } from 'src/app/viewmodels/voli/volo';
 
+import { UtilsService } from 'src/app/servizi/utils/utils.service';
+import { Manutenzione } from 'src/app/viewmodels/manutenzioni/manutenzione';
+import { ManutenzioniService } from 'src/app/servizi/manutenzioni/manutenzioni.service';
+
+import { ScadenzeAereiService } from 'src/app/servizi/scadenze/scadenze-aerei.service';
+import { TipiScadenzeAereiService } from 'src/app/servizi/scadenze/tipi-scadenze-aerei.service';
+import { ScadenzaAereo } from 'src/app/viewmodels/scadenze/scadenza-aereo';
+import { TipoScadenzaAereo } from 'src/app/viewmodels/scadenze/tipo-scadenza-aereo';
 
 
 @Component({
@@ -41,12 +47,15 @@ export class ManutenzioniAddComponent implements OnInit {
 
   constructor(private translate: TranslateService,
               private dateAdapter: DateAdapter<any>,
+              private _snackBar: MatSnackBar,
               private router: Router,
               private fb: FormBuilder,
               private aereiAPI: AereiService,
+              private manutenzioniAPI: ManutenzioniService,
               private tipiManutenzioneAPI: TipiManutenzioniService,
               private personeAPI: PersoneService,
               private voliAPI: VoliService,
+              private scadenzeAereiAPI: ScadenzeAereiService,
               private tipiScadenzeAereiAPI: TipiScadenzeAereiService,
               private utils: UtilsService) { }
 
@@ -154,5 +163,50 @@ export class ManutenzioniAddComponent implements OnInit {
   }
 
   submitForm(): void {
+
+    this.submitting = true;  // mostra lo spinner
+    let nuovaManutenzione = new Manutenzione();
+
+    nuovaManutenzione.descrizione = this.addManutenzioneForm.get('descrizioneInput').value || '';
+    nuovaManutenzione.ordinaria = this.addManutenzioneForm.get('manutenzioneOrdinariaRadio').value || null;
+    nuovaManutenzione.idTipoManutenzione = this.addManutenzioneForm.get('tipoManutenzioneSelect').value.id || null;
+    nuovaManutenzione.data = new Date(this.addManutenzioneForm.get('dataManutenzioneInput').value) || null;
+    nuovaManutenzione.persona = this.addManutenzioneForm.get('personaSelect').value.id ?? null;
+    nuovaManutenzione.volo = this.addManutenzioneForm.get('voloSelect').value.id ?? null;
+
+    if (this.addManutenzioneForm.get('presenzaScadenza').value) {
+      let nuovaScadenzaAereo = new ScadenzaAereo();
+      nuovaScadenzaAereo.aereo = this.addManutenzioneForm.get('aereoSelect').value.id;
+      nuovaScadenzaAereo.data = null;
+      nuovaScadenzaAereo.minuti = null;
+      nuovaScadenzaAereo.note = this.addManutenzioneForm.get('noteScadenzaInput').value || null;
+      nuovaScadenzaAereo.idTipoScadenza = this.addManutenzioneForm.get('tipoScadenzaAereoSelect').value || null;
+      this.scadenzeAereiAPI.add(nuovaScadenzaAereo).subscribe({
+        next: () => {
+
+        },
+        error: (error) => {
+
+        }
+      });
+      
+    };
+
+    this.manutenzioniAPI.add(nuovaManutenzione).subscribe({
+      next: () => {
+        this.submitting = false;  // toglie lo spinner
+        this.submitted = true; // disabilita il pulsante di submit
+
+        // mostra il messaggio di OK e dopo due secondi torna alla lista manutenzioni
+        let snackBarRef = this._snackBar.open(this.translate.instant('manutenzioni_add.manutenzione_inserita'), 
+                                            this.translate.instant('manutenzioni_add.torna_alla_lista'), 
+                                            { duration: 2000 });
+        snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaManutenzioni();});
+
+      },
+      error: error => {
+
+      }
+    });
   }
 }

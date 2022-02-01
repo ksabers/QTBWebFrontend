@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { HttpService } from './../http/http.service';
-import { TipoVolo } from '../../viewmodels/tipi-voli/tipo-volo';
+import { TipoVolo } from '../../viewmodels/voli/tipo-volo';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,6 @@ export class TipiVoliService extends HttpService<TipoVolo>{
    }
 
    getResourceUrl(): string {
-    return '/api/tipivoli';
+    return '/api/voli/tipi';
   }
 }

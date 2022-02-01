@@ -4,7 +4,7 @@ export class Manutenzione {
   ordinaria: boolean;
   idTipoManutenzione: number;
   tipoManutenzione: string;
-  data: string;
+  data: Date;
   aereo: number;
   modello: string;
   marche: string;

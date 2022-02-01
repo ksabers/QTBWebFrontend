@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { TipiAeroportiService } from '../../../servizi/tipi-aeroporti/tipi-aeroporti.service';
-import { TipoAeroporto } from './../../../viewmodels/tipi-aeroporti/tipo-aeroporto';
+import { TipoAeroporto } from '../../../viewmodels/aeroporti/tipo-aeroporto';
 import { AeroportiAddForm } from './aeroporti-add-form';
 import { Aeroporto } from '../../../viewmodels/aeroporti/aeroporto';
 import { UtilsService } from '../../../servizi/utils/utils.service';
