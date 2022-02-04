@@ -148,9 +148,7 @@ export class DashboardComponent implements OnInit {
     // questa purtroppo è necessaria perché dobbiamo ri-tradurre i nomi dei mesi nel grafico
     // quando cambiamo lingua
     this.translate.onLangChange.subscribe(() => {
-      this.loading3 = true;
       this.valoriConsumiCarburante = this.raggruppaDatiCarburante(this.JSONDatiCarburante);
-      this.loading3 = false;
     });
 
     this.serv1.getList().subscribe(data => {

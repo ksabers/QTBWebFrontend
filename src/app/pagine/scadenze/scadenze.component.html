@@ -7,7 +7,7 @@
 
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field appearance="standard">
-                <mat-select [(value)]="personaSelezionata" (selectionChange)="aggiornaTabelle()">
+                <mat-select [(value)]="personaSelezionata" (selectionChange)="aggiornaTabellaPersone();aggiornaTabellaAerei()">
                     <mat-option value="-1"><i>{{'scadenze.tutti'|translate}}</i></mat-option>
                     <mat-option *ngFor="let persona of listaPersone" [value]="persona.id">
                         {{persona.nome + ' ' + persona.cognome}}
@@ -26,22 +26,22 @@
 
                     <ng-container matColumnDef="nome">
                         <th mat-header-cell *matHeaderCellDef>{{'scadenze.persona'|translate}}</th>
-                        <td mat-cell *matCellDef="let scadenza">{{scadenza.nomePersona + ' ' + scadenza.cognomePersona}}</td>
+                        <td mat-cell *matCellDef="let scadenza">{{scadenza.nome + ' ' + scadenza.cognome}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="tipo">
                         <th mat-header-cell *matHeaderCellDef>{{'scadenze.tipo_scadenza'|translate}}</th>
-                        <td mat-cell *matCellDef="let scadenza">{{scadenza.scadenza.tipo}}</td>
+                        <td mat-cell *matCellDef="let scadenza">{{scadenza.tipoScadenza}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="data">
                         <th mat-header-cell *matHeaderCellDef>{{'scadenze.data'|translate}}</th>
-                        <td mat-cell *matCellDef="let scadenza">{{scadenza.scadenza.data?(scadenza.scadenza.data|date:'dd/MM/y'):''}}</td>
+                        <td mat-cell *matCellDef="let scadenza">{{scadenza.data?(scadenza.data|date:'dd/MM/y'):''}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="ore">
                         <th mat-header-cell *matHeaderCellDef>{{'scadenze.ore_di_volo'|translate}}</th>
-                        <td mat-cell *matCellDef="let scadenza">{{scadenza.scadenza.minuti?(scadenza.scadenza.minuti|min2hhmm):''}}</td>
+                        <td mat-cell *matCellDef="let scadenza">{{scadenza.minuti?(scadenza.minuti|min2hhmm):''}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="range">
@@ -61,7 +61,12 @@
                         </th>
                         <td mat-cell *matCellDef="let scadenza" >
                           <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >
-                            <button mat-icon-button style="color:green" [matTooltip]="'scadenze.segna_risolta'|translate"><mat-icon>check_circle</mat-icon></button>
+                            <button mat-icon-button
+                                    style="color:green" 
+                                    [matTooltip]="'scadenze.segna_risolta'|translate"
+                                    (click)="risolviScadenza(scadenza)">
+                                    <mat-icon>check_circle</mat-icon>
+                            </button>
                             <button mat-icon-button color="primary" (click)="apriDettagliPersona(scadenza)" [matTooltip]="'scadenze.dettagli'|translate"><mat-icon>info</mat-icon></button>
                             <button mat-icon-button color="accent" [matTooltip]="'scadenze.modifica'|translate"><mat-icon>edit</mat-icon></button>
                             <button mat-icon-button color="warn" [matTooltip]="'scadenze.cancella'|translate"><mat-icon>delete</mat-icon></button>
@@ -69,8 +74,8 @@
                         </td>
                     </ng-container>
 
-                      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+                      <tr mat-header-row *matHeaderRowDef="columnsToDisplayPersone"></tr>
+                      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayPersone"></tr>
 
                 </table>
                 <mat-paginator #paginatorPersone [length]="datasourcePersone.data.length" [pageSize]= "10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
@@ -92,17 +97,17 @@
 
                     <ng-container matColumnDef="tipo">
                         <th mat-header-cell *matHeaderCellDef>{{'scadenze.tipo_scadenza'|translate}}</th>
-                        <td mat-cell *matCellDef="let scadenza">{{scadenza.scadenzeAereo.tipo}}</td>
+                        <td mat-cell *matCellDef="let scadenza">{{scadenza.tipoScadenza}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="data">
                         <th mat-header-cell *matHeaderCellDef>{{'scadenze.data'|translate}}</th>
-                        <td mat-cell *matCellDef="let scadenza">{{scadenza.scadenzeAereo.data?(scadenza.scadenzeAereo.data|date:'dd/MM/y'):''}}</td>
+                        <td mat-cell *matCellDef="let scadenza">{{scadenza.data?(scadenza.data|date:'dd/MM/y'):''}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="ore">
                         <th mat-header-cell *matHeaderCellDef>{{'scadenze.ore_di_volo'|translate}}</th>
-                        <td mat-cell *matCellDef="let scadenza">{{scadenza.scadenzeAereo.minuti?(scadenza.scadenzeAereo.minuti|min2hhmm):''}}</td>
+                        <td mat-cell *matCellDef="let scadenza">{{scadenza.minuti?(scadenza.minuti|min2hhmm):''}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="range">
@@ -122,7 +127,12 @@
                         </th>
                         <td mat-cell *matCellDef="let scadenza" >
                           <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" >
-                            <button mat-icon-button style="color:green" [matTooltip]="'scadenze.segna_risolta'|translate"><mat-icon>check_circle</mat-icon></button>
+                            <button mat-icon-button
+                                    style="color:green"
+                                    [matTooltip]="'scadenze.segna_risolta'|translate"
+                                    (click)="risolviScadenza(scadenza)">
+                                    <mat-icon>check_circle</mat-icon>
+                            </button>
                             <button mat-icon-button color="primary" [matTooltip]="'scadenze.dettagli'|translate"><mat-icon>info</mat-icon></button>
                             <button mat-icon-button color="accent" [matTooltip]="'scadenze.modifica'|translate"><mat-icon>edit</mat-icon></button>
                             <button mat-icon-button color="warn" [matTooltip]="'scadenze.cancella'|translate"><mat-icon>delete</mat-icon></button>

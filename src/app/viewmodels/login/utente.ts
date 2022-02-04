@@ -4,6 +4,8 @@ export class Utente {
   persona: number;
   nome: string;
   cognome: string;
+  minutiPregressi: number;
+  minutiVoloDaPilota: number;
   ruolo: string;
   token: string;
 }

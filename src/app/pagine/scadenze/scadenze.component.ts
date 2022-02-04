@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
+
+import { ConfermaComponent } from 'src/app/UI/conferma/conferma.component';
 
 import { PersoneService } from 'src/app/servizi/persone/persone.service';
 import { Persona } from './../../viewmodels/persone/persona';
@@ -12,11 +15,11 @@ import { ScadenzeAereiService } from 'src/app/servizi/scadenze/scadenze-aerei.se
 import { ScadenzaPersona } from '../../viewmodels/scadenze/scadenza-persona';
 import { ScadenzaAereo } from '../../viewmodels/scadenze/scadenza-aereo';
 
-
 import { AuthenticationService } from './../../auth/auth.service';
 
 import { UtilsService } from './../../servizi/utils/utils.service';
 import { Min2hhmmPipe } from 'src/app/shared/min2hhmm.pipe/min2hhmm.pipe';
+
 
 @Component({
   selector: 'app-scadenze',
@@ -28,20 +31,31 @@ export class ScadenzeComponent implements OnInit {
   loading = true;
   datasourcePersone = new MatTableDataSource<ScadenzaPersona>();
   datasourceAerei = new MatTableDataSource<ScadenzaAereo>();
-  valoriTabellaScadenzePersone: ScadenzaPersona[] = [];
-  valoriTabellaScadenzeAerei: ScadenzaAereo[] = [];
+  
+  // dati grezzi dal database
   listaScadenzePersone: ScadenzaPersona[];
   listaScadenzeAerei: ScadenzaAereo[];
+
+  // dati filtrati mostrati nelle tabelle
+  valoriTabellaScadenzePersone: ScadenzaPersona[] = [];
+  valoriTabellaScadenzeAerei: ScadenzaAereo[] = [];
+
   listaPersone: Persona[];
   personaSelezionata: number;
+
+  // liste delle colonne da mostrare nella tabella Scadenze Persone
+  // nei due casi: utente selezionato oppure tutti
   columnsToDisplayFull = ['nome', 'tipo', 'data', 'ore', 'range', 'dettagli'];
   columnsToDisplayLean = ['tipo', 'data', 'ore', 'range', 'dettagli'];
-  columnsToDisplay = this.columnsToDisplayLean;
+
+  // di default mostriamo la lista con utente selezionato perché è quello collegato
+  columnsToDisplayPersone = this.columnsToDisplayLean;
+
+  // le colonne della tabella Scadenze Aerei invece sono fisse
   columnsToDisplayAerei = ['marche', 'modello', 'tipo', 'data', 'ore', 'range', 'dettagli'];
 
   // ATTENZIONE: paginator e sort devono essere fatti come proprietà (con il set)
   // altrimenti non funzionano!
-  
   @ViewChild(MatPaginator) set matPaginatorPersone(paginatorPersone: MatPaginator) {
     if (!this.datasourcePersone.paginator) {
         this.datasourcePersone.paginator = paginatorPersone;
@@ -70,17 +84,18 @@ export class ScadenzeComponent implements OnInit {
               private personeAPI: PersoneService,
               private utils: UtilsService,
               private pipe: Min2hhmmPipe,
-              private translate: TranslateService) { }
+              private translate: TranslateService,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.scadenzePersoneAPI.getList().subscribe(data => {
-      this.listaScadenzePersone = data;
+    this.scadenzePersoneAPI.getList().subscribe(data => {  // le prendiamo tutte e filtriamo lato client per non dover
+      this.listaScadenzePersone = data;                    // chiamare il DB ogni volta che si cambia la dropdown
       this.scadenzeAereiAPI.getList().subscribe(data => {
         this.listaScadenzeAerei = data;
         this.personeAPI.getList().subscribe(data => {
           this.listaPersone = data;
           this.personaSelezionata = this.auth.currentUserValue.persona;
-          this.aggiornaTabelle();
+          this.aggiornaTabellaPersone();
           //this.datasourcePersone.data = this.valoriTabellaScadenzePersone;
           this.loading = false;
         });
@@ -92,29 +107,42 @@ export class ScadenzeComponent implements OnInit {
    * Aggiorna i datasource delle persone.
    * Se viene passato l'id di una persona, filtra solo le sue scadenze
    * Se necessario mette o toglie la colonna della persona
-   * Fa lo stesso con il datasource delle scadenze degli aerei
    *
    * @param {number} personaSelezionata
    * @memberof ScadenzeComponent
    */
-  aggiornaTabelle(): void {
+  aggiornaTabellaPersone(): void {
     this.valoriTabellaScadenzePersone = [];
-    this.valoriTabellaScadenzeAerei = [];
+    
     if (this.personaSelezionata != -1) {
-
-      let personaSelezionata = this.listaPersone.find(persona => persona.id == this.personaSelezionata);
-      let aereiPosseduti = personaSelezionata.aereiPosseduti.map(aereo => aereo.id);
-
       this.datasourcePersone.data = this.listaScadenzePersone.filter(scadenza => scadenza.persona == this.personaSelezionata);
-      this.datasourceAerei.data = this.listaScadenzeAerei.filter(scadenza => aereiPosseduti.includes(scadenza.aereo))
-      this.columnsToDisplay = this.columnsToDisplayLean;
+      this.columnsToDisplayPersone = this.columnsToDisplayLean;
     }
     else {
-
       this.datasourcePersone.data = this.listaScadenzePersone;
-      this.datasourceAerei.data = this.listaScadenzeAerei;
-      this.columnsToDisplay = this.columnsToDisplayFull;
+      this.columnsToDisplayPersone = this.columnsToDisplayFull;
     }
+  }
+
+  aggiornaTabellaAerei(): void {
+    this.valoriTabellaScadenzeAerei = [];
+
+    // filtriamo per mostrare solo le scadenze degli aerei posseduti
+    // potremmo farlo lato server ma dovremmo fare una chiamata ogni volta che si cambia la dropdown
+
+    if (this.personaSelezionata != -1) {
+      
+      // recuperiamo la persona perché finora avevamo solo l'ID
+      let personaSelezionata = this.listaPersone.find(persona => persona.id == this.personaSelezionata);
+
+      // estraiamo gli ID degli aerei posseduti e ne facciamo un array
+      let aereiPosseduti = personaSelezionata.aereiPosseduti.map(aereo => aereo.id);
+      this.datasourceAerei.data = this.listaScadenzeAerei.filter(scadenza => aereiPosseduti.includes(scadenza.aereo))
+    }
+    else {
+      this.datasourceAerei.data = this.listaScadenzeAerei;
+    }
+
   }
   
   applyFilterPersona(event: Event): void {
@@ -128,6 +156,17 @@ export class ScadenzeComponent implements OnInit {
 
   apriDettagliPersona(scadenza: ScadenzaPersona): void {
     //const dialogRef = this.dialog.open(PersoneDettaglioComponent, {data: persona});
+  }
+
+  risolviScadenza(scadenza: ScadenzaPersona|ScadenzaAereo): void {
+    const dialogRef = this.dialog.open(ConfermaComponent, 
+      {data: {titolo: 'scadenze.titolo_conferma_risolvi',
+              testo: 'scadenze.testo_conferma_risolvi',
+              annulla: 'scadenze.annulla',
+              conferma: 'scadenze.conferma'}});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   calcolo_range(scadenza: ScadenzaPersona): string {

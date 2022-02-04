@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>{{data.titolo|translate}}</h2>
+<mat-dialog-content>{{data.testo|translate}}</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="false">{{data.annulla|translate}}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">{{data.conferma|translate}}</button>
+</mat-dialog-actions>
