@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ManutenzioniAddForm } from './manutenzioni-add-form';
 import { AereiService } from 'src/app/servizi/aerei/aerei.service';
-import { TipiManutenzioniService } from 'src/app/servizi/tipi-manutenzioni/tipi-manutenzioni.service';
+import { TipiManutenzioniService } from 'src/app/servizi/manutenzioni/tipi-manutenzioni.service';
 import { PersoneService } from 'src/app/servizi/persone/persone.service';
 import { VoliService } from 'src/app/servizi/voli/voli.service';
 import { Aereo } from 'src/app/viewmodels/aerei/aereo';

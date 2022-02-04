@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { TipiAeroportiService } from '../../../servizi/tipi-aeroporti/tipi-aeroporti.service';
+import { TipiAeroportiService } from '../../../servizi/aeroporti/tipi-aeroporti.service';
 import { TipoAeroporto } from '../../../viewmodels/aeroporti/tipo-aeroporto';
 import { AeroportiAddForm } from './aeroporti-add-form';
 import { Aeroporto } from '../../../viewmodels/aeroporti/aeroporto';

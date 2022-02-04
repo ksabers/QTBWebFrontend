@@ -9,7 +9,7 @@ import { AereiService } from '../../../servizi/aerei/aerei.service';
 import { PersoneService } from '../../../servizi/persone/persone.service';
 import { AeroportiService } from '../../../servizi/aeroporti/aeroporti.service';
 import { VoliService } from '../../../servizi/voli/voli.service';
-import { TipiVoliService } from 'src/app/servizi/tipi-voli/tipi-voli.service';
+import { TipiVoliService } from 'src/app/servizi/voli/tipi-voli.service';
 import { UtilsService } from '../../../servizi/utils/utils.service';
 import { Aereo } from '../../../viewmodels/aerei/aereo';
 import { Persona } from '../../../viewmodels/persone/persona';
