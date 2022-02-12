@@ -168,31 +168,51 @@ export class ManutenzioniAddComponent implements OnInit {
     let nuovaManutenzione = new Manutenzione();
 
     nuovaManutenzione.descrizione = this.addManutenzioneForm.get('descrizioneInput').value || '';
-    nuovaManutenzione.ordinaria = this.addManutenzioneForm.get('manutenzioneOrdinariaRadio').value || null;
+    nuovaManutenzione.ordinaria = this.addManutenzioneForm.get('manutenzioneOrdinariaRadio').value;
     nuovaManutenzione.idTipoManutenzione = this.addManutenzioneForm.get('tipoManutenzioneSelect').value.id || null;
     nuovaManutenzione.data = new Date(this.addManutenzioneForm.get('dataManutenzioneInput').value) || null;
-    nuovaManutenzione.persona = this.addManutenzioneForm.get('personaSelect').value.id ?? null;
-    nuovaManutenzione.volo = this.addManutenzioneForm.get('voloSelect').value.id ?? null;
+    nuovaManutenzione.aereo = this.addManutenzioneForm.get('aereoSelect').value.id;
+    nuovaManutenzione.persona = this.addManutenzioneForm.get('personaSelect').value? this.addManutenzioneForm.get('personaSelect').value.id : null;
+    nuovaManutenzione.volo = this.addManutenzioneForm.get('voloSelect').value? this.addManutenzioneForm.get('voloSelect').value.id : null;
+
+    console.log(JSON.stringify(nuovaManutenzione));
 
     if (this.addManutenzioneForm.get('presenzaScadenza').value) {
       let nuovaScadenzaAereo = new ScadenzaAereo();
       nuovaScadenzaAereo.aereo = this.addManutenzioneForm.get('aereoSelect').value.id;
-      nuovaScadenzaAereo.data = null;
-      nuovaScadenzaAereo.minuti = null;
       nuovaScadenzaAereo.note = this.addManutenzioneForm.get('noteScadenzaInput').value || null;
-      nuovaScadenzaAereo.idTipoScadenza = this.addManutenzioneForm.get('tipoScadenzaAereoSelect').value || null;
-      this.scadenzeAereiAPI.add(nuovaScadenzaAereo).subscribe({
+      nuovaScadenzaAereo.idTipoScadenza = this.addManutenzioneForm.get('tipoScadenzaAereoSelect').value.id || null;
+
+      if (this.addManutenzioneForm.get('espressaInOreVolo').value) {
+        if (this.addManutenzioneForm.get('oreAssoluteRadio').value == 'assolute') {
+          nuovaScadenzaAereo.minuti = this.addManutenzioneForm.get('oreAssoluteInput').value * 60;
+        } else {
+          nuovaScadenzaAereo.minuti = (this.addManutenzioneForm.get('oreDeltaInput').value + this.oreDiVoloMinime);
+        } 
+      }
+      
+      if (this.addManutenzioneForm.get('espressaInData').value) {
+        if (this.addManutenzioneForm.get('dataAssolutaRadio').value == 'assolute') {
+          nuovaScadenzaAereo.data =this.addManutenzioneForm.get('dataAssolutaInput').value;
+        } else {
+          nuovaScadenzaAereo.data = new Date(this.sommaGiorni(this.addManutenzioneForm.get('giorniDeltaInput').value));
+        }        
+      }
+
+      console.log(JSON.stringify(nuovaScadenzaAereo));
+
+/*       this.scadenzeAereiAPI.add(nuovaScadenzaAereo).subscribe({
         next: () => {
 
         },
         error: (error) => {
 
         }
-      });
+      });*/
       
-    };
+    }; 
 
-    this.manutenzioniAPI.add(nuovaManutenzione).subscribe({
+/*     this.manutenzioniAPI.add(nuovaManutenzione).subscribe({
       next: () => {
         this.submitting = false;  // toglie lo spinner
         this.submitted = true; // disabilita il pulsante di submit
@@ -201,12 +221,17 @@ export class ManutenzioniAddComponent implements OnInit {
         let snackBarRef = this._snackBar.open(this.translate.instant('manutenzioni_add.manutenzione_inserita'), 
                                             this.translate.instant('manutenzioni_add.torna_alla_lista'), 
                                             { duration: 2000 });
-        snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaManutenzioni();});
-
+        snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaManutenzioni()});
       },
       error: error => {
+        this.submitting = false; // toglie lo spinner
+        this.submitted = true; // disabilita il pulsante di submit
 
+        // mostra il messaggio di errore e si blocca finché non viene chiuso, poi torna alla lista manutenzione
+        let snackBarRef = this._snackBar.open(this.translate.instant('manutenzioni_add.errore_inserimento') + ': ' + error.message, 
+                                              this.translate.instant('manutenzioni_add.chiudi'));
+        snackBarRef.afterDismissed().subscribe(() => {this.tornaPaginaManutenzioni()});
       }
-    });
+    }); */
   }
 }
