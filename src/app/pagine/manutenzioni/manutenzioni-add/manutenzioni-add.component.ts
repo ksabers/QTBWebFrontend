@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ import { TipoScadenzaAereo } from 'src/app/viewmodels/scadenze/tipo-scadenza-aer
 })
 export class ManutenzioniAddComponent implements OnInit {
 
-  addManutenzioneForm: FormGroup;
+  addManutenzioneForm: UntypedFormGroup;
   loading = true;
   submitting = false;
   submitted = false;
@@ -49,7 +49,7 @@ export class ManutenzioniAddComponent implements OnInit {
               private dateAdapter: DateAdapter<any>,
               private _snackBar: MatSnackBar,
               private router: Router,
-              private fb: FormBuilder,
+              private fb: UntypedFormBuilder,
               private aereiAPI: AereiService,
               private manutenzioniAPI: ManutenzioniService,
               private tipiManutenzioneAPI: TipiManutenzioniService,

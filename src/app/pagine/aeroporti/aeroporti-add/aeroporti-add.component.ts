@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -13,7 +13,7 @@ import { AeroportiService } from '../../../servizi/aeroporti/aeroporti.service';
 
 // Validatore custom che controlla che i campi delle coordinate siano o tutti pieni
 // o tutti vuoti. Viene applicato a livello di form 
-const ValidatoreCoordinate: ValidatorFn = (fg: FormGroup) => {
+const ValidatoreCoordinate: ValidatorFn = (fg: UntypedFormGroup) => {
   if (!(fg.get('gradiLatInput').value) &&
       !(fg.get('minutiLatInput').value ) &&
       !(fg.get('secondiLatInput').value) &&
@@ -42,14 +42,14 @@ const ValidatoreCoordinate: ValidatorFn = (fg: FormGroup) => {
 })
 export class AeroportiAddComponent implements OnInit {
 
-  addAeroportoForm: FormGroup;
+  addAeroportoForm: UntypedFormGroup;
   listaTipiAeroporti: TipoAeroporto[];
 
   loading = true;
   submitting = false;
   submitted = false;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private router: Router,
               private tipiAeroportiAPI: TipiAeroportiService,
               private aeroportiAPI: AeroportiService,

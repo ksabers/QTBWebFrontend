@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,7 +22,7 @@ import { VoliAddForm } from './voli-add-form';
 
 // Validatore custom che controlla che l'orametro finale sia successivo all'orametro iniziale
 // Viene applicato a livello di form
-const ValidatoreOrametro: ValidatorFn = (fg: FormGroup) => {
+const ValidatoreOrametro: ValidatorFn = (fg: UntypedFormGroup) => {
   const decollo = fg.get('oreDecolloInput').value * 60 + fg.get('minutiDecolloInput').value;
   const atterraggio = fg.get('oreAtterraggioInput').value * 60 + fg.get('minutiAtterraggioInput').value;
   return decollo !== null && atterraggio !== null && decollo < atterraggio
@@ -32,7 +32,7 @@ const ValidatoreOrametro: ValidatorFn = (fg: FormGroup) => {
 
 // Validatore custom che controlla che il passeggero non sia uguale al pilota
 // Viene applicato a livello di form
-const ValidatorePasseggero: ValidatorFn = (fg: FormGroup)  => {
+const ValidatorePasseggero: ValidatorFn = (fg: UntypedFormGroup)  => {
   const pilota = fg.get('pilotaSelect').value.id;
   const passeggero = fg.get('passeggeroSelect').value? fg.get('passeggeroSelect').value.id : null;
   return pilota != null &&  pilota != passeggero
@@ -47,7 +47,7 @@ const ValidatorePasseggero: ValidatorFn = (fg: FormGroup)  => {
 })
 export class VoliAddComponent implements OnInit {
 
-  addVoloForm: FormGroup;
+  addVoloForm: UntypedFormGroup;
 
   listaAerei: Aereo[];
   listaPiloti: Persona[];
@@ -78,7 +78,7 @@ export class VoliAddComponent implements OnInit {
               private tipiVoliAPI: TipiVoliService,
               private voliAPI: VoliService,
               private _snackBar: MatSnackBar,
-              private fb: FormBuilder,
+              private fb: UntypedFormBuilder,
               private router: Router,
               private utils: UtilsService,
               private translate: TranslateService) { }
