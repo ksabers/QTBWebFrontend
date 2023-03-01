@@ -24,7 +24,7 @@
     "@asymmetrik/ngx-leaflet": "^8.1.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "@swimlane/ngx-charts": "^19.1.0",
+    "@swimlane/ngx-charts": "^20.1.2",
     "leaflet": "^1.7.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.1",
