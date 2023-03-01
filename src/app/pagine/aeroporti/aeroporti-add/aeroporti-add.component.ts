@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 import { TipiAeroportiService } from '../../../servizi/aeroporti/tipi-aeroporti.service';
 import { TipoAeroporto } from '../../../viewmodels/aeroporti/tipo-aeroporto';

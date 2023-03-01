@@ -13,7 +13,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 
-import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatLegacyPaginatorIntl as MatPaginatorIntl } from '@angular/material/legacy-paginator';
 import { PaginatorIntlService } from './servizi/paginator.international/paginator.international.service';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
