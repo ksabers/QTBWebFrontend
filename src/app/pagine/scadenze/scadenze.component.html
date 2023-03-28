@@ -2,11 +2,11 @@
     <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
 </div>
 
-<mat-card *ngIf="!loading">
+<mat-card appearance="outlined" *ngIf="!loading">
     <mat-card-content>
 
         <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field appearance="standard">
+            <mat-form-field>
                 <mat-select [(value)]="personaSelezionata" (selectionChange)="aggiornaTabellaPersone();aggiornaTabellaAerei()">
                     <mat-option value="-1"><i>{{'scadenze.tutti'|translate}}</i></mat-option>
                     <mat-option *ngFor="let persona of listaPersone" [value]="persona.id">

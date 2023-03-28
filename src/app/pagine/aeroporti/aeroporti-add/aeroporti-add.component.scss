@@ -2,6 +2,7 @@
     height: calc(100vh - 64px);
   }
 
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     margin-top: 20px;
     width: 80%;
@@ -15,6 +16,6 @@
     resize: none !important;
   }
   
-  mat-hint.mat-error {
+  mat-hint.mat-mdc-form-field-error {
     color: red;
   }

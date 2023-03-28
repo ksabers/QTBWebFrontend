@@ -8,6 +8,7 @@ mat-form-field {
   padding-top: 10px;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
 ::ng-deep .mat-tab-body-content {
   overflow: hidden !important;
 }
@@ -21,7 +22,7 @@ textarea {
     :disabled {
       color: black;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     ::ng-deep .mat-form-field-underline {
       display: none;
     }

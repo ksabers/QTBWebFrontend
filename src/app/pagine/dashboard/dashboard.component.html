@@ -1,7 +1,7 @@
 <div class="grid-container" >
   <div fxLayout="row wrap" fxLayoutAlign="stretch" fxFlexFill fxLayoutGap="10px grid">
     <div fxFlex="50%">
-      <mat-card>
+      <mat-card appearance="outlined">
         <mat-card-header *ngIf="!loading1">
           <mat-card-title>{{'dashboard.ore_di_volo_per_pilota'|translate}}</mat-card-title>
           <mat-card-subtitle>
@@ -28,7 +28,7 @@
     </div>
 
     <div fxFlex="50%">
-      <mat-card>
+      <mat-card appearance="outlined">
         <mat-card-header *ngIf="!loading2">
           <mat-card-title>{{'dashboard.ore_di_volo_per_aereo'|translate}}</mat-card-title>
           <mat-card-subtitle>
@@ -54,7 +54,7 @@
     </div>
 
     <div fxFlex="100%">
-      <mat-card>
+      <mat-card appearance="outlined">
         <mat-card-header *ngIf="!loading3">
           <mat-card-title>{{'dashboard.carburante_consumato_per_aereo'|translate}}</mat-card-title>
           <mat-card-subtitle>
