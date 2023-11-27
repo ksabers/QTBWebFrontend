@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "QTBWeb:build:production"
+              "buildTarget": "QTBWeb:build:production"
             },
             "development": {
-              "browserTarget": "QTBWeb:build:development"
+              "buildTarget": "QTBWeb:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "QTBWeb:build"
+            "buildTarget": "QTBWeb:build"
           }
         },
         "test": {
