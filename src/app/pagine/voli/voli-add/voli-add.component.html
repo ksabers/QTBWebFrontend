@@ -266,7 +266,7 @@
             </div>
         </mat-card-content>
 
-        <mat-card-actions *ngIf="!loading">
+        <mat-card-actions *ngIf="!loading" align="end">
             <div fxLayout="row" fxLayoutAlign="end center">
                 <button mat-raised-button (click)="tornaPaginaVoli()">{{'voli_add.annulla'|translate}}</button>
                 <button mat-raised-button color="primary" [disabled]="addVoloForm.invalid || submitted" (click)="submitForm()">
