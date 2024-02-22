@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
+//import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,6 +15,7 @@ import { AereiDettaglioComponent } from './aerei-dettaglio/aerei-dettaglio.compo
   styleUrls: ['./aerei.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class AereiComponent implements OnInit  {
 
   loading = true;
