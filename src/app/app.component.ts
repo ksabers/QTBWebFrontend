@@ -26,6 +26,6 @@ export class AppComponent {
       translate.use(environment.linguaggi[0].codice);
     }
 
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    //this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 }

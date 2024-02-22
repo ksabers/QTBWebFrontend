@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  APIUrl: 'https://localhost:5001',
+  APIUrl: 'https://localhost:44300',
   copyrightBy: 'Giorgio Borgo',
   titoloApplicazione: 'QTBWeb',
   giorniScadenze: 30,  // entro quanti giorni da oggi una scadenza è "in scadenza"
